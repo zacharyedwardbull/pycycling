@@ -1,8 +1,5 @@
 from collections import namedtuple
-import asyncio
 from enum import Enum
-
-from bleak import BleakClient
 
 # The GATT Characteristic used for sending FE-C messages to Tacx trainer
 tacx_uart_rx_id = '6e40fec3-b5a3-f393-e0a9-e50e24dcca9e'
@@ -224,28 +221,3 @@ class TacxTrainerControl:
                                     power_calibration_required=power_calibration_required,
                                     resistance_calibration_required=resistance_calibration_required,
                                     user_configuration_required=user_configuration_required))
-
-
-async def run(address):
-    async with BleakClient(address) as client:
-        def my_page_handler(data):
-            print(data)
-
-        await client.is_connected()
-        trainer = TacxTrainerControl(client)
-        trainer.set_specific_trainer_data_page_handler(my_page_handler)
-        trainer.set_general_fe_data_page_handler(my_page_handler)
-        await trainer.set_basic_resistance(100)
-        await trainer.enable_fec_notifications()
-        await asyncio.sleep(20.0)
-        await trainer.disable_fec_notifications()
-
-
-if __name__ == "__main__":
-    import os
-
-    os.environ["PYTHONASYNCIODEBUG"] = str(1)
-    address = "EAAA3D1F-6760-4D77-961E-8DDAC1CC9AED"  # <--- Change to your device's address here if you are using macOS
-    loop = asyncio.get_event_loop()
-    # loop.set_debug(True)
-    loop.run_until_complete(run(address))
