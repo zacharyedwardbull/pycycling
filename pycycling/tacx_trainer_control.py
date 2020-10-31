@@ -14,6 +14,8 @@ FEState = Enum('FEState', 'reserved ready in_use finished')
 TargetPowerLimit = Enum('TargetPowerLimit',
                         'operating_at_target_or_no_target_set user_speed_too_low user_speed_too_high limit_reached')
 
+CommandStatus = Enum('CommandStatus', 'success fail not_supported rejected uninitialized')
+
 GeneralFEData = namedtuple('GeneralFEData',
                            ['equipment_type', 'elapsed_time', 'distance_travelled', 'speed', 'heart_rate', 'fe_state',
                             'lap_toggle'])
@@ -24,12 +26,15 @@ SpecificTrainerData = namedtuple('SpecificTrainerData',
                                   'lap_toggle', 'power_calibration_required', 'resistance_calibration_required',
                                   'user_configuration_required'])
 
+CommandStatusData = namedtuple('CommandStatusData', ['last_received_command', 'command_status', 'data'])
+
 
 class TacxTrainerControl:
     def __init__(self, client):
         self._client = client
         self._general_fe_data_page_callback = None
         self._specific_trainer_data_page_callback = None
+        self._command_status_data_page_callback = None
 
     async def set_basic_resistance(self, resistance):
         """Activate basic resistance mode, with specified resistance
@@ -148,6 +153,9 @@ class TacxTrainerControl:
     def set_specific_trainer_data_page_handler(self, callback):
         self._specific_trainer_data_page_callback = callback
 
+    def set_command_status_data_page_handler(self, callback):
+        self._command_status_data_page_callback = callback
+
     async def _send_fec_cmd(self, fec_bytes):
         checksum = sum(fec_bytes[1:]) & 0xFF
         fec_bytes.append(checksum)
@@ -172,6 +180,8 @@ class TacxTrainerControl:
             self._general_fe_data_page_handler(message_data)
         elif data_page_no == 25:
             self._specific_trainer_data_page_handler(message_data)
+        elif data_page_no == 71:
+            self._command_status_data_page_handler(message_data)
 
     def _general_fe_data_page_handler(self, message_data):
         equipment_type_code = message_data[1]
@@ -282,3 +292,24 @@ class TacxTrainerControl:
                                     power_calibration_required=power_calibration_required,
                                     resistance_calibration_required=resistance_calibration_required,
                                     user_configuration_required=user_configuration_required))
+
+    def _command_status_data_page_handler(self, message_data):
+        last_received_command = message_data[1]
+        command_status = None
+        command_status_byte = message_data[3]
+
+        if command_status_byte == 0:
+            command_status = CommandStatus.success
+        elif command_status_byte == 1:
+            command_status = CommandStatus.fail
+        elif command_status_byte == 2:
+            command_status = CommandStatus.not_supported
+        elif command_status_byte == 3:
+            command_status = CommandStatus.rejected
+        elif command_status_byte == 255:
+            command_status = CommandStatus.uninitialized
+
+        if self._command_status_data_page_callback is not None:
+            self._command_status_data_page_callback(
+                CommandStatusData(last_received_command=last_received_command, command_status=command_status,
+                                  data=message_data[4:8]))
