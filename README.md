@@ -1,6 +1,6 @@
 # pycycling
 
-A Python package for interfacing with Bluetooth Low Energy (BLE) compatible bike trainers. 
+A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers. 
 
 The package uses [Bleak (Bluetooth Low Energy platform Agnostic Klient)](https://github.com/hbldh/bleak)
 behind the scenes to connect and communicate with bike trainers. 
@@ -9,7 +9,7 @@ Therefore this module should also work on these operating systems.
 Please refer to the Bleak repository for more information about supported platforms.
 
 ## Disclaimer
-__I take no responsibility if the use of this package breaks your trainer or device. Use at your own risk! 
+__I take no responsibility if the use of this package breaks your turbo trainer or stationary bike. Use at your own risk! 
 It has only been tested with a Tacx NEO 2T trainer.__ 
 
 ## Supported protocols

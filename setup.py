@@ -4,15 +4,16 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pycycling", # Replace with your own username
+    name="pycycling",
     version="0.0.1",
     author="Zachary Bull",
     author_email="zacharyedwardbull@gmail.com",
-    description="Python package for interfacing with Bluetooth Low Energy compatible bike trainers",
+    description="A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/zacharyedwardbull/pycycling",
     packages=setuptools.find_packages(),
+    install_requires=['bleak'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
