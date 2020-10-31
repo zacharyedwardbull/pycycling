@@ -51,7 +51,7 @@ class TacxTrainerControl:
             raise ValueError('target_power must be between 0 and 4000')
 
         write_value = bytearray([0xA4, 0x09, 0x4F, 0x05, 0x31, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF])
-        target_power_bytes = int(target_power * 4).to_bytes(2, byteorder='little')
+        target_power_bytes = int(target_power / 0.25).to_bytes(2, byteorder='little')
         write_value.append(target_power_bytes[0])
         write_value.append(target_power_bytes[1])
         print(write_value)
