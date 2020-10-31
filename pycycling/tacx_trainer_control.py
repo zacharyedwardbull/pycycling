@@ -76,9 +76,29 @@ class TacxTrainerControl:
             raise ValueError('drafting_factor must be between 0 and 1')
 
         write_value = bytearray([0xA4, 0x09, 0x4F, 0x05, 0x32, 0xFF, 0xFF, 0xFF, 0xFF])
-        write_value.append(int(wind_resistance_coefficient / 100))
+        write_value.append(int(wind_resistance_coefficient / 0.01))
         write_value.append(int(wind_speed + 127))
-        write_value.append(int(drafting_factor / 100))
+        write_value.append(int(drafting_factor / 0.01))
+        await self._send_fec_cmd(write_value)
+
+    async def set_track_resistance(self, grade, coefficient_of_rolling_resistance):
+        """Activate simulation mode, specifying track resistance parameters
+
+        :param grade: The grade (slope) of simulated track, in %.
+        :param coefficient_of_rolling_resistance: The coefficient of rolling resistance, in dimensionless units
+        """
+        if grade < -200 or grade > 200:
+            raise ValueError('grade must be between -200 and 200')
+
+        if coefficient_of_rolling_resistance < 0 or coefficient_of_rolling_resistance > 0.0127:
+            raise ValueError('coefficient_of_rolling_resistance must be between 0 and 0.0127')
+
+        write_value = bytearray([0xA4, 0x09, 0x4F, 0x05, 0x33, 0xFF, 0xFF, 0xFF, 0xFF])
+        grade_bytes = int((grade + 200) / 0.01).to_bytes(2, byteorder='little')
+        write_value.append(grade_bytes[0])
+        write_value.append(grade_bytes[1])
+        write_value.append(int(coefficient_of_rolling_resistance / 5e-5))
+        print(write_value)
         await self._send_fec_cmd(write_value)
 
     def set_general_fe_data_page_handler(self, callback):
