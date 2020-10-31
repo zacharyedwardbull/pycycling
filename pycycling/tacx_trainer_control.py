@@ -1,3 +1,4 @@
+import binascii
 from collections import namedtuple
 from enum import Enum
 
@@ -98,7 +99,47 @@ class TacxTrainerControl:
         write_value.append(grade_bytes[0])
         write_value.append(grade_bytes[1])
         write_value.append(int(coefficient_of_rolling_resistance / 5e-5))
-        print(write_value)
+        await self._send_fec_cmd(write_value)
+
+    async def set_user_configuration(self, user_weight, bicycle_weight,
+                                     bicycle_wheel_diameter, gear_ratio):
+        """Configure trainer parameters, used when the trainer is in simulation mode
+
+        :param user_weight: Weight of the user in kilograms
+        :param bicycle_weight: Weight of bicycle in kilograms
+        :param bicycle_wheel_diameter: Diameter of bike wheel, in metres
+        :param gear_ratio: The bike gear ratio (front chain ring teeth:rear wheel cog teeth)
+        """
+        if user_weight < 0 or user_weight > 655.34:
+            raise ValueError('user_weight must be between 0 and 655.34')
+
+        if bicycle_weight < 0 or bicycle_weight > 50:
+            raise ValueError('bicycle_weight must be between 0 and 50')
+
+        if bicycle_wheel_diameter < 0 or bicycle_wheel_diameter > 2.54:
+            raise ValueError('bicycle_wheel_diameter must be between 0 and 2.54')
+
+        if gear_ratio < 0.03 or gear_ratio > 7.65:
+            raise ValueError('gear_ratio must be between 0.03 and 7.65')
+
+        write_value = bytearray([0xA4, 0x09, 0x4F, 0x05, 0x37])
+
+        user_weight_bytes = int(user_weight / 0.01).to_bytes(2, byteorder='little')
+        write_value.append(user_weight_bytes[0])
+        write_value.append(user_weight_bytes[1])
+        write_value.append(0xff)
+        bicycle_wheel_diameter_offset = int(round((bicycle_wheel_diameter - round(bicycle_wheel_diameter, 2)) / 0.001))
+        bicycle_weight_bytes = int(bicycle_weight / 0.05).to_bytes(2, byteorder='little')
+        write_value.append(bicycle_wheel_diameter_offset + ((bicycle_weight_bytes[0] << 4) & 0xff))
+        write_value.append((bicycle_weight_bytes[0] >> 4) + (bicycle_weight_bytes[1] << 4))
+        write_value.append(int(round(bicycle_wheel_diameter, 2) / 0.01))
+        write_value.append(int(gear_ratio / 0.03))
+        await self._send_fec_cmd(write_value)
+
+    async def request_data_page(self, page_number):
+        write_value = bytearray([0xA4, 0x09, 0x4F, 0x05, 0x46, 0xFF, 0xFF, 0xFF, 0xFF, 0x80])
+        write_value.append(page_number)
+        write_value.append(0x01)
         await self._send_fec_cmd(write_value)
 
     def set_general_fe_data_page_handler(self, callback):
@@ -125,7 +166,7 @@ class TacxTrainerControl:
         message_data = data[4:4 + message_length - 1]
         data_page_no = message_data[0]
 
-        print('data page number:' + str(data_page_no))
+        print(f'recieved data page number: {data_page_no} message: {binascii.hexlify(message_data)}')
 
         if data_page_no == 16:
             self._general_fe_data_page_handler(message_data)
