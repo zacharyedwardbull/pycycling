@@ -18,10 +18,6 @@ async def run(address):
 
 
 if __name__ == "__main__":
-    import os
-
-    os.environ["PYTHONASYNCIODEBUG"] = str(1)
-    address = "EAAA3D1F-6760-4D77-961E-8DDAC1CC9AED"  # <--- Change to your device's address here if you are using macOS
+    device_address = "EAAA3D1F-6760-4D77-961E-8DDAC1CC9AED"
     loop = asyncio.get_event_loop()
-    # loop.set_debug(True)
-    loop.run_until_complete(run(address))
+    loop.run_until_complete(run(device_address))
