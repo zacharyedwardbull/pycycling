@@ -9,7 +9,8 @@ Therefore this module should also work on these operating systems.
 Please refer to the Bleak repository for more information about supported platforms.
 
 ## Disclaimer
-__I take no responsibility if the use of this package breaks your turbo trainer or stationary bike. Use at your own risk! 
+__I take no responsibility if the use of this package breaks your turbo trainer or stationary bike. 
+Use at your own risk! 
 It has only been tested with a Tacx NEO 2T trainer.__ 
 
 ## Supported protocols
