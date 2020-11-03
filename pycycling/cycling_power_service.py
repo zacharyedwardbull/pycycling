@@ -38,8 +38,8 @@ class CyclingPowerService:
         extreme_torque_included_flag = 128
         extreme_angles_included_flag = 256
         top_dead_spot_included_flag = 512
-        bottom_dead_spot_included_flag = 1028
-        accumulated_energy_included_flag = 2056
+        bottom_dead_spot_included_flag = 1024
+        accumulated_energy_included_flag = 2048
         offset_compensation_indicator_flag = 4096
 
         byte_offset = 2
