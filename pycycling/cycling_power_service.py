@@ -1,6 +1,18 @@
 from collections import namedtuple
+from enum import Enum
 
 cycling_power_measurement_tx_id = '00002a63-0000-1000-8000-00805f9b34fb'
+cycling_power_feature_tx_id = '00002a65-0000-1000-8000-00805f9b34fb'
+sensor_location_tx_id = '00002a5d-0000-1000-8000-00805f9b34fb'
+
+SensorMeasurementContext = Enum('SensorMeasurementContext', 'force_based torque_based')
+
+DistributeSystemSupport = Enum('DistributeSystemSupport',
+                               'unspecified no_distributed_system_support distributed_system_support rfu')
+
+SensorLocation = Enum('SensorLocation',
+                      'other top_of_shoe in_shoe hip front_wheel left_crank right_crank left_pedal right_pedal '
+                      'front_hub rear_dropout chainstay rear_wheel rear_hub chest spider chain_ring')
 
 CyclingPowerMeasurement = namedtuple('CyclingPowerMeasurement',
                                      ['instantaneous_power', 'accumulated_energy', 'pedal_power_balance',
@@ -8,6 +20,18 @@ CyclingPowerMeasurement = namedtuple('CyclingPowerMeasurement',
                                       'cumulative_crank_revs', 'last_crank_event_time', 'maximum_force_magnitude',
                                       'minimum_force_magnitude', 'maximum_torque_magnitude', 'minimum_torque_magnitude',
                                       'top_dead_spot_angle', 'bottom_dead_spot_angle'])
+
+CyclingPowerFeature = namedtuple('CyclingPowerFeature',
+                                 ['pedal_power_balance_supported', 'accumulated_torque_supported',
+                                  'wheel_rev_supported', 'crank_rev_supported', 'extreme_magnitudes_supported',
+                                  'dead_spot_angles_supported', 'accumulated_energy_supported',
+                                  'offset_compensation_supported',
+                                  'cycling_power_measurement_content_masking_supported', 'multiple_locations_supported',
+                                  'crank_length_adjustment_supported', 'chain_length_adjustment_supported',
+                                  'chain_weight_adjustment_supported', 'span_length_adjustment_supported',
+                                  'sensor_measurement_context', 'instantaneous_measurement_direction_supported',
+                                  'factory_calibration_date_supported', 'enhanced_offset_compensation_supported',
+                                  'distribute_system_support'])
 
 
 class CyclingPowerService:
@@ -24,6 +48,107 @@ class CyclingPowerService:
 
     def set_cycling_power_measurement_handler(self, callback):
         self._cycling_power_measurement_callback = callback
+
+    async def get_sensor_location(self):
+        measurement = await self._client.read_gatt_char(sensor_location_tx_id)
+        value = int.from_bytes(measurement, 'little')
+
+        if value == 0:
+            return SensorLocation.other
+        elif value == 1:
+            return SensorLocation.top_of_shoe
+        elif value == 2:
+            return SensorLocation.in_shoe
+        elif value == 3:
+            return SensorLocation.hip
+        elif value == 4:
+            return SensorLocation.front_wheel
+        elif value == 5:
+            return SensorLocation.left_crank
+        elif value == 6:
+            return SensorLocation.right_crank
+        elif value == 7:
+            return SensorLocation.left_pedal
+        elif value == 8:
+            return SensorLocation.right_pedal
+        elif value == 9:
+            return SensorLocation.front_hub
+        elif value == 10:
+            return SensorLocation.rear_dropout
+        elif value == 11:
+            return SensorLocation.chainstay
+        elif value == 12:
+            return SensorLocation.rear_wheel
+        elif value == 13:
+            return SensorLocation.rear_hub
+        elif value == 14:
+            return SensorLocation.chest
+        elif value == 15:
+            return SensorLocation.spider
+        elif value == 16:
+            return SensorLocation.chain_ring
+
+        return None
+
+    async def get_cycling_power_feature(self):
+        measurement = await self._client.read_gatt_char(cycling_power_feature_tx_id)
+        value = int.from_bytes(measurement, byteorder='little')
+        pedal_power_balance_supported = bool(value & 0b1)
+        accumulated_torque_supported = bool(value & 0b10)
+        wheel_rev_supported = bool(value & 0b100)
+        crank_rev_supported = bool(value & 0b1000)
+        extreme_magnitudes_supported = bool(value & 0b10000)
+        dead_spot_angles_supported = bool(value & 0b100000)
+        accumulated_energy_supported = bool(value & 0b1000000)
+        offset_compensation_supported = bool(value & 0b10000000)
+        cycling_power_measurement_content_masking_supported = bool(value & 0b100000000)
+        multiple_locations_supported = bool(value & 0b1000000000)
+        crank_length_adjustment_supported = bool(value & 0b10000000000)
+        chain_length_adjustment_supported = bool(value & 0b100000000000)
+        chain_weight_adjustment_supported = bool(value & 0b1000000000000)
+        span_length_adjustment_supported = bool(value & 0b10000000000000)
+
+        sensor_measurement_context_value = bool(value & 0b100000000000000)
+        sensor_measurement_context = SensorMeasurementContext.force_based
+
+        if sensor_measurement_context_value:
+            sensor_measurement_context = SensorMeasurementContext.torque_based
+
+        instantaneous_measurement_direction_supported = bool(value & 0b1000000000000000)
+        factory_calibration_date_supported = bool(value & 0b10000000000000000)
+        enhanced_offset_compensation_supported = bool(value & 0b100000000000000000)
+
+        distribute_system_support_value = (value & 0b11000000000000000000) >> 20
+
+        distribute_system_support = DistributeSystemSupport.unspecified
+
+        if distribute_system_support_value == 1:
+            distribute_system_support = DistributeSystemSupport.no_distributed_system_support
+        elif distribute_system_support_value == 2:
+            distribute_system_support = DistributeSystemSupport.distributed_system_support
+        elif distribute_system_support == 3:
+            distribute_system_support = DistributeSystemSupport.rfu
+
+        return CyclingPowerFeature(
+            pedal_power_balance_supported=pedal_power_balance_supported,
+            accumulated_torque_supported=accumulated_torque_supported,
+            wheel_rev_supported=wheel_rev_supported, crank_rev_supported=crank_rev_supported,
+            extreme_magnitudes_supported=extreme_magnitudes_supported,
+            dead_spot_angles_supported=dead_spot_angles_supported,
+            accumulated_energy_supported=accumulated_energy_supported,
+            offset_compensation_supported=offset_compensation_supported,
+            cycling_power_measurement_content_masking_supported=cycling_power_measurement_content_masking_supported,
+            multiple_locations_supported=multiple_locations_supported,
+            crank_length_adjustment_supported=crank_length_adjustment_supported,
+            chain_length_adjustment_supported=chain_length_adjustment_supported,
+            chain_weight_adjustment_supported=chain_weight_adjustment_supported,
+            span_length_adjustment_supported=span_length_adjustment_supported,
+            sensor_measurement_context=sensor_measurement_context,
+            instantaneous_measurement_direction_supported=instantaneous_measurement_direction_supported,
+            factory_calibration_date_supported=factory_calibration_date_supported,
+            enhanced_offset_compensation_supported=enhanced_offset_compensation_supported,
+            distribute_system_support=distribute_system_support
+        )
 
     def _cycling_power_measurement_notification_handler(self, sender, data):
         flags = int.from_bytes(data[0:2], 'little')
