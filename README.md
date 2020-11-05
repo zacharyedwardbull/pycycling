@@ -1,6 +1,6 @@
 # pycycling
 
-A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers. 
+A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers and power meters. 
 
 The package uses [Bleak (Bluetooth Low Energy platform Agnostic Klient)](https://github.com/hbldh/bleak)
 behind the scenes to connect and communicate with bike trainers. 
@@ -11,7 +11,7 @@ Please refer to the Bleak repository for more information about supported platfo
 ## Disclaimer
 __I take no responsibility if the use of this package breaks your turbo trainer or stationary bike. 
 Use at your own risk! 
-It has only been tested with a Tacx NEO 2T trainer.__ 
+It has only been tested with a Tacx NEO 2T trainer, and Garmin Vector 3 power meter pedals.__ 
 
 ## Supported protocols
 

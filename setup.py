@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pycycling",
-    version="0.0.1",
+    version="0.0.2",
     author="Zachary Bull",
     author_email="zacharyedwardbull@gmail.com",
-    description="A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers",
+    description="A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers and power meters",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/zacharyedwardbull/pycycling",
