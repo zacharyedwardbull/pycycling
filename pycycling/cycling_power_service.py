@@ -2,6 +2,7 @@ from collections import namedtuple
 from enum import Enum
 
 cycling_power_measurement_tx_id = '00002a63-0000-1000-8000-00805f9b34fb'
+cycling_power_vector_tx_id = '00002a64-0000-1000-8000-00805f9b34fb'
 cycling_power_feature_tx_id = '00002a65-0000-1000-8000-00805f9b34fb'
 sensor_location_tx_id = '00002a5d-0000-1000-8000-00805f9b34fb'
 
@@ -13,6 +14,9 @@ DistributeSystemSupport = Enum('DistributeSystemSupport',
 SensorLocation = Enum('SensorLocation',
                       'other top_of_shoe in_shoe hip front_wheel left_crank right_crank left_pedal right_pedal '
                       'front_hub rear_dropout chainstay rear_wheel rear_hub chest spider chain_ring')
+
+InstantaneousMeasurementDirection = Enum('InstantaneousMeasurementDirection',
+                                         'unknown tangential_component radial_component lateral_component')
 
 CyclingPowerMeasurement = namedtuple('CyclingPowerMeasurement',
                                      ['instantaneous_power', 'accumulated_energy', 'pedal_power_balance',
@@ -33,11 +37,17 @@ CyclingPowerFeature = namedtuple('CyclingPowerFeature',
                                   'factory_calibration_date_supported', 'enhanced_offset_compensation_supported',
                                   'distribute_system_support'])
 
+CyclingPowerVector = namedtuple('CyclingPowerVector',
+                                ['instantaneous_measurement_direction', 'cumulative_crank_revs',
+                                 'last_crank_event_time', 'first_crank_measurement_angle',
+                                 'instantaneous_force_magnitudes', 'instantaneous_torque_magnitudes'])
+
 
 class CyclingPowerService:
     def __init__(self, client):
         self._client = client
         self._cycling_power_measurement_callback = None
+        self._cycling_power_vector_callback = None
 
     async def enable_cycling_power_measurement_notifications(self):
         await self._client.start_notify(cycling_power_measurement_tx_id,
@@ -48,6 +58,16 @@ class CyclingPowerService:
 
     def set_cycling_power_measurement_handler(self, callback):
         self._cycling_power_measurement_callback = callback
+
+    async def enable_cycling_power_vector_notifications(self):
+        await self._client.start_notify(cycling_power_vector_tx_id,
+                                        self._cycling_power_vector_notification_handler)
+
+    async def disable_cycling_power_vector_notifications(self):
+        await self._client.stop_notify(cycling_power_vector_tx_id)
+
+    def set_cycling_power_vector_handler(self, callback):
+        self._cycling_power_vector_callback = callback
 
     async def get_sensor_location(self):
         measurement = await self._client.read_gatt_char(sensor_location_tx_id)
@@ -153,19 +173,19 @@ class CyclingPowerService:
     def _cycling_power_measurement_notification_handler(self, sender, data):
         flags = int.from_bytes(data[0:2], 'little')
 
-        pedal_power_balance_included_flag = 1
-        pedal_power_balance_reference_flag = 2
-        accumulated_torque_present = 4
-        accumulated_torque_source = 8
-        wheel_rev_included_flag = 16
-        crank_rev_included_flag = 32
-        extreme_force_included_flag = 64
-        extreme_torque_included_flag = 128
-        extreme_angles_included_flag = 256
-        top_dead_spot_included_flag = 512
-        bottom_dead_spot_included_flag = 1024
-        accumulated_energy_included_flag = 2048
-        offset_compensation_indicator_flag = 4096
+        pedal_power_balance_included_flag = 0b1
+        pedal_power_balance_reference_flag = 0b10
+        accumulated_torque_present = 0b100
+        accumulated_torque_source = 0b1000
+        wheel_rev_included_flag = 0b10000
+        crank_rev_included_flag = 0b100000
+        extreme_force_included_flag = 0b1000000
+        extreme_torque_included_flag = 0b10000000
+        extreme_angles_included_flag = 0b100000000
+        top_dead_spot_included_flag = 0b1000000000
+        bottom_dead_spot_included_flag = 0b10000000000
+        accumulated_energy_included_flag = 0b100000000000
+        offset_compensation_indicator_flag = 0b1000000000000
 
         byte_offset = 2
 
@@ -248,3 +268,56 @@ class CyclingPowerService:
                                         minimum_torque_magnitude=minimum_torque_magnitude,
                                         top_dead_spot_angle=top_dead_spot_angle,
                                         bottom_dead_spot_angle=bottom_dead_spot_angle))
+
+    def _cycling_power_vector_notification_handler(self, sender, data):
+        flags = data[0]
+
+        crank_revolutions_present = bool(flags & 0b1)
+        first_crank_measurement_angle_present = bool(flags & 0b10)
+        instantaneous_force_array_present = bool(flags & 0b100)
+        instantaneous_torque_array_present = bool(flags & 0b1000)
+        instantaneous_measurement_direction_value = (flags & 0b110000) >> 4
+
+        instantaneous_measurement_direction = InstantaneousMeasurementDirection.unknown
+
+        if instantaneous_measurement_direction_value == 1:
+            instantaneous_measurement_direction = InstantaneousMeasurementDirection.tangential_component
+        elif instantaneous_measurement_direction_value == 2:
+            instantaneous_measurement_direction = InstantaneousMeasurementDirection.radial_component
+        elif instantaneous_measurement_direction_value == 3:
+            instantaneous_measurement_direction = InstantaneousMeasurementDirection.lateral_component
+
+        byte_offset = 1
+
+        cumulative_crank_revs = None
+        last_crank_event_time = None
+        first_crank_measurement_angle = None
+        instantaneous_force_magnitudes = []
+        instantaneous_torque_magnitudes = []
+
+        if crank_revolutions_present:
+            cumulative_crank_revs = int.from_bytes(data[0 + byte_offset:2 + byte_offset], 'little')
+            byte_offset += 2
+            last_crank_event_time = int.from_bytes(data[0 + byte_offset:2 + byte_offset], 'little')
+            byte_offset += 2
+
+        if first_crank_measurement_angle_present:
+            first_crank_measurement_angle = int.from_bytes(data[0 + byte_offset:2 + byte_offset], 'little')
+            byte_offset += 2
+
+        for i in range(byte_offset, len(data), 2):
+            element = int.from_bytes(data[i:i + 2], 'little')
+
+            if instantaneous_force_array_present:
+                instantaneous_force_magnitudes.append(element)
+            elif instantaneous_torque_array_present:
+                instantaneous_torque_magnitudes.append(element)
+
+        if self._cycling_power_vector_callback is not None:
+            self._cycling_power_vector_callback(
+                CyclingPowerVector(instantaneous_measurement_direction=instantaneous_measurement_direction,
+                                   cumulative_crank_revs=cumulative_crank_revs,
+                                   last_crank_event_time=last_crank_event_time,
+                                   first_crank_measurement_angle=first_crank_measurement_angle,
+                                   instantaneous_force_magnitudes=instantaneous_force_magnitudes,
+                                   instantaneous_torque_magnitudes=instantaneous_torque_magnitudes))
