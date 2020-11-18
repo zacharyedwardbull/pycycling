@@ -16,6 +16,23 @@ TargetPowerLimit = Enum('TargetPowerLimit',
 
 CommandStatus = Enum('CommandStatus', 'success fail not_supported rejected uninitialized')
 
+
+class RoadSurface(Enum):
+    """
+    Road surfaces supported by the NEO road feel feature
+    """
+    SIMULATION_OFF = 0
+    CONCRETE_PLATES = 1
+    CATTLE_GRID = 2
+    COBBLESTONES_HARD = 3
+    COBBLESTONES_SOFT = 4
+    BRICK_ROAD = 5
+    OFF_ROAD = 6
+    GRAVEL = 7
+    ICE = 8
+    WOODEN_BOARDS = 9
+
+
 GeneralFEData = namedtuple('GeneralFEData',
                            ['equipment_type', 'elapsed_time', 'distance_travelled', 'speed', 'heart_rate', 'fe_state',
                             'lap_toggle'])
@@ -139,6 +156,38 @@ class TacxTrainerControl:
         write_value.append((bicycle_weight_bytes[0] >> 4) + (bicycle_weight_bytes[1] << 4))
         write_value.append(int(round(bicycle_wheel_diameter, 2) / 0.01))
         write_value.append(int(gear_ratio / 0.03))
+        await self._send_fec_cmd(write_value)
+
+    async def set_neo_modes(self, isokinetic_mode=False, isokinetic_speed=4.2,
+                            road_surface_pattern=RoadSurface.SIMULATION_OFF,
+                            road_surface_pattern_intensity=255):
+        """Set NEO specific parameters such as Road Feel mode and Isokinetic training mode
+
+        :param isokinetic_mode: Enable isokinetic mode of the trainer
+        :param isokinetic_speed: The target speed used in isokinetic mode
+        :param road_surface_pattern: The road surface to be simulated
+        :param road_surface_pattern_intensity: The intensity of the feeling of the road surface. Note that even 50% is
+        feels fairly intense, 100% is untested and may damage the trainer!
+        """
+        if isokinetic_speed < 4.2 or isokinetic_speed > 8.4:
+            raise ValueError('isokinetic_speed must be between 4.2 and 8.4')
+
+        if road_surface_pattern_intensity != 255 and (
+                road_surface_pattern_intensity < 0 or road_surface_pattern_intensity > 100):
+            raise ValueError('road_surface_pattern_intensity must be between 0 and 100, or set to 255')
+
+        write_value = bytearray([0xA4, 0x09, 0x4F, 0x05, 0xFC, 0x00])
+        if isokinetic_mode:
+            write_value.append(1)
+            write_value.append(int(isokinetic_speed / 0.05))
+        else:
+            write_value.append(0x00)
+            write_value.append(0x00)
+
+        write_value.append(0)
+        write_value.append(road_surface_pattern)
+        write_value.append(road_surface_pattern_intensity)
+        write_value.append(0x00)
         await self._send_fec_cmd(write_value)
 
     async def request_data_page(self, page_number):
