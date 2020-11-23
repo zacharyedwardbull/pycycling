@@ -29,3 +29,9 @@ python setup.py develop
 ```
 ## Usage
 Please refer to the [examples folder](https://github.com/zacharyedwardbull/pycycling/tree/master/examples) for basic usage of the package
+
+## Useful documentation
+* ANT+ specifications (need to sign up as ANT+ adopter to access these): https://www.thisisant.com/developer/resources/downloads/#documents_tab
+* Bluetooth Low Energy specifications: https://www.bluetooth.com/specifications/gatt/
+* Bluetooth XML specification files: https://github.com/sur5r/gatt-xml
+* Tacx Trainer Control documentation: https://github.com/jedla22/BleTrainerControl/blob/master/How-to%20FE-C%20over%20BLE%20v1_0_0.pdf
