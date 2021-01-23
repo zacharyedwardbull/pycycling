@@ -20,6 +20,7 @@ Protocol name | Fully supported | Partially supported | Not supported
 Cycling Speed and Cadence Service (CSCS) | | ✓ |
 Cycling Power Service (CPS) | | ✓ |
 Tacx Trainer Control (ANT+ FE-C over BLE) | | ✓ |
+Elite Sterzo Steering Service | | ✓ |
 FiTness Machine Service (FTMS) | | |✓
 
 ## Installation
@@ -35,3 +36,4 @@ Please refer to the [examples folder](https://github.com/zacharyedwardbull/pycyc
 * Bluetooth Low Energy specifications: https://www.bluetooth.com/specifications/gatt/
 * Bluetooth XML specification files: https://github.com/sur5r/gatt-xml
 * Tacx Trainer Control documentation: https://github.com/jedla22/BleTrainerControl/blob/master/How-to%20FE-C%20over%20BLE%20v1_0_0.pdf
+* Reverse engineering Sterzo Smart: https://www.youtube.com/watch?v=BPVFjz5zD4g
