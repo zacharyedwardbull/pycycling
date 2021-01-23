@@ -84,9 +84,9 @@ class TacxTrainerControl:
         """Activate simulation mode, specifying wind parameters
 
         :param wind_resistance_coefficient: Wind resistance coefficient is the product of the frontal surface area,
-        drag coefficient and air density of the simulation, in kg/m
+            drag coefficient and air density of the simulation, in kg/m
         :param wind_speed: Speed of wind acting on cyclist in simulation, in km/h. A positive value represents a head
-        wind while a negative value represents a tail wind
+            wind while a negative value represents a tail wind
         :param drafting_factor: Use parameter to scale wind resistance to simulate drafting behind a virtual opponent
         """
         if wind_resistance_coefficient < 0 or wind_resistance_coefficient > 1.86:
@@ -166,8 +166,8 @@ class TacxTrainerControl:
         :param isokinetic_mode: Enable isokinetic mode of the trainer
         :param isokinetic_speed: The target speed used in isokinetic mode
         :param road_surface_pattern: The road surface to be simulated
-        :param road_surface_pattern_intensity: The intensity of the feeling of the road surface. Note that even 50% is
-        feels fairly intense, 100% is untested and may damage the trainer!
+        :param road_surface_pattern_intensity: The intensity of the feeling of the road surface. Note that even 50%
+            feels fairly intense, 100% is untested and may damage the trainer!
         """
         if isokinetic_speed < 4.2 or isokinetic_speed > 8.4:
             raise ValueError('isokinetic_speed must be between 4.2 and 8.4')
@@ -185,7 +185,7 @@ class TacxTrainerControl:
             write_value.append(0x00)
 
         write_value.append(0)
-        write_value.append(road_surface_pattern)
+        write_value.append(road_surface_pattern.value)
         write_value.append(road_surface_pattern_intensity)
         write_value.append(0x00)
         await self._send_fec_cmd(write_value)
