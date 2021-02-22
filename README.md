@@ -13,6 +13,7 @@ __I take no responsibility if the use of this package breaks your turbo trainer 
 Use at your own risk!__ 
 
 I have tested it with (tested protocols in brackets):
+- a Tacx NEO trainer (ANT+ FE-C over BLE, CPS, CSCS)
 - a Tacx NEO 2T trainer (ANT+ FE-C over BLE, CPS, CSCS)
 - an Elite Sterzo Smart steering plate (STERZO)
 - a pair of Garmin Vector 3 power meter pedals (CPS)
