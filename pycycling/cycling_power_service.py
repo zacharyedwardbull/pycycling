@@ -306,8 +306,7 @@ class CyclingPowerService:
             byte_offset += 2
 
         for i in range(byte_offset, len(data), 2):
-            element = int.from_bytes(data[i:i + 2], 'little')
-
+            element = int.from_bytes(data[i:i + 2], 'little', signed=True)
             if instantaneous_force_array_present:
                 instantaneous_force_magnitudes.append(element)
             elif instantaneous_torque_array_present:
