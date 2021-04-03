@@ -77,7 +77,6 @@ class TacxTrainerControl:
         target_power_bytes = int(target_power / 0.25).to_bytes(2, byteorder='little')
         write_value.append(target_power_bytes[0])
         write_value.append(target_power_bytes[1])
-        print(write_value)
         await self._send_fec_cmd(write_value)
 
     async def set_wind_resistance(self, wind_resistance_coefficient, wind_speed, drafting_factor):
@@ -222,8 +221,6 @@ class TacxTrainerControl:
         message_channel = data[3]
         message_data = data[4:4 + message_length - 1]
         data_page_no = message_data[0]
-
-        print(f'recieved data page number: {data_page_no} message: {binascii.hexlify(message_data)}')
 
         if data_page_no == 16:
             self._general_fe_data_page_handler(message_data)
