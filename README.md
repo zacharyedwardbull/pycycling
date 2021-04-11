@@ -5,7 +5,6 @@ A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike
 The package uses [Bleak (Bluetooth Low Energy platform Agnostic Klient)](https://github.com/hbldh/bleak)
 behind the scenes to connect and communicate with bike trainers. 
 Bleak is cross-platform with support for Windows, MacOS, and Linux. 
-Therefore this module should also work on these operating systems. 
 Please refer to the Bleak repository for more information about supported platforms.
 
 ## Disclaimer
@@ -24,11 +23,13 @@ Please let me know if you have used it with another device, and I will add it to
 
 Protocol name | Fully supported | Partially supported | Not supported
 --- | --- | --- | ---
+Battery Service (BAS)| | ✓ |
 Cycling Speed and Cadence Service (CSCS) | | ✓ |
 Cycling Power Service (CPS) | | ✓ |
-Tacx Trainer Control (ANT+ FE-C over BLE) | | ✓ |
 Elite Sterzo Steering Service (STERZO)| | ✓ |
 FiTness Machine Service (FTMS) | | |✓
+Heart Rate Service (HRS)| | ✓ |
+Tacx Trainer Control (ANT+ FE-C over BLE) | | ✓ |
 
 ## Installation
 Clone this repo and then run the following command from the root directory
