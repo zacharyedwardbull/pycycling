@@ -3,7 +3,6 @@ from bleak import BleakClient
 
 from pycycling.cycling_power_service import CyclingPowerService
 
-
 async def run(address):
     async with BleakClient(address) as client:
         def my_measurement_handler(data):
@@ -14,7 +13,7 @@ async def run(address):
         trainer.set_cycling_power_measurement_handler(my_measurement_handler)
         await trainer.enable_cycling_power_measurement_notifications()
         await asyncio.sleep(30.0)
-        await trainer.enable_cycling_power_measurement_notifications()
+        await trainer.disable_cycling_power_measurement_notifications()
 
 
 if __name__ == "__main__":
