@@ -22,7 +22,7 @@ class HeartRateService:
 
     def _hr_measurement_notification_handler(self, sender, data):
 
-        print(f"hex: {data.hex()}; length {len(data)}")
+        # print(f"hex: {data.hex()}; length {len(data)}")
 
         flags = data[0]
 
