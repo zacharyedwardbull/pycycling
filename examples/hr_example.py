@@ -17,7 +17,6 @@ async def run(address):
         battery_service = BatteryService(client)
         battery_level = await battery_service.get_battery_level()
         print(f"Battery is at {battery_level}%")
-        
         await hr_service.enable_hr_measurement_notifications()
         await asyncio.sleep(30.0)
         await hr_service.disable_hr_measurement_notifications()

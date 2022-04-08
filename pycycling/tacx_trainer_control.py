@@ -1,4 +1,3 @@
-import binascii
 from collections import namedtuple
 from enum import Enum
 
@@ -215,10 +214,10 @@ class TacxTrainerControl:
     async def disable_fec_notifications(self):
         await self._client.stop_notify(tacx_uart_tx_id)
 
-    def _fec_notification_handler(self, sender, data):
+    def _fec_notification_handler(self, sender, data):  # pylint: disable=unused-argument
         message_length = data[1]
-        message_type = data[2]
-        message_channel = data[3]
+        message_type = data[2]  # pylint: disable=unused-variable
+        message_channel = data[3]  # pylint: disable=unused-variable
         message_data = data[4:4 + message_length - 1]
         data_page_no = message_data[0]
 
