@@ -38,9 +38,9 @@ class Sterzo:
     def set_steering_measurement_callback(self, callback):
         self._steering_measurement_callback = callback
 
-    def _challenge_code_indication_handler(self, sender, data):
+    def _challenge_code_indication_handler(self, sender, data):  # pylint: disable=unused-argument
         self._latest_challenge = int.from_bytes(data[2:4], 'big')
 
-    def _steering_measurement_notification_handler(self, sender, data):
+    def _steering_measurement_notification_handler(self, sender, data):  # pylint: disable=unused-argument
         [steering_angle] = struct.unpack('<f', data)
         self._steering_measurement_callback(steering_angle)

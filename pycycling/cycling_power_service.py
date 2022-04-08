@@ -115,9 +115,9 @@ def _parse_cycling_power_measurement(data):
     flags = int.from_bytes(data[0:2], 'little')
 
     pedal_power_balance_included_flag = 1
-    pedal_power_balance_reference_flag = 1 << 1
+    pedal_power_balance_reference_flag = 1 << 1  # pylint: disable=unused-variable
     accumulated_torque_present = 1 << 2
-    accumulated_torque_source = 1 << 3
+    accumulated_torque_source = 1 << 3  # pylint: disable=unused-variable
     wheel_rev_included_flag = 1 << 4
     crank_rev_included_flag = 1 << 5
     extreme_force_included_flag = 1 << 6
@@ -126,7 +126,7 @@ def _parse_cycling_power_measurement(data):
     top_dead_spot_included_flag = 1 << 9
     bottom_dead_spot_included_flag = 1 << 10
     accumulated_energy_included_flag = 1 << 11
-    offset_compensation_indicator_flag = 1 << 12
+    offset_compensation_indicator_flag = 1 << 12  # pylint: disable=unused-variable
 
     byte_offset = 2
 
@@ -292,10 +292,10 @@ class CyclingPowerService:
         measurement = await self._client.read_gatt_char(cycling_power_feature_tx_id)
         return _parse_cycling_power_feature(measurement)
 
-    def _cycling_power_measurement_notification_handler(self, sender, data):
+    def _cycling_power_measurement_notification_handler(self, sender, data):  # pylint: disable=unused-argument
         if self._cycling_power_measurement_callback is not None:
             self._cycling_power_measurement_callback(_parse_cycling_power_measurement(data))
 
-    def _cycling_power_vector_notification_handler(self, sender, data):
+    def _cycling_power_vector_notification_handler(self, sender, data):  # pylint: disable=unused-argument
         if self._cycling_power_vector_callback is not None:
             self._cycling_power_vector_callback(_parse_cycling_power_vector(data))

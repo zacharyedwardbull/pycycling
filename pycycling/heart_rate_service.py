@@ -58,6 +58,6 @@ class HeartRateService:
     def set_hr_measurement_handler(self, callback):
         self._hr_measurement_callback = callback
 
-    def _hr_measurement_notification_handler(self, sender, data):
+    def _hr_measurement_notification_handler(self, sender, data):  # pylint: disable=unused-argument
         if self._hr_measurement_callback is not None:
             self._hr_measurement_callback(_parse_hr_measurement(data))

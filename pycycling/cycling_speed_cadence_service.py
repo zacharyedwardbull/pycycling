@@ -65,6 +65,6 @@ class CyclingSpeedCadenceService:
         measurement = await self._client.read_gatt_char(csc_feature_tx_id)
         return _parse_csc_feature(measurement)
 
-    def _csc_measurement_notification_handler(self, sender, data):
+    def _csc_measurement_notification_handler(self, sender, data):  # pylint: disable=unused-argument
         if self._csc_measurement_callback is not None:
             self._csc_measurement_callback(_parse_csc_measurement(data))
