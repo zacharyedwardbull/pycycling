@@ -31,7 +31,17 @@
           <div class="body" role="main">
             
   <h1>Source code for pycycling.battery_service</h1><div class="highlight"><pre>
-<span></span><span class="n">battery_level_characteristic_id</span> <span class="o">=</span> <span class="s1">&#39;00002a19-0000-1000-8000-00805f9b34fb&#39;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A module for interacting with Bluetooth devices which support the Battery Service.</span>
+
+<span class="sd">Example</span>
+<span class="sd">=======</span>
+<span class="sd">Print the current battery level to the console:</span>
+
+<span class="sd">.. literalinclude:: ../examples/battery_example.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">battery_level_characteristic_id</span> <span class="o">=</span> <span class="s1">&#39;00002a19-0000-1000-8000-00805f9b34fb&#39;</span>
 
 
 <span class="k">def</span> <span class="nf">_parse_battery_level</span><span class="p">(</span><span class="n">measurement</span><span class="p">):</span>
@@ -39,10 +49,23 @@
 
 
 <div class="viewcode-block" id="BatteryService"><a class="viewcode-back" href="../../pycycling.battery_service.html#pycycling.battery_service.BatteryService">[docs]</a><span class="k">class</span> <span class="nc">BatteryService</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A wrapper around a :obj:`bleak.backends.client.BaseBleakClient` object adding Battery Service specific utility</span>
+<span class="sd">    methods.</span>
+
+<span class="sd">    :param client: A valid :obj:`bleak.backends.client.BaseBleakClient` object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span>
 
 <div class="viewcode-block" id="BatteryService.get_battery_level"><a class="viewcode-back" href="../../pycycling.battery_service.html#pycycling.battery_service.BatteryService.get_battery_level">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_battery_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns current battery level of the Bluetooth device.</span>
+
+<span class="sd">        :return: An :obj:`int` representing the current battery level percentage of the Bluetooth device. A value of</span>
+<span class="sd">            `100` indicates a fully charged battery while `0` a fully discharged battery.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">measurement</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">read_gatt_char</span><span class="p">(</span><span class="n">battery_level_characteristic_id</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_parse_battery_level</span><span class="p">(</span><span class="n">measurement</span><span class="p">)</span></div></div>
 </pre></div>

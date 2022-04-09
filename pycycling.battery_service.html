@@ -35,17 +35,59 @@
             
   <section id="module-pycycling.battery_service">
 <span id="pycycling-battery-service-module"></span><h1>pycycling.battery_service module<a class="headerlink" href="#module-pycycling.battery_service" title="Permalink to this headline">¶</a></h1>
+<p>A module for interacting with Bluetooth devices which support the Battery Service.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Print the current battery level to the console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bleak</span> <span class="kn">import</span> <span class="n">BleakClient</span>
+
+<span class="kn">from</span> <span class="nn">pycycling.battery_service</span> <span class="kn">import</span> <span class="n">BatteryService</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">BleakClient</span><span class="p">(</span><span class="n">address</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">battery_service</span> <span class="o">=</span> <span class="n">BatteryService</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="n">battery_level</span> <span class="o">=</span> <span class="k">await</span> <span class="n">battery_service</span><span class="o">.</span><span class="n">get_battery_level</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Battery is at </span><span class="si">{</span><span class="n">battery_level</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYTHONASYNCIODEBUG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">device_address</span> <span class="o">=</span> <span class="s2">&quot;DEVICE_ADDRESS HERE&quot;</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">device_address</span><span class="p">))</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="pycycling.battery_service.BatteryService">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.battery_service.</span></span><span class="sig-name descname"><span class="pre">BatteryService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/battery_service.html#BatteryService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.battery_service.BatteryService" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A wrapper around a <code class="xref py py-obj docutils literal notranslate"><span class="pre">bleak.backends.client.BaseBleakClient</span></code> object adding Battery Service specific utility
+methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>client</strong> – A valid <code class="xref py py-obj docutils literal notranslate"><span class="pre">bleak.backends.client.BaseBleakClient</span></code> object</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pycycling.battery_service.BatteryService.get_battery_level">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_battery_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/battery_service.html#BatteryService.get_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.battery_service.BatteryService.get_battery_level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns current battery level of the Bluetooth device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code> representing the current battery level percentage of the Bluetooth device. A value of
+<cite>100</cite> indicates a fully charged battery while <cite>0</cite> a fully discharged battery.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
+</section>
 </section>
 
 
@@ -69,7 +111,10 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="pycycling.html">pycycling package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="pycycling.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.battery_service module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.battery_service module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_power_service.html">pycycling.cycling_power_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
