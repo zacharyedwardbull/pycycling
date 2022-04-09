@@ -21,7 +21,7 @@ jobs:
           pip install sphinx
       - name: Build documentation
         run: |
-          sphinx-apidoc --full -a --separate -o docs . setup.py venv test examples build
+          sphinx-apidoc --full -a --separate -A "Zachary Bull" -o docs . setup.py venv test examples build
           cd docs
           make html
       - name: Deploy
