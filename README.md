@@ -36,8 +36,8 @@ Clone this repo and then run the following command from the root directory
 ```
 python setup.py develop
 ```
-## Usage
-Please refer to the [examples folder](https://github.com/zacharyedwardbull/pycycling/tree/master/examples) for basic usage of the package
+## Documentation
+Please refer to the [documentation](https://zacharybull.com/pycycling/) and the [examples folder](https://github.com/zacharyedwardbull/pycycling/tree/master/examples) for basic usage of the package.
 
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/zacharyedwardbull/pycycling. 
