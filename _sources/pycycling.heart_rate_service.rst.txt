@@ -1,0 +1,7 @@
+pycycling.heart\_rate\_service module
+=====================================
+
+.. automodule:: pycycling.heart_rate_service
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+pycycling.cycling\_power\_service module
+========================================
+
+.. automodule:: pycycling.cycling_power_service
+   :members:
+   :undoc-members:
+   :show-inheritance:

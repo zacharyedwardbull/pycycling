@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pycycling.tacx_trainer_control &#8212; pycycling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pycycling.tacx_trainer_control</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="c1"># The GATT Characteristic used for sending FE-C messages to Tacx trainer</span>
+<span class="n">tacx_uart_rx_id</span> <span class="o">=</span> <span class="s1">&#39;6e40fec3-b5a3-f393-e0a9-e50e24dcca9e&#39;</span>
+<span class="c1"># The GATT Characteristic used for receiving FE-C messages from Tacx trainer</span>
+<span class="n">tacx_uart_tx_id</span> <span class="o">=</span> <span class="s1">&#39;6e40fec2-b5a3-f393-e0a9-e50e24dcca9e&#39;</span>
+
+<span class="n">EquipmentType</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;EquipmentType&#39;</span><span class="p">,</span> <span class="s1">&#39;treadmill elliptical reserved rower climber nordic_skier trainer&#39;</span><span class="p">)</span>
+
+<span class="n">FEState</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;FEState&#39;</span><span class="p">,</span> <span class="s1">&#39;reserved ready in_use finished&#39;</span><span class="p">)</span>
+
+<span class="n">TargetPowerLimit</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;TargetPowerLimit&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;operating_at_target_or_no_target_set user_speed_too_low user_speed_too_high limit_reached&#39;</span><span class="p">)</span>
+
+<span class="n">CommandStatus</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;CommandStatus&#39;</span><span class="p">,</span> <span class="s1">&#39;success fail not_supported rejected uninitialized&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RoadSurface"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.RoadSurface">[docs]</a><span class="k">class</span> <span class="nc">RoadSurface</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Road surfaces supported by the NEO road feel feature</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">SIMULATION_OFF</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">CONCRETE_PLATES</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">CATTLE_GRID</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">COBBLESTONES_HARD</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">COBBLESTONES_SOFT</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">BRICK_ROAD</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">OFF_ROAD</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">GRAVEL</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">ICE</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">WOODEN_BOARDS</span> <span class="o">=</span> <span class="mi">9</span></div>
+
+
+<span class="n">GeneralFEData</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;GeneralFEData&#39;</span><span class="p">,</span>
+                           <span class="p">[</span><span class="s1">&#39;equipment_type&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed_time&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_travelled&#39;</span><span class="p">,</span> <span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="s1">&#39;heart_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;fe_state&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;lap_toggle&#39;</span><span class="p">])</span>
+
+<span class="n">SpecificTrainerData</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;SpecificTrainerData&#39;</span><span class="p">,</span>
+                                 <span class="p">[</span><span class="s1">&#39;update_event_count&#39;</span><span class="p">,</span> <span class="s1">&#39;instantaneous_cadence&#39;</span><span class="p">,</span> <span class="s1">&#39;accumulated_power&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;instantaneous_power&#39;</span><span class="p">,</span> <span class="s1">&#39;trainer_status&#39;</span><span class="p">,</span> <span class="s1">&#39;target_power_limits&#39;</span><span class="p">,</span> <span class="s1">&#39;fe_state&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;lap_toggle&#39;</span><span class="p">,</span> <span class="s1">&#39;power_calibration_required&#39;</span><span class="p">,</span> <span class="s1">&#39;resistance_calibration_required&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;user_configuration_required&#39;</span><span class="p">])</span>
+
+<span class="n">CommandStatusData</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;CommandStatusData&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;last_received_command&#39;</span><span class="p">,</span> <span class="s1">&#39;command_status&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="TacxTrainerControl"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl">[docs]</a><span class="k">class</span> <span class="nc">TacxTrainerControl</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_general_fe_data_page_callback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_specific_trainer_data_page_callback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command_status_data_page_callback</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_basic_resistance"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_basic_resistance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resistance</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Activate basic resistance mode, with specified resistance</span>
+
+<span class="sd">        :param resistance: Resistance to apply to trainer, in newtons</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">resistance</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">resistance</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;resistance must be between 0 and 200&#39;</span><span class="p">)</span>
+
+        <span class="n">write_value</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">resistance</span> <span class="o">/</span> <span class="mi">200</span><span class="p">)</span> <span class="o">*</span> <span class="mi">200</span><span class="p">))</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_fec_cmd</span><span class="p">(</span><span class="n">write_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_target_power"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_target_power">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_target_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_power</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Activate target power mode, with specified target power</span>
+
+<span class="sd">        :param target_power: Target power, in watts</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">target_power</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">target_power</span> <span class="o">&gt;</span> <span class="mi">4000</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;target_power must be between 0 and 4000&#39;</span><span class="p">)</span>
+
+        <span class="n">write_value</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">])</span>
+        <span class="n">target_power_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">target_power</span> <span class="o">/</span> <span class="mf">0.25</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_power_bytes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_power_bytes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_fec_cmd</span><span class="p">(</span><span class="n">write_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_wind_resistance"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_wind_resistance">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_wind_resistance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wind_resistance_coefficient</span><span class="p">,</span> <span class="n">wind_speed</span><span class="p">,</span> <span class="n">drafting_factor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Activate simulation mode, specifying wind parameters</span>
+
+<span class="sd">        :param wind_resistance_coefficient: Wind resistance coefficient is the product of the frontal surface area,</span>
+<span class="sd">            drag coefficient and air density of the simulation, in kg/m</span>
+<span class="sd">        :param wind_speed: Speed of wind acting on cyclist in simulation, in km/h. A positive value represents a head</span>
+<span class="sd">            wind while a negative value represents a tail wind</span>
+<span class="sd">        :param drafting_factor: Use parameter to scale wind resistance to simulate drafting behind a virtual opponent</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">wind_resistance_coefficient</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">wind_resistance_coefficient</span> <span class="o">&gt;</span> <span class="mf">1.86</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;wind_resistance_coefficient must be between 0 and 1.86&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">wind_speed</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">127</span> <span class="ow">or</span> <span class="n">wind_speed</span> <span class="o">&gt;</span> <span class="mi">127</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;wind_speed must be between -127 and 127&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">drafting_factor</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">drafting_factor</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;drafting_factor must be between 0 and 1&#39;</span><span class="p">)</span>
+
+        <span class="n">write_value</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x32</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">wind_resistance_coefficient</span> <span class="o">/</span> <span class="mf">0.01</span><span class="p">))</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">wind_speed</span> <span class="o">+</span> <span class="mi">127</span><span class="p">))</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">drafting_factor</span> <span class="o">/</span> <span class="mf">0.01</span><span class="p">))</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_fec_cmd</span><span class="p">(</span><span class="n">write_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_track_resistance"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_track_resistance">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_track_resistance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">coefficient_of_rolling_resistance</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Activate simulation mode, specifying track resistance parameters</span>
+
+<span class="sd">        :param grade: The grade (slope) of simulated track, in %.</span>
+<span class="sd">        :param coefficient_of_rolling_resistance: The coefficient of rolling resistance, in dimensionless units</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">grade</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">200</span> <span class="ow">or</span> <span class="n">grade</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;grade must be between -200 and 200&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">coefficient_of_rolling_resistance</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">coefficient_of_rolling_resistance</span> <span class="o">&gt;</span> <span class="mf">0.0127</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;coefficient_of_rolling_resistance must be between 0 and 0.0127&#39;</span><span class="p">)</span>
+
+        <span class="n">write_value</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">])</span>
+        <span class="n">grade_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">grade</span> <span class="o">+</span> <span class="mi">200</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.01</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grade_bytes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grade_bytes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">coefficient_of_rolling_resistance</span> <span class="o">/</span> <span class="mf">5e-5</span><span class="p">))</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_fec_cmd</span><span class="p">(</span><span class="n">write_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_user_configuration"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_user_configuration">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_user_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_weight</span><span class="p">,</span> <span class="n">bicycle_weight</span><span class="p">,</span>
+                                     <span class="n">bicycle_wheel_diameter</span><span class="p">,</span> <span class="n">gear_ratio</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Configure trainer parameters, used when the trainer is in simulation mode</span>
+
+<span class="sd">        :param user_weight: Weight of the user in kilograms</span>
+<span class="sd">        :param bicycle_weight: Weight of bicycle in kilograms</span>
+<span class="sd">        :param bicycle_wheel_diameter: Diameter of bike wheel, in metres</span>
+<span class="sd">        :param gear_ratio: The bike gear ratio (front chain ring teeth:rear wheel cog teeth)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">user_weight</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">user_weight</span> <span class="o">&gt;</span> <span class="mf">655.34</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;user_weight must be between 0 and 655.34&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">bicycle_weight</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bicycle_weight</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bicycle_weight must be between 0 and 50&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">bicycle_wheel_diameter</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bicycle_wheel_diameter</span> <span class="o">&gt;</span> <span class="mf">2.54</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bicycle_wheel_diameter must be between 0 and 2.54&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">gear_ratio</span> <span class="o">&lt;</span> <span class="mf">0.03</span> <span class="ow">or</span> <span class="n">gear_ratio</span> <span class="o">&gt;</span> <span class="mf">7.65</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;gear_ratio must be between 0.03 and 7.65&#39;</span><span class="p">)</span>
+
+        <span class="n">write_value</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x37</span><span class="p">])</span>
+
+        <span class="n">user_weight_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">user_weight</span> <span class="o">/</span> <span class="mf">0.01</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user_weight_bytes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user_weight_bytes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mh">0xff</span><span class="p">)</span>
+        <span class="n">bicycle_wheel_diameter_offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">bicycle_wheel_diameter</span> <span class="o">-</span> <span class="nb">round</span><span class="p">(</span><span class="n">bicycle_wheel_diameter</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="mf">0.001</span><span class="p">))</span>
+        <span class="n">bicycle_weight_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bicycle_weight</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bicycle_wheel_diameter_offset</span> <span class="o">+</span> <span class="p">((</span><span class="n">bicycle_weight_bytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">))</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">bicycle_weight_bytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bicycle_weight_bytes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">bicycle_wheel_diameter</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.01</span><span class="p">))</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gear_ratio</span> <span class="o">/</span> <span class="mf">0.03</span><span class="p">))</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_fec_cmd</span><span class="p">(</span><span class="n">write_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_neo_modes"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_neo_modes">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_neo_modes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isokinetic_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">isokinetic_speed</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+                            <span class="n">road_surface_pattern</span><span class="o">=</span><span class="n">RoadSurface</span><span class="o">.</span><span class="n">SIMULATION_OFF</span><span class="p">,</span>
+                            <span class="n">road_surface_pattern_intensity</span><span class="o">=</span><span class="mi">255</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set NEO specific parameters such as Road Feel mode and Isokinetic training mode</span>
+
+<span class="sd">        :param isokinetic_mode: Enable isokinetic mode of the trainer</span>
+<span class="sd">        :param isokinetic_speed: The target speed used in isokinetic mode</span>
+<span class="sd">        :param road_surface_pattern: The road surface to be simulated</span>
+<span class="sd">        :param road_surface_pattern_intensity: The intensity of the feeling of the road surface. Note that even 50%</span>
+<span class="sd">            feels fairly intense, 100% is untested and may damage the trainer!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">isokinetic_speed</span> <span class="o">&lt;</span> <span class="mf">4.2</span> <span class="ow">or</span> <span class="n">isokinetic_speed</span> <span class="o">&gt;</span> <span class="mf">8.4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;isokinetic_speed must be between 4.2 and 8.4&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">road_surface_pattern_intensity</span> <span class="o">!=</span> <span class="mi">255</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">road_surface_pattern_intensity</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">road_surface_pattern_intensity</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;road_surface_pattern_intensity must be between 0 and 100, or set to 255&#39;</span><span class="p">)</span>
+
+        <span class="n">write_value</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0xFC</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">isokinetic_mode</span><span class="p">:</span>
+            <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">isokinetic_speed</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mh">0x00</span><span class="p">)</span>
+            <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mh">0x00</span><span class="p">)</span>
+
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">road_surface_pattern</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">road_surface_pattern_intensity</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mh">0x00</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_fec_cmd</span><span class="p">(</span><span class="n">write_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.request_data_page"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.request_data_page">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">request_data_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_number</span><span class="p">):</span>
+        <span class="n">write_value</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x46</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">])</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page_number</span><span class="p">)</span>
+        <span class="n">write_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mh">0x01</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_fec_cmd</span><span class="p">(</span><span class="n">write_value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_general_fe_data_page_handler"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_general_fe_data_page_handler">[docs]</a>    <span class="k">def</span> <span class="nf">set_general_fe_data_page_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_general_fe_data_page_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_specific_trainer_data_page_handler"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_specific_trainer_data_page_handler">[docs]</a>    <span class="k">def</span> <span class="nf">set_specific_trainer_data_page_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_specific_trainer_data_page_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.set_command_status_data_page_handler"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_command_status_data_page_handler">[docs]</a>    <span class="k">def</span> <span class="nf">set_command_status_data_page_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command_status_data_page_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_send_fec_cmd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fec_bytes</span><span class="p">):</span>
+        <span class="n">checksum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">fec_bytes</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+        <span class="n">fec_bytes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">checksum</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span><span class="n">tacx_uart_rx_id</span><span class="p">,</span> <span class="n">fec_bytes</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TacxTrainerControl.enable_fec_notifications"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.enable_fec_notifications">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">enable_fec_notifications</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">start_notify</span><span class="p">(</span><span class="n">tacx_uart_tx_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fec_notification_handler</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TacxTrainerControl.disable_fec_notifications"><a class="viewcode-back" href="../../pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.disable_fec_notifications">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">disable_fec_notifications</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">stop_notify</span><span class="p">(</span><span class="n">tacx_uart_tx_id</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_fec_notification_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="n">message_length</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">message_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># pylint: disable=unused-variable</span>
+        <span class="n">message_channel</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># pylint: disable=unused-variable</span>
+        <span class="n">message_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span> <span class="o">+</span> <span class="n">message_length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">data_page_no</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">data_page_no</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_general_fe_data_page_handler</span><span class="p">(</span><span class="n">message_data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">data_page_no</span> <span class="o">==</span> <span class="mi">25</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_specific_trainer_data_page_handler</span><span class="p">(</span><span class="n">message_data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">data_page_no</span> <span class="o">==</span> <span class="mi">71</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_command_status_data_page_handler</span><span class="p">(</span><span class="n">message_data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_general_fe_data_page_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message_data</span><span class="p">):</span>
+        <span class="n">equipment_type_code</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">equipment_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_equipment_type_from_code</span><span class="p">(</span><span class="n">equipment_type_code</span><span class="p">)</span>
+
+        <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.25</span>
+
+        <span class="n">distance_traveled</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">speed_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message_data</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;little&#39;</span><span class="p">)</span>
+        <span class="n">speed</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">speed_raw</span> <span class="o">!=</span> <span class="mi">65535</span><span class="p">:</span>
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">speed_raw</span> <span class="o">*</span> <span class="mf">0.001</span>
+
+        <span class="n">heart_rate</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">heart_rate</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="n">heart_rate</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">fe_state</span><span class="p">,</span> <span class="n">lap_toggle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_fe_state_nibble</span><span class="p">((</span><span class="n">message_data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_general_fe_data_page_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_general_fe_data_page_callback</span><span class="p">(</span><span class="n">GeneralFEData</span><span class="p">(</span><span class="n">equipment_type</span><span class="o">=</span><span class="n">equipment_type</span><span class="p">,</span> <span class="n">elapsed_time</span><span class="o">=</span><span class="n">elapsed_time</span><span class="p">,</span>
+                                                              <span class="n">distance_travelled</span><span class="o">=</span><span class="n">distance_traveled</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="n">speed</span><span class="p">,</span>
+                                                              <span class="n">heart_rate</span><span class="o">=</span><span class="n">heart_rate</span><span class="p">,</span> <span class="n">fe_state</span><span class="o">=</span><span class="n">fe_state</span><span class="p">,</span>
+                                                              <span class="n">lap_toggle</span><span class="o">=</span><span class="n">lap_toggle</span><span class="p">))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_equipment_type_from_code</span><span class="p">(</span><span class="n">equipment_type_code</span><span class="p">):</span>
+        <span class="n">equipment_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">equipment_type_code</span> <span class="o">==</span> <span class="mi">19</span><span class="p">:</span>
+            <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">EquipmentType</span><span class="o">.</span><span class="n">treadmill</span>
+        <span class="k">elif</span> <span class="n">equipment_type_code</span> <span class="o">==</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">EquipmentType</span><span class="o">.</span><span class="n">elliptical</span>
+        <span class="k">elif</span> <span class="n">equipment_type_code</span> <span class="o">==</span> <span class="mi">21</span><span class="p">:</span>
+            <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">EquipmentType</span><span class="o">.</span><span class="n">reserved</span>
+        <span class="k">elif</span> <span class="n">equipment_type_code</span> <span class="o">==</span> <span class="mi">22</span><span class="p">:</span>
+            <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">EquipmentType</span><span class="o">.</span><span class="n">rower</span>
+        <span class="k">elif</span> <span class="n">equipment_type_code</span> <span class="o">==</span> <span class="mi">23</span><span class="p">:</span>
+            <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">EquipmentType</span><span class="o">.</span><span class="n">climber</span>
+        <span class="k">elif</span> <span class="n">equipment_type_code</span> <span class="o">==</span> <span class="mi">24</span><span class="p">:</span>
+            <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">EquipmentType</span><span class="o">.</span><span class="n">nordic_skier</span>
+        <span class="k">elif</span> <span class="n">equipment_type_code</span> <span class="o">==</span> <span class="mi">25</span><span class="p">:</span>
+            <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">EquipmentType</span><span class="o">.</span><span class="n">trainer</span>
+        <span class="k">return</span> <span class="n">equipment_type</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_parse_fe_state_nibble</span><span class="p">(</span><span class="n">fe_state_nibble</span><span class="p">):</span>
+        <span class="n">lap_toggle</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">fe_state_nibble</span> <span class="o">&amp;</span> <span class="mh">0x8</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">fe_state_nibble</span> <span class="o">&amp;</span> <span class="mh">0x7</span>
+        <span class="n">fe_state</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fe_state</span> <span class="o">=</span> <span class="n">FEState</span><span class="o">.</span><span class="n">reserved</span>
+        <span class="k">elif</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fe_state</span> <span class="o">=</span> <span class="n">FEState</span><span class="o">.</span><span class="n">asleep</span>
+        <span class="k">elif</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">fe_state</span> <span class="o">=</span> <span class="n">FEState</span><span class="o">.</span><span class="n">ready</span>
+        <span class="k">elif</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">fe_state</span> <span class="o">=</span> <span class="n">FEState</span><span class="o">.</span><span class="n">in_use</span>
+        <span class="k">elif</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">fe_state</span> <span class="o">=</span> <span class="n">FEState</span><span class="o">.</span><span class="n">finished</span>
+        <span class="k">return</span> <span class="n">fe_state</span><span class="p">,</span> <span class="n">lap_toggle</span>
+
+    <span class="k">def</span> <span class="nf">_specific_trainer_data_page_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message_data</span><span class="p">):</span>
+        <span class="n">update_event_count</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">instantaneous_cadence</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">instantaneous_cadence</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="n">instantaneous_cadence</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">accumulated_power</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message_data</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;little&#39;</span><span class="p">)</span>
+
+        <span class="n">power_lsb</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">power_msb</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="n">instantaneous_power</span> <span class="o">=</span> <span class="n">power_lsb</span> <span class="o">+</span> <span class="p">((</span><span class="n">power_msb</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">instantaneous_power</span> <span class="o">==</span> <span class="mi">4095</span><span class="p">:</span>
+            <span class="n">instantaneous_power</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">trainer_status_flags</span> <span class="o">=</span> <span class="p">(</span><span class="n">power_msb</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xf</span>
+
+        <span class="n">power_calibration_required</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">trainer_status_flags</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">)</span>
+        <span class="n">resistance_calibration_required</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">trainer_status_flags</span> <span class="o">&amp;</span> <span class="mh">0x2</span><span class="p">)</span>
+        <span class="n">user_configuration_required</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">trainer_status_flags</span> <span class="o">&amp;</span> <span class="mh">0x4</span><span class="p">)</span>
+
+        <span class="n">fe_state</span><span class="p">,</span> <span class="n">lap_toggle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_fe_state_nibble</span><span class="p">((</span><span class="n">message_data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">target_power_limits</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0x7</span>
+
+        <span class="k">if</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">target_power_limits</span> <span class="o">=</span> <span class="n">TargetPowerLimit</span><span class="o">.</span><span class="n">operating_at_target_or_no_target_set</span>
+        <span class="k">elif</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">target_power_limits</span> <span class="o">=</span> <span class="n">TargetPowerLimit</span><span class="o">.</span><span class="n">user_speed_too_low</span>
+        <span class="k">elif</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">target_power_limits</span> <span class="o">=</span> <span class="n">TargetPowerLimit</span><span class="o">.</span><span class="n">user_speed_too_high</span>
+        <span class="k">elif</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">target_power_limits</span> <span class="o">=</span> <span class="n">TargetPowerLimit</span><span class="o">.</span><span class="n">limit_reached</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specific_trainer_data_page_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_specific_trainer_data_page_callback</span><span class="p">(</span>
+                <span class="n">SpecificTrainerData</span><span class="p">(</span><span class="n">update_event_count</span><span class="o">=</span><span class="n">update_event_count</span><span class="p">,</span>
+                                    <span class="n">instantaneous_cadence</span><span class="o">=</span><span class="n">instantaneous_cadence</span><span class="p">,</span>
+                                    <span class="n">accumulated_power</span><span class="o">=</span><span class="n">accumulated_power</span><span class="p">,</span>
+                                    <span class="n">instantaneous_power</span><span class="o">=</span><span class="n">instantaneous_power</span><span class="p">,</span>
+                                    <span class="n">trainer_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">target_power_limits</span><span class="o">=</span><span class="n">target_power_limits</span><span class="p">,</span>
+                                    <span class="n">fe_state</span><span class="o">=</span><span class="n">fe_state</span><span class="p">,</span> <span class="n">lap_toggle</span><span class="o">=</span><span class="n">lap_toggle</span><span class="p">,</span>
+                                    <span class="n">power_calibration_required</span><span class="o">=</span><span class="n">power_calibration_required</span><span class="p">,</span>
+                                    <span class="n">resistance_calibration_required</span><span class="o">=</span><span class="n">resistance_calibration_required</span><span class="p">,</span>
+                                    <span class="n">user_configuration_required</span><span class="o">=</span><span class="n">user_configuration_required</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_command_status_data_page_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message_data</span><span class="p">):</span>
+        <span class="n">last_received_command</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">command_status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">command_status_byte</span> <span class="o">=</span> <span class="n">message_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">command_status_byte</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">command_status</span> <span class="o">=</span> <span class="n">CommandStatus</span><span class="o">.</span><span class="n">success</span>
+        <span class="k">elif</span> <span class="n">command_status_byte</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">command_status</span> <span class="o">=</span> <span class="n">CommandStatus</span><span class="o">.</span><span class="n">fail</span>
+        <span class="k">elif</span> <span class="n">command_status_byte</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">command_status</span> <span class="o">=</span> <span class="n">CommandStatus</span><span class="o">.</span><span class="n">not_supported</span>
+        <span class="k">elif</span> <span class="n">command_status_byte</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">command_status</span> <span class="o">=</span> <span class="n">CommandStatus</span><span class="o">.</span><span class="n">rejected</span>
+        <span class="k">elif</span> <span class="n">command_status_byte</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="n">command_status</span> <span class="o">=</span> <span class="n">CommandStatus</span><span class="o">.</span><span class="n">uninitialized</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command_status_data_page_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_command_status_data_page_callback</span><span class="p">(</span>
+                <span class="n">CommandStatusData</span><span class="p">(</span><span class="n">last_received_command</span><span class="o">=</span><span class="n">last_received_command</span><span class="p">,</span> <span class="n">command_status</span><span class="o">=</span><span class="n">command_status</span><span class="p">,</span>
+                                  <span class="n">data</span><span class="o">=</span><span class="n">message_data</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">]))</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">pycycling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pycycling.html">pycycling package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

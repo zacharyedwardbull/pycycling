@@ -1,0 +1,7 @@
+pycycling.tacx\_trainer\_control module
+=======================================
+
+.. automodule:: pycycling.tacx_trainer_control
+   :members:
+   :undoc-members:
+   :show-inheritance:

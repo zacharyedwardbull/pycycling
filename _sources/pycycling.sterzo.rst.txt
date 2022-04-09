@@ -1,0 +1,7 @@
+pycycling.sterzo module
+=======================
+
+.. automodule:: pycycling.sterzo
+   :members:
+   :undoc-members:
+   :show-inheritance:

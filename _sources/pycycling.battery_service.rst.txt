@@ -1,0 +1,7 @@
+pycycling.battery\_service module
+=================================
+
+.. automodule:: pycycling.battery_service
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+pycycling.cycling\_speed\_cadence\_service module
+=================================================
+
+.. automodule:: pycycling.cycling_speed_cadence_service
+   :members:
+   :undoc-members:
+   :show-inheritance:

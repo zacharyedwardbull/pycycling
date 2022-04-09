@@ -1,0 +1,23 @@
+pycycling package
+=================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   pycycling.battery_service
+   pycycling.cycling_power_service
+   pycycling.cycling_speed_cadence_service
+   pycycling.heart_rate_service
+   pycycling.sterzo
+   pycycling.tacx_trainer_control
+
+Module contents
+---------------
+
+.. automodule:: pycycling
+   :members:
+   :undoc-members:
+   :show-inheritance:
