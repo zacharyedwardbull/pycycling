@@ -3,7 +3,8 @@ A module for interacting with Bluetooth devices which support the Battery Servic
 
 Example
 =======
-Print the current battery level to the console:
+This example prints the current battery level to the console. Please see also information on
+:ref:`obtaining the Bluetooth address of your device <obtaining_device_address>`.
 
 .. literalinclude:: ../examples/battery_example.py
 """

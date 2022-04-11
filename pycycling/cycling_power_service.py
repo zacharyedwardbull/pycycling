@@ -1,3 +1,15 @@
+"""
+A module for interacting with Bluetooth devices which support the Cycling Power Service.
+
+This service is supported by most power meters and some turbo trainers.
+
+Example
+=======
+This example prints cycling power measurements broadcast from the Bluetooth device to the console. Please see also
+information on :ref:`obtaining the Bluetooth address of your device <obtaining_device_address>`.
+
+.. literalinclude:: ../examples/cycling_power_service_example.py
+"""
 from collections import namedtuple
 from enum import Enum
 
