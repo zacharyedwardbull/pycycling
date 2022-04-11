@@ -31,7 +31,71 @@
           <div class="body" role="main">
             
   <h1>Source code for pycycling.tacx_trainer_control</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A module for interacting with Tacx Bluetooth smart turbo trainers.</span>
+
+<span class="sd">This protocol is a variation of the ANT+ FE-C standard (but using BLE instead of ANT+) - Tacx released many of their</span>
+<span class="sd">trainers before the now common FTMS protocol was finalised.</span>
+
+<span class="sd">The protocol also facilitates the use of the NEO Road Feel feature.</span>
+
+<span class="sd">Smart trainer modes of operation</span>
+<span class="sd">================================</span>
+<span class="sd">The FE-C standard defines a few modes of operation. To understand the difference between these, a little theory is</span>
+<span class="sd">required.</span>
+
+<span class="sd">Fundamentally, when you cycle two types of forces come into play:</span>
+
+<span class="sd">* **Resistive forces**:</span>
+<span class="sd">    These are typically rolling resistance, wind resistance, and gravitational resistance.</span>
+<span class="sd">    They are forces that would bring you back to a stop if you stop cycling.</span>
+<span class="sd">* **Inertial forces**:</span>
+<span class="sd">    These are the forces that resist changes to your velocity (think Newton&#39;s second law). These forces work against you</span>
+<span class="sd">    when you accelerate making it hard work to get going (and even harder the heavier you are).</span>
+<span class="sd">    However, when you stop pedalling these forces work in your favour, and help counter the resistive forces which slow</span>
+<span class="sd">    you down, allowing you to coast along for a while.</span>
+
+<span class="sd">Many turbo trainers apply inertial forces through a heavy flywheel, and resistive forces through a brake device. The</span>
+<span class="sd">Tacx NEO is somewhat unique in that it applies both inertial and resistive forces through electromagnets.</span>
+
+<span class="sd">The NEO has 5 different operational modes, which alter the application of these two types of forces. Other trainers</span>
+<span class="sd">support only the first 3. I&#39;ll try and explain in a few words what each does:</span>
+
+<span class="sd">* **Basic resistance mode**:</span>
+<span class="sd">    This is a simple mode, and not useful for many applications. You directly set the resistance force. It applies</span>
+<span class="sd">    inertial forces assuming a small preset rider mass which means that this mode is not useful for a simulator (because</span>
+<span class="sd">    it therefore applies the incorrect inertial forces for most riders). In pycycling you activate it by using</span>
+<span class="sd">    :func:`set_basic_resistance &lt;pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance&gt;`.</span>
+<span class="sd">* **Simulation mode**:</span>
+<span class="sd">    Here, the trainer computes the resistive force by internally computing a simple physics equation.</span>
+<span class="sd">    The equation has parameters which can be configured such as wind speed and track incline. For the full details,</span>
+<span class="sd">    please refer to the ANT+ FE-C specification. In this mode, the trainer dynamically adjusts the flywheel mass so it</span>
+<span class="sd">    applies the correct inertial force for the rider. To activate this mode, first use</span>
+<span class="sd">    :func:`set_user_configuration &lt;pycycling.tacx_trainer_control.TacxTrainerControl.set_user_configuration&gt;` then</span>
+<span class="sd">    :func:`set_wind_resistance &lt;pycycling.tacx_trainer_control.TacxTrainerControl.set_wind_resistance&gt;` and</span>
+<span class="sd">    :func:`set_track_resistance &lt;pycycling.tacx_trainer_control.TacxTrainerControl.set_track_resistance&gt;` as required.</span>
+<span class="sd">    I would strongly recommend using this for any simulator application and this is what is used by Zwift etc.</span>
+<span class="sd">* **Target power mode (erg mode)**:</span>
+<span class="sd">    The trainer adjusts the resistance based on the riders exertion in order to maintain a constant power output.</span>
+<span class="sd">    Use :func:`set_target_power &lt;pycycling.tacx_trainer_control.TacxTrainerControl.set_target_power&gt;` to activate.</span>
+<span class="sd">* **Isokinetic mode**:</span>
+<span class="sd">    The trainer adjusts the resistance to maintain a constant cadence.</span>
+<span class="sd">    See :func:`set_neo_modes &lt;pycycling.tacx_trainer_control.TacxTrainerControl.set_neo_modes&gt;` for info on this.</span>
+<span class="sd">* **Isotonic mode**:</span>
+<span class="sd">    This is a special case of basic resistance mode, where the flywheel simulated mass is set to zero rather than a</span>
+<span class="sd">    small mass, meaning the inertial forces applied by the trainer are zero. To activate, set bike weight, user weight,</span>
+<span class="sd">    incline, drag resistance and rolling resistance to zero and then use :func:`set_basic_resistance</span>
+<span class="sd">    &lt;pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance&gt;` as before.</span>
+
+<span class="sd">Example</span>
+<span class="sd">=======</span>
+<span class="sd">This example demonstrates use of the basic resistance mode. Initially a resistance of 20 newtons is set, and then 20</span>
+<span class="sd">seconds later this is adjusted to 40 newtons. Data from the trainer is also printed to the console. Please see also</span>
+<span class="sd">information on :ref:`obtaining the Bluetooth address of your device &lt;obtaining_device_address&gt;`.</span>
+
+<span class="sd">.. literalinclude:: ../examples/tacx_trainer_control_example.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
 <span class="c1"># The GATT Characteristic used for sending FE-C messages to Tacx trainer</span>

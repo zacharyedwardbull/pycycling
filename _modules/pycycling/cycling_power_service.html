@@ -31,7 +31,19 @@
           <div class="body" role="main">
             
   <h1>Source code for pycycling.cycling_power_service</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A module for interacting with Bluetooth devices which support the Cycling Power Service.</span>
+
+<span class="sd">This service is supported by most power meters and some turbo trainers.</span>
+
+<span class="sd">Example</span>
+<span class="sd">=======</span>
+<span class="sd">This example prints cycling power measurements broadcast from the Bluetooth device to the console. Please see also</span>
+<span class="sd">information on :ref:`obtaining the Bluetooth address of your device &lt;obtaining_device_address&gt;`.</span>
+
+<span class="sd">.. literalinclude:: ../examples/cycling_power_service_example.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
 <span class="n">cycling_power_measurement_tx_id</span> <span class="o">=</span> <span class="s1">&#39;00002a63-0000-1000-8000-00805f9b34fb&#39;</span>

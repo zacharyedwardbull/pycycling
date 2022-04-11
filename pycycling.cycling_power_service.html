@@ -35,6 +35,40 @@
             
   <section id="module-pycycling.cycling_power_service">
 <span id="pycycling-cycling-power-service-module"></span><h1>pycycling.cycling_power_service module<a class="headerlink" href="#module-pycycling.cycling_power_service" title="Permalink to this headline">¶</a></h1>
+<p>A module for interacting with Bluetooth devices which support the Cycling Power Service.</p>
+<p>This service is supported by most power meters and some turbo trainers.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>This example prints cycling power measurements broadcast from the Bluetooth device to the console. Please see also
+information on <a class="reference internal" href="pycycling.html#obtaining-device-address"><span class="std std-ref">obtaining the Bluetooth address of your device</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bleak</span> <span class="kn">import</span> <span class="n">BleakClient</span>
+
+<span class="kn">from</span> <span class="nn">pycycling.cycling_power_service</span> <span class="kn">import</span> <span class="n">CyclingPowerService</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">BleakClient</span><span class="p">(</span><span class="n">address</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">my_measurement_handler</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">CyclingPowerService</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">set_cycling_power_measurement_handler</span><span class="p">(</span><span class="n">my_measurement_handler</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">trainer</span><span class="o">.</span><span class="n">enable_cycling_power_measurement_notifications</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">30.0</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">trainer</span><span class="o">.</span><span class="n">disable_cycling_power_measurement_notifications</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYTHONASYNCIODEBUG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">device_address</span> <span class="o">=</span> <span class="s2">&quot;EAAA3D1F-6760-4D77-961E-8DDAC1CC9AED&quot;</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">device_address</span><span class="p">))</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="pycycling.cycling_power_service.CyclingPowerFeature">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.cycling_power_service.</span></span><span class="sig-name descname"><span class="pre">CyclingPowerFeature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pedal_power_balance_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accumulated_torque_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wheel_rev_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crank_rev_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extreme_magnitudes_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_spot_angles_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accumulated_energy_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_compensation_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycling_power_measurement_content_masking_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiple_locations_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crank_length_adjustment_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_length_adjustment_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_weight_adjustment_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span_length_adjustment_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_measurement_context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instantaneous_measurement_direction_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factory_calibration_date_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhanced_offset_compensation_supported</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distribute_system_support</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycycling.cycling_power_service.CyclingPowerFeature" title="Permalink to this definition">¶</a></dt>
@@ -497,6 +531,7 @@
 </dd></dl>
 
 </section>
+</section>
 
 
           </div>
@@ -520,7 +555,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="pycycling.html">pycycling package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="pycycling.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pycycling.battery_service.html">pycycling.battery_service module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.cycling_power_service module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.cycling_power_service module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>

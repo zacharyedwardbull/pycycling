@@ -43,16 +43,55 @@
 <li class="toctree-l2"><a class="reference internal" href="pycycling.battery_service.html#example">Example</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pycycling.cycling_power_service.html">pycycling.cycling_power_service module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.cycling_power_service.html">pycycling.cycling_power_service module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.cycling_power_service.html#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.tacx_trainer_control.html#smart-trainer-modes-of-operation">Smart trainer modes of operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.tacx_trainer_control.html#example">Example</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
 <section id="module-pycycling">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pycycling" title="Permalink to this headline">¶</a></h2>
+<p>pycycling is a cross-platform Python package for interacting with various Bluetooth cycling peripherals.</p>
+<p>The package provides a number of classes which wrap around <a class="reference external" href="https://github.com/hbldh/bleak">Bleak</a> client objects.</p>
+<section id="obtaining-the-address-of-your-device">
+<span id="obtaining-device-address"></span><h3>Obtaining the address of your device<a class="headerlink" href="#obtaining-the-address-of-your-device" title="Permalink to this headline">¶</a></h3>
+<p>This documentation includes a number of code snippets demonstrating package usage. Each of these has a
+hardcoded device address ID which you will need to replace with the address of your device. The following script can
+be used to obtain this address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">An example script which lists all available bluetooth devices. Use this to obtain the device_address used in other</span>
+<span class="sd">scripts</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bleak</span> <span class="kn">import</span> <span class="n">discover</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="k">await</span> <span class="n">discover</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYTHONASYNCIODEBUG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -85,7 +124,10 @@
 <li class="toctree-l3"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pycycling">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pycycling">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obtaining-the-address-of-your-device">Obtaining the address of your device</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

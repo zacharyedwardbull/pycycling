@@ -34,6 +34,115 @@
             
   <section id="module-pycycling.tacx_trainer_control">
 <span id="pycycling-tacx-trainer-control-module"></span><h1>pycycling.tacx_trainer_control module<a class="headerlink" href="#module-pycycling.tacx_trainer_control" title="Permalink to this headline">¶</a></h1>
+<p>A module for interacting with Tacx Bluetooth smart turbo trainers.</p>
+<p>This protocol is a variation of the ANT+ FE-C standard (but using BLE instead of ANT+) - Tacx released many of their
+trainers before the now common FTMS protocol was finalised.</p>
+<p>The protocol also facilitates the use of the NEO Road Feel feature.</p>
+<section id="smart-trainer-modes-of-operation">
+<h2>Smart trainer modes of operation<a class="headerlink" href="#smart-trainer-modes-of-operation" title="Permalink to this headline">¶</a></h2>
+<p>The FE-C standard defines a few modes of operation. To understand the difference between these, a little theory is
+required.</p>
+<p>Fundamentally, when you cycle two types of forces come into play:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Resistive forces</strong>:</dt><dd><p>These are typically rolling resistance, wind resistance, and gravitational resistance.
+They are forces that would bring you back to a stop if you stop cycling.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Inertial forces</strong>:</dt><dd><p>These are the forces that resist changes to your velocity (think Newton’s second law). These forces work against you
+when you accelerate making it hard work to get going (and even harder the heavier you are).
+However, when you stop pedalling these forces work in your favour, and help counter the resistive forces which slow
+you down, allowing you to coast along for a while.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Many turbo trainers apply inertial forces through a heavy flywheel, and resistive forces through a brake device. The
+Tacx NEO is somewhat unique in that it applies both inertial and resistive forces through electromagnets.</p>
+<p>The NEO has 5 different operational modes, which alter the application of these two types of forces. Other trainers
+support only the first 3. I’ll try and explain in a few words what each does:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Basic resistance mode</strong>:</dt><dd><p>This is a simple mode, and not useful for many applications. You directly set the resistance force. It applies
+inertial forces assuming a small preset rider mass which means that this mode is not useful for a simulator (because
+it therefore applies the incorrect inertial forces for most riders). In pycycling you activate it by using
+<a class="reference internal" href="#pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance" title="pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_basic_resistance</span></code></a>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Simulation mode</strong>:</dt><dd><p>Here, the trainer computes the resistive force by internally computing a simple physics equation.
+The equation has parameters which can be configured such as wind speed and track incline. For the full details,
+please refer to the ANT+ FE-C specification. In this mode, the trainer dynamically adjusts the flywheel mass so it
+applies the correct inertial force for the rider. To activate this mode, first use
+<a class="reference internal" href="#pycycling.tacx_trainer_control.TacxTrainerControl.set_user_configuration" title="pycycling.tacx_trainer_control.TacxTrainerControl.set_user_configuration"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_user_configuration</span></code></a> then
+<a class="reference internal" href="#pycycling.tacx_trainer_control.TacxTrainerControl.set_wind_resistance" title="pycycling.tacx_trainer_control.TacxTrainerControl.set_wind_resistance"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_wind_resistance</span></code></a> and
+<a class="reference internal" href="#pycycling.tacx_trainer_control.TacxTrainerControl.set_track_resistance" title="pycycling.tacx_trainer_control.TacxTrainerControl.set_track_resistance"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_track_resistance</span></code></a> as required.
+I would strongly recommend using this for any simulator application and this is what is used by Zwift etc.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Target power mode (erg mode)</strong>:</dt><dd><p>The trainer adjusts the resistance based on the riders exertion in order to maintain a constant power output.
+Use <a class="reference internal" href="#pycycling.tacx_trainer_control.TacxTrainerControl.set_target_power" title="pycycling.tacx_trainer_control.TacxTrainerControl.set_target_power"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_target_power</span></code></a> to activate.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Isokinetic mode</strong>:</dt><dd><p>The trainer adjusts the resistance to maintain a constant cadence.
+See <a class="reference internal" href="#pycycling.tacx_trainer_control.TacxTrainerControl.set_neo_modes" title="pycycling.tacx_trainer_control.TacxTrainerControl.set_neo_modes"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_neo_modes</span></code></a> for info on this.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Isotonic mode</strong>:</dt><dd><p>This is a special case of basic resistance mode, where the flywheel simulated mass is set to zero rather than a
+small mass, meaning the inertial forces applied by the trainer are zero. To activate, set bike weight, user weight,
+incline, drag resistance and rolling resistance to zero and then use <a class="reference internal" href="#pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance" title="pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_basic_resistance</span></code></a> as before.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>This example demonstrates use of the basic resistance mode. Initially a resistance of 20 newtons is set, and then 20
+seconds later this is adjusted to 40 newtons. Data from the trainer is also printed to the console. Please see also
+information on <a class="reference internal" href="pycycling.html#obtaining-device-address"><span class="std std-ref">obtaining the Bluetooth address of your device</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bleak</span> <span class="kn">import</span> <span class="n">BleakClient</span>
+
+<span class="kn">from</span> <span class="nn">pycycling.tacx_trainer_control</span> <span class="kn">import</span> <span class="n">TacxTrainerControl</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">BleakClient</span><span class="p">(</span><span class="n">address</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">my_page_handler</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">TacxTrainerControl</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">set_specific_trainer_data_page_handler</span><span class="p">(</span><span class="n">my_page_handler</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">set_general_fe_data_page_handler</span><span class="p">(</span><span class="n">my_page_handler</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">trainer</span><span class="o">.</span><span class="n">enable_fec_notifications</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">trainer</span><span class="o">.</span><span class="n">set_basic_resistance</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">20.0</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">trainer</span><span class="o">.</span><span class="n">set_basic_resistance</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">20.0</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">trainer</span><span class="o">.</span><span class="n">disable_fec_notifications</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYTHONASYNCIODEBUG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">device_address</span> <span class="o">=</span> <span class="s2">&quot;EAAA3D1F-6760-4D77-961E-8DDAC1CC9AED&quot;</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">device_address</span><span class="p">))</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="pycycling.tacx_trainer_control.CommandStatus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.tacx_trainer_control.</span></span><span class="sig-name descname"><span class="pre">CommandStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycycling.tacx_trainer_control.CommandStatus" title="Permalink to this definition">¶</a></dt>
@@ -486,6 +595,7 @@ wind while a negative value represents a tail wind</p></li>
 </dd></dl>
 
 </section>
+</section>
 
 
           </div>
@@ -513,7 +623,11 @@ wind while a negative value represents a tail wind</p></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.tacx_trainer_control module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.tacx_trainer_control module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smart-trainer-modes-of-operation">Smart trainer modes of operation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pycycling.html#module-pycycling">Module contents</a></li>
