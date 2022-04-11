@@ -1,3 +1,67 @@
+"""
+A module for interacting with Tacx Bluetooth smart turbo trainers.
+
+This protocol is a variation of the ANT+ FE-C standard (but using BLE instead of ANT+) - Tacx released many of their
+trainers before the now common FTMS protocol was finalised.
+
+The protocol also facilitates the use of the NEO Road Feel feature.
+
+Smart trainer modes of operation
+================================
+The FE-C standard defines a few modes of operation. To understand the difference between these, a little theory is
+required.
+
+Fundamentally, when you cycle two types of forces come into play:
+
+* **Resistive forces**:
+    These are typically rolling resistance, wind resistance, and gravitational resistance.
+    They are forces that would bring you back to a stop if you stop cycling.
+* **Inertial forces**:
+    These are the forces that resist changes to your velocity (think Newton's second law). These forces work against you
+    when you accelerate making it hard work to get going (and even harder the heavier you are).
+    However, when you stop pedalling these forces work in your favour, and help counter the resistive forces which slow
+    you down, allowing you to coast along for a while.
+
+Many turbo trainers apply inertial forces through a heavy flywheel, and resistive forces through a brake device. The
+Tacx NEO is somewhat unique in that it applies both inertial and resistive forces through electromagnets.
+
+The NEO has 5 different operational modes, which alter the application of these two types of forces. Other trainers
+support only the first 3. I'll try and explain in a few words what each does:
+
+* **Basic resistance mode**:
+    This is a simple mode, and not useful for many applications. You directly set the resistance force. It applies
+    inertial forces assuming a small preset rider mass which means that this mode is not useful for a simulator (because
+    it therefore applies the incorrect inertial forces for most riders). In pycycling you activate it by using
+    :func:`set_basic_resistance <pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance>`.
+* **Simulation mode**:
+    Here, the trainer computes the resistive force by internally computing a simple physics equation.
+    The equation has parameters which can be configured such as wind speed and track incline. For the full details,
+    please refer to the ANT+ FE-C specification. In this mode, the trainer dynamically adjusts the flywheel mass so it
+    applies the correct inertial force for the rider. To activate this mode, first use
+    :func:`set_user_configuration <pycycling.tacx_trainer_control.TacxTrainerControl.set_user_configuration>` then
+    :func:`set_wind_resistance <pycycling.tacx_trainer_control.TacxTrainerControl.set_wind_resistance>` and
+    :func:`set_track_resistance <pycycling.tacx_trainer_control.TacxTrainerControl.set_track_resistance>` as required.
+    I would strongly recommend using this for any simulator application and this is what is used by Zwift etc.
+* **Target power mode (erg mode)**:
+    The trainer adjusts the resistance based on the riders exertion in order to maintain a constant power output.
+    Use :func:`set_target_power <pycycling.tacx_trainer_control.TacxTrainerControl.set_target_power>` to activate.
+* **Isokinetic mode**:
+    The trainer adjusts the resistance to maintain a constant cadence.
+    See :func:`set_neo_modes <pycycling.tacx_trainer_control.TacxTrainerControl.set_neo_modes>` for info on this.
+* **Isotonic mode**:
+    This is a special case of basic resistance mode, where the flywheel simulated mass is set to zero rather than a
+    small mass, meaning the inertial forces applied by the trainer are zero. To activate, set bike weight, user weight,
+    incline, drag resistance and rolling resistance to zero and then use :func:`set_basic_resistance
+    <pycycling.tacx_trainer_control.TacxTrainerControl.set_basic_resistance>` as before.
+
+Example
+=======
+This example demonstrates use of the basic resistance mode. Initially a resistance of 20 newtons is set, and then 20
+seconds later this is adjusted to 40 newtons. Data from the trainer is also printed to the console. Please see also
+information on :ref:`obtaining the Bluetooth address of your device <obtaining_device_address>`.
+
+.. literalinclude:: ../examples/tacx_trainer_control_example.py
+"""
 from collections import namedtuple
 from enum import Enum
 
