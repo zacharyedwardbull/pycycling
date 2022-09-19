@@ -16,6 +16,7 @@ I have tested it with (tested protocols in brackets):
 - a Tacx NEO 2T trainer (ANT+ FE-C over BLE, CPS, CSCS)
 - an Elite Sterzo Smart steering plate (STERZO)
 - a pair of Garmin Vector 3 power meter pedals (CPS)
+- a Garmin RVR315 rear view radar (RDR)
 
 Please let me know if you have used it with another device, and I will add it to the list.
 
@@ -30,6 +31,7 @@ Elite Sterzo Steering Service (STERZO)| | ✓ |
 FiTness Machine Service (FTMS) | | |✓
 Heart Rate Service (HRS)| | ✓ |
 Tacx Trainer Control (ANT+ FE-C over BLE) | | ✓ |
+Rear View Radar (RDR) | | ✓ |
 
 ## Installation
 Clone this repo and then run the following command from the root directory
@@ -52,3 +54,4 @@ If you would like to add support for another cycling related protocol, that woul
 * Bluetooth XML specification files: https://github.com/sur5r/gatt-xml
 * Tacx Trainer Control documentation: https://github.com/jedla22/BleTrainerControl/blob/master/How-to%20FE-C%20over%20BLE%20v1_0_0.pdf
 * Reverse engineering Sterzo Smart: https://www.youtube.com/watch?v=BPVFjz5zD4g
+* Reverse engineering Garmin RVR315 (radar): https://forums.garmin.com/developer/connect-iq/f/discussion/240452/bluetooth-profile-for-garmin-varia-rtl515#pifragment-1298=3
