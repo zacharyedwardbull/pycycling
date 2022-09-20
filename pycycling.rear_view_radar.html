@@ -40,16 +40,41 @@
 <p>Jason Sohn 2022</p>
 <p>This service is tested on Garmin Varia RVR315.
 Other models which are expected to support RDR service are:</p>
-<blockquote>
-<div><p>Garmin RTR515, RTR516 (German market version), and RCT715
-Bryton Gardia R300
-Magene L508</p>
-</div></blockquote>
+<ul class="simple">
+<li><p>Garmin RTR515, RTR516 (German market version), and RCT715</p></li>
+<li><p>Bryton Gardia R300</p></li>
+<li><p>Magene L508</p></li>
+</ul>
 <section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
 <p>This example prints radar information broadcast from the Bluetooth device to the console. Please see also
-information on <a class="reference internal" href="pycycling.html#obtaining-device-address"><span class="std std-ref">obtaining the Bluetooth address of your device</span></a>.
-.. literalinclude:: ../examples/rear_view_radar_example.py</p>
+information on <a class="reference internal" href="pycycling.html#obtaining-device-address"><span class="std std-ref">obtaining the Bluetooth address of your device</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bleak</span> <span class="kn">import</span> <span class="n">BleakClient</span>
+
+<span class="kn">from</span> <span class="nn">pycycling.rear_view_radar</span> <span class="kn">import</span> <span class="n">RearViewRadarService</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">BleakClient</span><span class="p">(</span><span class="n">address</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">my_measurement_handler</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span>
+        <span class="n">radar_service</span> <span class="o">=</span> <span class="n">RearViewRadarService</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="n">radar_service</span><span class="o">.</span><span class="n">set_radar_measurement_handler</span><span class="p">(</span><span class="n">my_measurement_handler</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">radar_service</span><span class="o">.</span><span class="n">enable_radar_measurement_notifications</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">30.0</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">radar_service</span><span class="o">.</span><span class="n">disable_radar_measurement_notifications</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYTHONASYNCIODEBUG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">device_address</span> <span class="o">=</span> <span class="s2">&quot;DEVICE_ADDRESS_HERE&quot;</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">device_address</span><span class="p">))</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="pycycling.rear_view_radar.RadarMeasurement">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.rear_view_radar.</span></span><span class="sig-name descname"><span class="pre">RadarMeasurement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threat_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycycling.rear_view_radar.RadarMeasurement" title="Permalink to this definition">¶</a></dt>
