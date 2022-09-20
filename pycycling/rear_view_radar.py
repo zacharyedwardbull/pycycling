@@ -12,12 +12,12 @@ Example
 =======
 This example prints radar information broadcast from the Bluetooth device to the console. Please see also
 information on :ref:`obtaining the Bluetooth address of your device <obtaining_device_address>`.
-.. literalinclude:: ../examples/cycling_power_service_example.py
+.. literalinclude:: ../examples/rear_view_radar_example.py
 """
 
 from collections import namedtuple
 
-radar_characteristic_id = "6a4e3203-667b-11e3-949a-0800200c9a66"
+radar_characteristic_id = '6a4e3203-667b-11e3-949a-0800200c9a66'
 
 RadarMeasurement = namedtuple('RadarMeasurement', [
     'threat_id',
@@ -34,7 +34,7 @@ def _parse_radar_measurement(data: bytearray) -> RadarMeasurement:
     byte 2 (5, 8, ...): distance to threat in meters
     byte 3 (6, 9, ...): speed of threat in km/h
 
-    Source: https://forums.garmin.com/developer/connect-iq/f/discussion/240452/bluetooth-profile-for-garmin-varia-rtl515#pifragment-1298=2
+    See source for this reverse-engineering in repo README
     """
     radar_measurements = []
     try:
@@ -44,7 +44,7 @@ def _parse_radar_measurement(data: bytearray) -> RadarMeasurement:
             speed = int(data[i+2])
             radar_measurements.append(RadarMeasurement(threat_id, speed, distance))
     except IndexError:
-        print("pycycling:rear_view_radar.py IndexError: probably starting up and not all data is available yet")
+        print('pycycling:rear_view_radar.py IndexError: probably starting up and not all data is available yet')
         return None
     return radar_measurements
 
