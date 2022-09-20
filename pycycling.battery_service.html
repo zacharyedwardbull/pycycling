@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>pycycling.battery_service module &#8212; pycycling  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,6 +12,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -34,10 +35,10 @@
           <div class="body" role="main">
             
   <section id="module-pycycling.battery_service">
-<span id="pycycling-battery-service-module"></span><h1>pycycling.battery_service module<a class="headerlink" href="#module-pycycling.battery_service" title="Permalink to this headline">¶</a></h1>
+<span id="pycycling-battery-service-module"></span><h1>pycycling.battery_service module<a class="headerlink" href="#module-pycycling.battery_service" title="Permalink to this heading">¶</a></h1>
 <p>A module for interacting with Bluetooth devices which support the Battery Service.</p>
 <section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
 <p>This example prints the current battery level to the console. Please see also information on
 <a class="reference internal" href="pycycling.html#obtaining-device-address"><span class="std std-ref">obtaining the Bluetooth address of your device</span></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
@@ -70,7 +71,7 @@
 <p>A wrapper around a <code class="xref py py-obj docutils literal notranslate"><span class="pre">bleak.backends.client.BaseBleakClient</span></code> object adding Battery Service specific utility
 methods.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>client</strong> – A valid <code class="xref py py-obj docutils literal notranslate"><span class="pre">bleak.backends.client.BaseBleakClient</span></code> object</p>
 </dd>
 </dl>
@@ -79,7 +80,7 @@ methods.</p>
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_battery_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/battery_service.html#BatteryService.get_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.battery_service.BatteryService.get_battery_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns current battery level of the Bluetooth device.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code> representing the current battery level percentage of the Bluetooth device. A value of
 <cite>100</cite> indicates a fully charged battery while <cite>0</cite> a fully discharged battery.</p>
 </dd>
@@ -119,6 +120,7 @@ methods.</p>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_power_service.html">pycycling.cycling_power_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.rear_view_radar.html">pycycling.rear_view_radar module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a></li>
 </ul>
@@ -148,7 +150,7 @@ methods.</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -165,7 +167,7 @@ methods.</p>
       &copy;2022, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

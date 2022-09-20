@@ -11,6 +11,7 @@ Submodules
    pycycling.cycling_power_service
    pycycling.cycling_speed_cadence_service
    pycycling.heart_rate_service
+   pycycling.rear_view_radar
    pycycling.sterzo
    pycycling.tacx_trainer_control
 

@@ -1,0 +1,7 @@
+pycycling.rear\_view\_radar module
+==================================
+
+.. automodule:: pycycling.rear_view_radar
+   :members:
+   :undoc-members:
+   :show-inheritance:

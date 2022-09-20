@@ -11,6 +11,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -176,11 +177,15 @@
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.disable_fec_notifications">disable_fec_notifications() (pycycling.tacx_trainer_control.TacxTrainerControl method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pycycling.heart_rate_service.html#pycycling.heart_rate_service.HeartRateService.disable_hr_measurement_notifications">disable_hr_measurement_notifications() (pycycling.heart_rate_service.HeartRateService method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService.disable_radar_measurement_notifications">disable_radar_measurement_notifications() (pycycling.rear_view_radar.RearViewRadarService method)</a>
+</li>
       <li><a href="pycycling.sterzo.html#pycycling.sterzo.Sterzo.disable_steering_measurement_notifications">disable_steering_measurement_notifications() (pycycling.sterzo.Sterzo method)</a>
+</li>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RadarMeasurement.distance">distance (pycycling.rear_view_radar.RadarMeasurement attribute)</a>
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.GeneralFEData.distance_travelled">distance_travelled (pycycling.tacx_trainer_control.GeneralFEData attribute)</a>
 </li>
@@ -208,9 +213,11 @@
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.enable_fec_notifications">enable_fec_notifications() (pycycling.tacx_trainer_control.TacxTrainerControl method)</a>
 </li>
+      <li><a href="pycycling.heart_rate_service.html#pycycling.heart_rate_service.HeartRateService.enable_hr_measurement_notifications">enable_hr_measurement_notifications() (pycycling.heart_rate_service.HeartRateService method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pycycling.heart_rate_service.html#pycycling.heart_rate_service.HeartRateService.enable_hr_measurement_notifications">enable_hr_measurement_notifications() (pycycling.heart_rate_service.HeartRateService method)</a>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService.enable_radar_measurement_notifications">enable_radar_measurement_notifications() (pycycling.rear_view_radar.RearViewRadarService method)</a>
 </li>
       <li><a href="pycycling.sterzo.html#pycycling.sterzo.Sterzo.enable_steering_measurement_notifications">enable_steering_measurement_notifications() (pycycling.sterzo.Sterzo method)</a>
 </li>
@@ -388,6 +395,8 @@
 </li>
         <li><a href="pycycling.heart_rate_service.html#module-pycycling.heart_rate_service">pycycling.heart_rate_service</a>
 </li>
+        <li><a href="pycycling.rear_view_radar.html#module-pycycling.rear_view_radar">pycycling.rear_view_radar</a>
+</li>
         <li><a href="pycycling.sterzo.html#module-pycycling.sterzo">pycycling.sterzo</a>
 </li>
         <li><a href="pycycling.tacx_trainer_control.html#module-pycycling.tacx_trainer_control">pycycling.tacx_trainer_control</a>
@@ -481,6 +490,13 @@
 </li>
       </ul></li>
       <li>
+    pycycling.rear_view_radar
+
+      <ul>
+        <li><a href="pycycling.rear_view_radar.html#module-pycycling.rear_view_radar">module</a>
+</li>
+      </ul></li>
+      <li>
     pycycling.sterzo
 
       <ul>
@@ -500,6 +516,8 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RadarMeasurement">RadarMeasurement (class in pycycling.rear_view_radar)</a>
+</li>
       <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.InstantaneousMeasurementDirection.radial_component">radial_component (pycycling.cycling_power_service.InstantaneousMeasurementDirection attribute)</a>
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.FEState.ready">ready (pycycling.tacx_trainer_control.FEState attribute)</a>
@@ -510,18 +528,20 @@
 </li>
       <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.SensorLocation.rear_wheel">rear_wheel (pycycling.cycling_power_service.SensorLocation attribute)</a>
 </li>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService">RearViewRadarService (class in pycycling.rear_view_radar)</a>
+</li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.CommandStatus.rejected">rejected (pycycling.tacx_trainer_control.CommandStatus attribute)</a>
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.request_data_page">request_data_page() (pycycling.tacx_trainer_control.TacxTrainerControl method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.EquipmentType.reserved">reserved (pycycling.tacx_trainer_control.EquipmentType attribute)</a>
 
       <ul>
         <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.FEState.reserved">(pycycling.tacx_trainer_control.FEState attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.SpecificTrainerData.resistance_calibration_required">resistance_calibration_required (pycycling.tacx_trainer_control.SpecificTrainerData attribute)</a>
 </li>
       <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.DistributeSystemSupport.rfu">rfu (pycycling.cycling_power_service.DistributeSystemSupport attribute)</a>
@@ -566,6 +586,8 @@
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_neo_modes">set_neo_modes() (pycycling.tacx_trainer_control.TacxTrainerControl method)</a>
 </li>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService.set_radar_measurement_handler">set_radar_measurement_handler() (pycycling.rear_view_radar.RearViewRadarService method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TacxTrainerControl.set_specific_trainer_data_page_handler">set_specific_trainer_data_page_handler() (pycycling.tacx_trainer_control.TacxTrainerControl method)</a>
@@ -586,8 +608,12 @@
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.SpecificTrainerData">SpecificTrainerData (class in pycycling.tacx_trainer_control)</a>
 </li>
-      <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.GeneralFEData.speed">speed (pycycling.tacx_trainer_control.GeneralFEData attribute)</a>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RadarMeasurement.speed">speed (pycycling.rear_view_radar.RadarMeasurement attribute)</a>
+
+      <ul>
+        <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.GeneralFEData.speed">(pycycling.tacx_trainer_control.GeneralFEData attribute)</a>
 </li>
+      </ul></li>
       <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.SensorLocation.spider">spider (pycycling.cycling_power_service.SensorLocation attribute)</a>
 </li>
       <li><a href="pycycling.sterzo.html#pycycling.sterzo.Sterzo">Sterzo (class in pycycling.sterzo)</a>
@@ -608,10 +634,12 @@
 </li>
       <li><a href="pycycling.tacx_trainer_control.html#pycycling.tacx_trainer_control.TargetPowerLimit">TargetPowerLimit (class in pycycling.tacx_trainer_control)</a>
 </li>
-      <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.CyclingPowerMeasurement.top_dead_spot_angle">top_dead_spot_angle (pycycling.cycling_power_service.CyclingPowerMeasurement attribute)</a>
+      <li><a href="pycycling.rear_view_radar.html#pycycling.rear_view_radar.RadarMeasurement.threat_id">threat_id (pycycling.rear_view_radar.RadarMeasurement attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.CyclingPowerMeasurement.top_dead_spot_angle">top_dead_spot_angle (pycycling.cycling_power_service.CyclingPowerMeasurement attribute)</a>
+</li>
       <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.SensorLocation.top_of_shoe">top_of_shoe (pycycling.cycling_power_service.SensorLocation attribute)</a>
 </li>
       <li><a href="pycycling.cycling_power_service.html#pycycling.cycling_power_service.SensorMeasurementContext.torque_based">torque_based (pycycling.cycling_power_service.SensorMeasurementContext attribute)</a>
@@ -702,7 +730,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -719,7 +747,7 @@
       &copy;2022, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

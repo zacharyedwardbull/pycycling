@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>pycycling.rear_view_radar module &#8212; pycycling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pycycling.sterzo module" href="pycycling.sterzo.html" />
+    <link rel="prev" title="pycycling.heart_rate_service module" href="pycycling.heart_rate_service.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-pycycling.rear_view_radar">
+<span id="pycycling-rear-view-radar-module"></span><h1>pycycling.rear_view_radar module<a class="headerlink" href="#module-pycycling.rear_view_radar" title="Permalink to this heading">¶</a></h1>
+<p>A module for interacting with Bluetooth LE devices which support the Radar (RDR) service</p>
+<p>Jason Sohn 2022</p>
+<p>This service is tested on Garmin Varia RVR315.
+Other models which are expected to support RDR service are:</p>
+<blockquote>
+<div><p>Garmin RTR515, RTR516 (German market version), and RCT715
+Bryton Gardia R300
+Magene L508</p>
+</div></blockquote>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<p>This example prints radar information broadcast from the Bluetooth device to the console. Please see also
+information on <a class="reference internal" href="pycycling.html#obtaining-device-address"><span class="std std-ref">obtaining the Bluetooth address of your device</span></a>.
+.. literalinclude:: ../examples/rear_view_radar_example.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RadarMeasurement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.rear_view_radar.</span></span><span class="sig-name descname"><span class="pre">RadarMeasurement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threat_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycycling.rear_view_radar.RadarMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RadarMeasurement.distance">
+<span class="sig-name descname"><span class="pre">distance</span></span><a class="headerlink" href="#pycycling.rear_view_radar.RadarMeasurement.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RadarMeasurement.speed">
+<span class="sig-name descname"><span class="pre">speed</span></span><a class="headerlink" href="#pycycling.rear_view_radar.RadarMeasurement.speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RadarMeasurement.threat_id">
+<span class="sig-name descname"><span class="pre">threat_id</span></span><a class="headerlink" href="#pycycling.rear_view_radar.RadarMeasurement.threat_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RearViewRadarService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.rear_view_radar.</span></span><span class="sig-name descname"><span class="pre">RearViewRadarService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/rear_view_radar.html#RearViewRadarService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.rear_view_radar.RearViewRadarService" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RearViewRadarService.disable_radar_measurement_notifications">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disable_radar_measurement_notifications</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/rear_view_radar.html#RearViewRadarService.disable_radar_measurement_notifications"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.rear_view_radar.RearViewRadarService.disable_radar_measurement_notifications" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RearViewRadarService.enable_radar_measurement_notifications">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enable_radar_measurement_notifications</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/rear_view_radar.html#RearViewRadarService.enable_radar_measurement_notifications"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.rear_view_radar.RearViewRadarService.enable_radar_measurement_notifications" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.rear_view_radar.RearViewRadarService.set_radar_measurement_handler">
+<span class="sig-name descname"><span class="pre">set_radar_measurement_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/rear_view_radar.html#RearViewRadarService.set_radar_measurement_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.rear_view_radar.RearViewRadarService.set_radar_measurement_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pycycling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pycycling.html">pycycling package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pycycling.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pycycling.battery_service.html">pycycling.battery_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_power_service.html">pycycling.cycling_power_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.rear_view_radar module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.html#module-pycycling">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="pycycling.html">pycycling package</a><ul>
+      <li>Previous: <a href="pycycling.heart_rate_service.html" title="previous chapter">pycycling.heart_rate_service module</a></li>
+      <li>Next: <a href="pycycling.sterzo.html" title="next chapter">pycycling.sterzo module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, <a href='/'>Zachary Bull</a>.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/pycycling.rear_view_radar.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

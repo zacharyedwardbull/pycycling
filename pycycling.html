@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>pycycling package &#8212; pycycling  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,6 +12,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -34,9 +35,9 @@
           <div class="body" role="main">
             
   <section id="pycycling-package">
-<h1>pycycling package<a class="headerlink" href="#pycycling-package" title="Permalink to this headline">¶</a></h1>
+<h1>pycycling package<a class="headerlink" href="#pycycling-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.battery_service.html">pycycling.battery_service module</a><ul>
@@ -49,6 +50,10 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.rear_view_radar.html">pycycling.rear_view_radar module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.rear_view_radar.html#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pycycling.tacx_trainer_control.html#smart-trainer-modes-of-operation">Smart trainer modes of operation</a></li>
@@ -59,11 +64,11 @@
 </div>
 </section>
 <section id="module-pycycling">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pycycling" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pycycling" title="Permalink to this heading">¶</a></h2>
 <p>pycycling is a cross-platform Python package for interacting with various Bluetooth cycling peripherals.</p>
 <p>The package provides a number of classes which wrap around <a class="reference external" href="https://github.com/hbldh/bleak">Bleak</a> client objects.</p>
 <section id="obtaining-the-address-of-your-device">
-<span id="obtaining-device-address"></span><h3>Obtaining the address of your device<a class="headerlink" href="#obtaining-the-address-of-your-device" title="Permalink to this headline">¶</a></h3>
+<span id="obtaining-device-address"></span><h3>Obtaining the address of your device<a class="headerlink" href="#obtaining-the-address-of-your-device" title="Permalink to this heading">¶</a></h3>
 <p>This documentation includes a number of code snippets demonstrating package usage. Each of these has a
 hardcoded device address ID which you will need to replace with the address of your device. The following script can
 be used to obtain this address:</p>
@@ -120,6 +125,7 @@ be used to obtain this address:</p>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_power_service.html">pycycling.cycling_power_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.cycling_speed_cadence_service.html">pycycling.cycling_speed_cadence_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.rear_view_radar.html">pycycling.rear_view_radar module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a></li>
 </ul>
@@ -150,7 +156,7 @@ be used to obtain this address:</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -167,7 +173,7 @@ be used to obtain this address:</p>
       &copy;2022, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

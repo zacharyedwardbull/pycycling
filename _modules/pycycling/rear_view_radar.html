@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pycycling.rear_view_radar &#8212; pycycling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pycycling.rear_view_radar</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; A module for interacting with Bluetooth LE devices which support the Radar (RDR) service</span>
+
+<span class="sd">Jason Sohn 2022</span>
+
+<span class="sd">This service is tested on Garmin Varia RVR315.</span>
+<span class="sd">Other models which are expected to support RDR service are:</span>
+<span class="sd">    Garmin RTR515, RTR516 (German market version), and RCT715</span>
+<span class="sd">    Bryton Gardia R300</span>
+<span class="sd">    Magene L508</span>
+
+<span class="sd">Example</span>
+<span class="sd">=======</span>
+<span class="sd">This example prints radar information broadcast from the Bluetooth device to the console. Please see also</span>
+<span class="sd">information on :ref:`obtaining the Bluetooth address of your device &lt;obtaining_device_address&gt;`.</span>
+<span class="sd">.. literalinclude:: ../examples/rear_view_radar_example.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">radar_characteristic_id</span> <span class="o">=</span> <span class="s1">&#39;6a4e3203-667b-11e3-949a-0800200c9a66&#39;</span>
+
+<span class="n">RadarMeasurement</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;RadarMeasurement&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;threat_id&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;speed&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;distance&#39;</span><span class="p">,</span>
+<span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">_parse_radar_measurement</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RadarMeasurement</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Characteristic payload in bytes: 1+3i where i is number of threats (cars)</span>
+
+<span class="sd">    byte 0: probably some kind of packet identifier (can be used in case of multiple packets)</span>
+<span class="sd">    byte 1: threat identifier</span>
+<span class="sd">    byte 2 (5, 8, ...): distance to threat in meters</span>
+<span class="sd">    byte 3 (6, 9, ...): speed of threat in km/h</span>
+
+<span class="sd">    See source for this reverse-engineering in repo README</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">radar_measurements</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">threat_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">speed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">radar_measurements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RadarMeasurement</span><span class="p">(</span><span class="n">threat_id</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">distance</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pycycling:rear_view_radar.py IndexError: probably starting up and not all data is available yet&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">radar_measurements</span>
+
+<div class="viewcode-block" id="RearViewRadarService"><a class="viewcode-back" href="../../pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService">[docs]</a><span class="k">class</span> <span class="nc">RearViewRadarService</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_radar_measurement_callback</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="RearViewRadarService.enable_radar_measurement_notifications"><a class="viewcode-back" href="../../pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService.enable_radar_measurement_notifications">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">enable_radar_measurement_notifications</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">start_notify</span><span class="p">(</span><span class="n">radar_characteristic_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radar_measurement_notification_handler</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RearViewRadarService.disable_radar_measurement_notifications"><a class="viewcode-back" href="../../pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService.disable_radar_measurement_notifications">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">disable_radar_measurement_notifications</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">stop_notify</span><span class="p">(</span><span class="n">radar_characteristic_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RearViewRadarService.set_radar_measurement_handler"><a class="viewcode-back" href="../../pycycling.rear_view_radar.html#pycycling.rear_view_radar.RearViewRadarService.set_radar_measurement_handler">[docs]</a>    <span class="k">def</span> <span class="nf">set_radar_measurement_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_radar_measurement_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
+
+    <span class="k">def</span> <span class="nf">_radar_measurement_notification_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radar_measurement_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_radar_measurement_callback</span><span class="p">(</span><span class="n">_parse_radar_measurement</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">pycycling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pycycling.html">pycycling package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, <a href='/'>Zachary Bull</a>.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
