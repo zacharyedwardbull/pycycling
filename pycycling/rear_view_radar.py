@@ -4,14 +4,16 @@ Jason Sohn 2022
 
 This service is tested on Garmin Varia RVR315.
 Other models which are expected to support RDR service are:
-    Garmin RTR515, RTR516 (German market version), and RCT715
-    Bryton Gardia R300
-    Magene L508
+
+* Garmin RTR515, RTR516 (German market version), and RCT715
+* Bryton Gardia R300
+* Magene L508
 
 Example
 =======
 This example prints radar information broadcast from the Bluetooth device to the console. Please see also
 information on :ref:`obtaining the Bluetooth address of your device <obtaining_device_address>`.
+
 .. literalinclude:: ../examples/rear_view_radar_example.py
 """
 
