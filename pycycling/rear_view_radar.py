@@ -62,6 +62,6 @@ class RearViewRadarService:
     def set_radar_measurement_handler(self, callback):
         self._radar_measurement_callback = callback
 
-    def _radar_measurement_notification_handler(self, sender, data):
+    def _radar_measurement_notification_handler(self, sender, data): # pylint: disable=unused-argument
         if self._radar_measurement_callback is not None:
             self._radar_measurement_callback(_parse_radar_measurement(data))
