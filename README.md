@@ -17,6 +17,7 @@ I have tested it with (tested protocols in brackets):
 - an Elite Sterzo Smart steering plate (STERZO)
 - a pair of Garmin Vector 3 power meter pedals (CPS)
 - a Garmin RVR315 rear view radar (RDR)
+- a S3+ Speed/Cadence sensor (CSCS)
 
 Please let me know if you have used it with another device, and I will add it to the list.
 
@@ -55,3 +56,6 @@ If you would like to add support for another cycling related protocol, that woul
 * Tacx Trainer Control documentation: https://github.com/jedla22/BleTrainerControl/blob/master/How-to%20FE-C%20over%20BLE%20v1_0_0.pdf
 * Reverse engineering Sterzo Smart: https://www.youtube.com/watch?v=BPVFjz5zD4g
 * Reverse engineering Garmin RVR315 (radar): https://forums.garmin.com/developer/connect-iq/f/discussion/240452/bluetooth-profile-for-garmin-varia-rtl515#pifragment-1298=3
+
+## Projects using pycycling
+* cycling-cadence-display: https://github.com/cboddy/cycling-cadence-display
