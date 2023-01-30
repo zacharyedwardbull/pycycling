@@ -1,10 +1,10 @@
 from enum import Enum
 from collections import namedtuple
 
-FitnessMachineStatusMessage = namedtuple('FitnessMachineStatusMessage', [
-    'status',
-    'value',
-    'unit'
+FitnessMachineStatusMessage = namedtuple("FitnessMachineStatusMessage", [
+    "status",
+    "value",
+    "unit",
 ])
 
 
@@ -225,7 +225,6 @@ def parse_fitness_machine_status(message: bytearray) -> dict:
         parsed_status = (FitnessMachineStatus.NEW_TARGET_CADENCE, target_cadence, "rpm")
     elif message[0] == 0xFF:
         parsed_status = (FitnessMachineStatus.CONTROL_PERMISSION_LOST, None, None)
-    
     return FitnessMachineStatusMessage(
         status=parsed_status[0],
         value=parsed_status[1],

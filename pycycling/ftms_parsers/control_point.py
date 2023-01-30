@@ -54,5 +54,4 @@ ControlPointResponse = namedtuple("ControlPointResponse", ["request_code_enum", 
 def parse_control_point_response(message: bytearray) -> dict:
     request_code_enum = FTMSControlPointOpCode(message[1])
     result_code_enum = FTMSControlPointResponseResultCode(message[2])
-
     return ControlPointResponse(request_code_enum, result_code_enum)
