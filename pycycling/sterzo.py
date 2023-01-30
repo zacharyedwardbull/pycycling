@@ -6,6 +6,7 @@ sterzo_measurement_id = '347b0030-7635-408b-8918-8ff3949ce592'
 sterzo_control_point_id = '347b0031-7635-408b-8918-8ff3949ce592'
 sterzo_challenge_code_id = '347b0032-7635-408b-8918-8ff3949ce592'
 
+
 class Sterzo:
     def __init__(self, client):
         self._client = client

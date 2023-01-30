@@ -22,6 +22,8 @@ Finally, it modifies 'write' characteristics with some time in between:
 .. literalinclude:: ../examples/fitness_machine_service_example.py
 
 """
+from collections import namedtuple
+
 from pycycling.ftms_parsers import (
     parse_fitness_machine_status,
     parse_indoor_bike_data,
@@ -51,27 +53,29 @@ ftms_fitness_machine_control_point_characteristic_id = (
     "00002ad9-0000-1000-8000-00805f9b34fb"
 )
 
+SupportedResistanceLevelRange = namedtuple(
+    "SupportedResistanceLevelRange",
+    ["minimum_resistance", "maximum_resistance", "minimum_increment"],
+)
 
 def _parse_supported_resistance_level_range(message: bytearray) -> dict:
     minimum_resistance = int.from_bytes(message[0:2], "little")
     maximum_resistance = int.from_bytes(message[2:4], "little")
     minimum_increment = int.from_bytes(message[4:6], "little")
-    return {
-        "minimum_resistance": minimum_resistance,
-        "maximum_resistance": maximum_resistance,
-        "minimum_increment": minimum_increment,
-    }
+    return SupportedResistanceLevelRange(
+        minimum_resistance, maximum_resistance, minimum_increment
+    )
 
+SupportedPowerRange = namedtuple(
+    "SupportedPowerRange",
+    ["minimum_power", "maximum_power", "minimum_increment"],
+)
 
 def _parse_supported_power_range(message: bytearray) -> dict:
     minimum_power = int.from_bytes(message[0:2], "little")
     maximum_power = int.from_bytes(message[2:4], "little")
     minimum_increment = int.from_bytes(message[4:6], "little")
-    return {
-        "minimum_power": minimum_power,
-        "maximum_power": maximum_power,
-        "minimum_increment": minimum_increment,
-    }
+    return SupportedPowerRange(minimum_power, maximum_power, minimum_increment)
 
 
 class FitnessMachineService:

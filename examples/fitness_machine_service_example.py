@@ -20,28 +20,28 @@ async def run(address):
         )
 
         print("Supported resistance level range:")
-        pprint_dict(supported_resistance_level_range)
+        print(supported_resistance_level_range)
         print()
 
-        max_resistance = supported_resistance_level_range["maximum_resistance"]
+        max_resistance = supported_resistance_level_range.maximum_resistance
 
         supported_power_range = await ftms.get_supported_power_range()
 
         print("Supported power range:")
-        pprint_dict(supported_power_range)
+        print(supported_power_range)
         print()
 
-        max_power = supported_power_range["maximum_power"]
+        max_power = supported_power_range.maximum_power
 
         fitness_machine_feature = await ftms.get_fitness_machine_feature()
 
         print("Fitness machine feature:")
-        pprint_dict(fitness_machine_feature)
+        print(fitness_machine_feature)
         print()
 
         def print_indoor_bike_data(data):
             print("Received indoor bike data:")
-            pprint_dict(data)
+            print(data)
             print()
 
         # Start receiving and printing 'notify' characteristics
@@ -58,7 +58,7 @@ async def run(address):
 
         def print_training_status(data):
             print("Received training status:")
-            pprint_dict(data)
+            print(data)
             print()
 
         ftms.set_training_status_handler(print_training_status)
@@ -70,7 +70,7 @@ async def run(address):
         # 1. Start receiving 'indicate' notifications from the control point characteristic
         def print_control_point_response(message):
             print("Received control point response:")
-            pprint_dict(message)
+            print(message)
             print()
 
         ftms.set_control_point_response_handler(print_control_point_response)
@@ -118,6 +118,7 @@ if __name__ == "__main__":
     os.environ["PYTHONASYNCIODEBUG"] = str(1)
 
     device_address = "DEVICE_ADDRESS HERE"
+    device_address = 'E7:FB:CD:2B:AF:BE'
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run(device_address))
 

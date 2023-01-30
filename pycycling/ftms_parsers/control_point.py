@@ -1,4 +1,5 @@
 from enum import Enum
+from collections import namedtuple
 
 
 class FTMSControlPointResponseResultCode(Enum):
@@ -48,12 +49,10 @@ def form_ftms_control_command(opcode: FTMSControlPointOpCode, parameter: int = 0
     else:
         raise ValueError("Invalid opcode")
 
+ControlPointResponse = namedtuple("ControlPointResponse", ["request_code_enum", "result_code_enum"])
 
 def parse_control_point_response(message: bytearray) -> dict:
     request_code_enum = FTMSControlPointOpCode(message[1])
     result_code_enum = FTMSControlPointResponseResultCode(message[2])
 
-    return {
-        "request_code_enum": request_code_enum,
-        "result_code_enum": result_code_enum,
-    }
+    return ControlPointResponse(request_code_enum, result_code_enum)

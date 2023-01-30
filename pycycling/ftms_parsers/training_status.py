@@ -1,3 +1,4 @@
+from collections import namedtuple
 from enum import Enum
 
 
@@ -20,6 +21,13 @@ class TrainingStatus(Enum):
     POST_WORKOUT = 15
     RESERVED = 16
 
+TrainingStatusMessage = namedtuple(
+    "TrainingStatusMessage",
+    [
+        "param",
+        "string",
+    ],
+)
 
 def parse_training_status(message: bytearray) -> dict:
     param = None
@@ -67,4 +75,4 @@ def parse_training_status(message: bytearray) -> dict:
             param = TrainingStatus.POST_WORKOUT
         elif ts_byte == 0x10:
             param = TrainingStatus.RESERVED
-    return {"param": param, "string": string}
+    return TrainingStatusMessage(param, string)
