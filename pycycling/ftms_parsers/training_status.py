@@ -29,7 +29,8 @@ TrainingStatusMessage = namedtuple(
     ],
 )
 
-def parse_training_status(message: bytearray) -> dict:
+
+def parse_training_status(message: bytearray) -> TrainingStatusMessage:
     param = None
     string = None
 

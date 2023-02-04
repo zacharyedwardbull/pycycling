@@ -20,7 +20,7 @@ IndoorBikeData = namedtuple(
         "remaining_time", # s
     ]
 )
-def parse_indoor_bike_data(message) -> dict:
+def parse_indoor_bike_data(message) -> IndoorBikeData:
     flag_more_data = bool(message[0] & 0b00000001)
     flag_average_speed = bool(message[0] & 0b00000010)
     # ANOMALY: In the Bluetooth SIG spec, instantaneous_cadence is reversed (0

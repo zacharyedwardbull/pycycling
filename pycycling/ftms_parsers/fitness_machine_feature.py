@@ -23,7 +23,8 @@ FitnessMachineFeature = namedtuple(
     ],
 )
 
-def parse_fitness_machine_feature(message: bytearray) -> dict:
+
+def parse_fitness_machine_feature(message: bytearray) -> FitnessMachineFeature:
     """Bit flags are set across two message"""
     avg_speed_supported = bool(message[0] & 0b00000001)
     cadence_supported = bool(message[0] & 0b00000010)

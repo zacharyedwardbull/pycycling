@@ -82,7 +82,7 @@ class SpinDownStatusValue(Enum):
     STOP_PEDALING = 0x04
 
 
-def parse_fitness_machine_status(message: bytearray) -> dict:
+def parse_fitness_machine_status(message: bytearray) -> FitnessMachineStatusMessage:
     """
     A tuple with three items:
     1. A FitnessMachineStatus enum

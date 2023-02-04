@@ -32,6 +32,7 @@ from pycycling.ftms_parsers import (
     parse_control_point_response,
     form_ftms_control_command,
     FTMSControlPointOpCode,
+    FitnessMachineFeature,
 )
 
 # read: Supported Resistance Level Range
@@ -58,7 +59,8 @@ SupportedResistanceLevelRange = namedtuple(
     ["minimum_resistance", "maximum_resistance", "minimum_increment"],
 )
 
-def _parse_supported_resistance_level_range(message: bytearray) -> dict:
+
+def _parse_supported_resistance_level_range(message: bytearray) -> SupportedResistanceLevelRange:
     minimum_resistance = int.from_bytes(message[0:2], "little")
     maximum_resistance = int.from_bytes(message[2:4], "little")
     minimum_increment = int.from_bytes(message[4:6], "little")
@@ -71,7 +73,8 @@ SupportedPowerRange = namedtuple(
     ["minimum_power", "maximum_power", "minimum_increment"],
 )
 
-def _parse_supported_power_range(message: bytearray) -> dict:
+
+def _parse_supported_power_range(message: bytearray) -> SupportedPowerRange:
     minimum_power = int.from_bytes(message[0:2], "little")
     maximum_power = int.from_bytes(message[2:4], "little")
     minimum_increment = int.from_bytes(message[4:6], "little")
@@ -86,19 +89,19 @@ class FitnessMachineService:
         self._fitness_machine_status_callback = None
 
     # === READ Characteristics ===
-    async def get_supported_resistance_level_range(self) -> dict:
+    async def get_supported_resistance_level_range(self) -> SupportedResistanceLevelRange:
         message = await self._client.read_gatt_char(
             ftms_supported_resistance_level_range_characteristic_id
         )
         return _parse_supported_resistance_level_range(message)
 
-    async def get_supported_power_range(self) -> dict:
+    async def get_supported_power_range(self) -> SupportedPowerRange:
         message = await self._client.read_gatt_char(
             ftms_supported_power_range_characteristic_id
         )
         return _parse_supported_power_range(message)
 
-    async def get_fitness_machine_feature(self) -> dict:
+    async def get_fitness_machine_feature(self) -> FitnessMachineFeature:
         message = await self._client.read_gatt_char(
             ftms_fitness_machine_feature_characteristic_id
         )
