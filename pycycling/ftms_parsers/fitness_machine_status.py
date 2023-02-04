@@ -185,17 +185,14 @@ def parse_fitness_machine_status(message: bytearray) -> FitnessMachineStatusMess
         )
     elif message[0] == 0x12:
         parameter = IndoorBikeSimulationParameters(
-            wind_speed=int.from_bytes(message[1:3], byteorder="little", signed=False)
-            / 1000,
+            wind_speed=int.from_bytes(message[1:3], byteorder="little", signed=False) / 1000,
             grade=int.from_bytes(message[3:5], byteorder="little", signed=False) / 100,
             coefficient_of_rolling_resistance=int.from_bytes(
                 message[5:6], byteorder="little", signed=False
-            )
-            / 1000,
+            ) / 1000,
             wind_resistance_coefficient=int.from_bytes(
                 message[6:7], byteorder="little", signed=False
-            )
-            / 100,
+            ) / 100,
         )
         parsed_status = (
             FitnessMachineStatus.NEW_INDOOR_BIKE_SIMULATION_PARAMETERS,

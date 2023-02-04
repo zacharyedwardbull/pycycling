@@ -21,6 +21,7 @@ class TrainingStatus(Enum):
     POST_WORKOUT = 15
     RESERVED = 16
 
+
 TrainingStatusMessage = namedtuple(
     "TrainingStatusMessage",
     [

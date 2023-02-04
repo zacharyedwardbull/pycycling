@@ -68,6 +68,7 @@ def _parse_supported_resistance_level_range(message: bytearray) -> SupportedResi
         minimum_resistance, maximum_resistance, minimum_increment
     )
 
+
 SupportedPowerRange = namedtuple(
     "SupportedPowerRange",
     ["minimum_power", "maximum_power", "minimum_increment"],
@@ -87,6 +88,7 @@ class FitnessMachineService:
         self._control_point_response_callback = None
         self._indoor_bike_data_callback = None
         self._fitness_machine_status_callback = None
+        self._training_status_callback = None
 
     # === READ Characteristics ===
     async def get_supported_resistance_level_range(self) -> SupportedResistanceLevelRange:

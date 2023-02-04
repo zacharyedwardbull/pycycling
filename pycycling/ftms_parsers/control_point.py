@@ -49,6 +49,7 @@ def form_ftms_control_command(opcode: FTMSControlPointOpCode, parameter: int = 0
     else:
         raise ValueError("Invalid opcode")
 
+
 ControlPointResponse = namedtuple("ControlPointResponse", ["request_code_enum", "result_code_enum"])
 
 
