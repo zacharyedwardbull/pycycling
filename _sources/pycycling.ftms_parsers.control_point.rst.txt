@@ -1,0 +1,7 @@
+pycycling.ftms\_parsers.control\_point module
+=============================================
+
+.. automodule:: pycycling.ftms_parsers.control_point
+   :members:
+   :undoc-members:
+   :show-inheritance:

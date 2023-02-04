@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pycycling.ftms_parsers.fitness_machine_status &#8212; pycycling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pycycling.ftms_parsers.fitness_machine_status</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">FitnessMachineStatusMessage</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;FitnessMachineStatusMessage&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">,</span>
+<span class="p">])</span>
+
+
+<div class="viewcode-block" id="FitnessMachineStatus"><a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus">[docs]</a><span class="k">class</span> <span class="nc">FitnessMachineStatus</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">RESERVED_FOR_FUTURE_USE</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">RESET</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">STOPPED_BY_USER</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">PAUSED_BY_USER</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">STOPPED_BY_SAFETY_KEY</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">STARTED_BY_USER</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">NEW_SPEED</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">NEW_INCLINATION</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">NEW_RESISTANCE</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">NEW_POWER</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="n">NEW_HEART_RATE</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">NEW_EXPENDED_ENERGY</span> <span class="o">=</span> <span class="mi">11</span>
+    <span class="n">NEW_NUMBER_OF_STEPS</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="n">NEW_NUMBER_OF_STRIDES</span> <span class="o">=</span> <span class="mi">13</span>
+    <span class="n">NEW_DISTANCE</span> <span class="o">=</span> <span class="mi">14</span>
+    <span class="n">NEW_TRAINING_TIME</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">NEW_TWO_HEART_RATE_ZONE_TARGET_TIME</span> <span class="o">=</span> <span class="mi">16</span>
+    <span class="n">NEW_THREE_HEART_RATE_ZONE_TARGET_TIME</span> <span class="o">=</span> <span class="mi">17</span>
+    <span class="n">NEW_FIVE_HEART_RATE_ZONE_TARGET_TIME</span> <span class="o">=</span> <span class="mi">18</span>
+    <span class="n">NEW_INDOOR_BIKE_SIMULATION_PARAMETERS</span> <span class="o">=</span> <span class="mi">19</span>
+    <span class="n">NEW_WHEEL_CIRCUMFERENCE</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">NEW_SPIN_DOWN_STATUS</span> <span class="o">=</span> <span class="mi">21</span>
+    <span class="n">NEW_TARGET_CADENCE</span> <span class="o">=</span> <span class="mi">22</span>
+    <span class="n">CONTROL_PERMISSION_LOST</span> <span class="o">=</span> <span class="mi">23</span></div>
+
+
+<span class="n">TwoZoneHR</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s2">&quot;TwoZoneHR&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;fat_burn&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fitness&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">ThreeZoneHR</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s2">&quot;ThreeZoneHR&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;very_light&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;light&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;moderate&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">FiveZoneHR</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s2">&quot;FiveZoneHR&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;very_light&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;light&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;moderate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hard&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maximum&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">IndoorBikeSimulationParameters</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s2">&quot;IndoorBikeSimulationParameters&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;wind_speed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;grade&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;coefficient_of_rolling_resistance&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wind_resistance_coefficient&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="SpinDownStatusValue"><a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.SpinDownStatusValue">[docs]</a><span class="k">class</span> <span class="nc">SpinDownStatusValue</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">RESERVED_FOR_FUTURE_USE</span> <span class="o">=</span> <span class="mh">0x00</span>
+    <span class="n">SPIN_DOWN_REQUESTED</span> <span class="o">=</span> <span class="mh">0x01</span>
+    <span class="n">SUCCESS</span> <span class="o">=</span> <span class="mh">0x02</span>
+    <span class="n">ERROR</span> <span class="o">=</span> <span class="mh">0x03</span>
+    <span class="n">STOP_PEDALING</span> <span class="o">=</span> <span class="mh">0x04</span></div>
+
+
+<div class="viewcode-block" id="parse_fitness_machine_status"><a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.parse_fitness_machine_status">[docs]</a><span class="k">def</span> <span class="nf">parse_fitness_machine_status</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineStatusMessage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A tuple with three items:</span>
+<span class="sd">    1. A FitnessMachineStatus enum</span>
+<span class="sd">    2. Associated data (dictionary or namedtuple())</span>
+<span class="sd">    3. Units</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x00</span><span class="p">:</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">RESERVED_FOR_FUTURE_USE</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x01</span><span class="p">:</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">RESET</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x02</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x01</span><span class="p">:</span>
+            <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">STOPPED_BY_USER</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x02</span><span class="p">:</span>
+            <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">PAUSED_BY_USER</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">RESERVED_FOR_FUTURE_USE</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x03</span><span class="p">:</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">STOPPED_BY_SAFETY_KEY</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x04</span><span class="p">:</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">STARTED_BY_USER</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x05</span><span class="p">:</span>
+        <span class="n">speed</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_SPEED</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="s2">&quot;km/h&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x06</span><span class="p">:</span>
+        <span class="n">inclination</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_INCLINATION</span><span class="p">,</span> <span class="n">inclination</span><span class="p">,</span> <span class="s2">&quot;%&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x07</span><span class="p">:</span>
+        <span class="n">resistance_level</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_RESISTANCE</span><span class="p">,</span> <span class="n">resistance_level</span><span class="p">,</span> <span class="s2">&quot;%&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x08</span><span class="p">:</span>
+        <span class="n">power</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_POWER</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x09</span><span class="p">:</span>
+        <span class="n">heart_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_HEART_RATE</span><span class="p">,</span> <span class="n">heart_rate</span><span class="p">,</span> <span class="s2">&quot;bpm&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x0A</span><span class="p">:</span>
+        <span class="n">expended_energy</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_EXPENDED_ENERGY</span><span class="p">,</span>
+            <span class="n">expended_energy</span><span class="p">,</span>
+            <span class="s2">&quot;kcal&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x0B</span><span class="p">:</span>
+        <span class="n">number_of_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_NUMBER_OF_STEPS</span><span class="p">,</span>
+            <span class="n">number_of_steps</span><span class="p">,</span>
+            <span class="s2">&quot;steps&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x0C</span><span class="p">:</span>
+        <span class="n">number_of_strides</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span>
+            <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_NUMBER_OF_STRIDES</span><span class="p">,</span>
+            <span class="n">number_of_strides</span><span class="p">,</span>
+            <span class="s2">&quot;strides&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x0D</span><span class="p">:</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_DISTANCE</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x0E</span><span class="p">:</span>
+        <span class="n">training_time</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_TRAINING_TIME</span><span class="p">,</span> <span class="n">training_time</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x0F</span><span class="p">:</span>
+        <span class="n">parameter</span> <span class="o">=</span> <span class="n">TwoZoneHR</span><span class="p">(</span>
+            <span class="n">fat_burn</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">fitness</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_TWO_HEART_RATE_ZONE_TARGET_TIME</span><span class="p">,</span>
+            <span class="n">parameter</span><span class="p">,</span>
+            <span class="s2">&quot;bpm&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x10</span><span class="p">:</span>
+        <span class="n">parameter</span> <span class="o">=</span> <span class="n">ThreeZoneHR</span><span class="p">(</span>
+            <span class="n">very_light</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">light</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">moderate</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_THREE_HEART_RATE_ZONE_TARGET_TIME</span><span class="p">,</span>
+            <span class="n">parameter</span><span class="p">,</span>
+            <span class="s2">&quot;bpm&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x11</span><span class="p">:</span>
+        <span class="n">parameter</span> <span class="o">=</span> <span class="n">FiveZoneHR</span><span class="p">(</span>
+            <span class="n">very_light</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">light</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">moderate</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">hard</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="mi">9</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">maximum</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_FIVE_HEART_RATE_ZONE_TARGET_TIME</span><span class="p">,</span>
+            <span class="n">parameter</span><span class="p">,</span>
+            <span class="s2">&quot;bpm&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x12</span><span class="p">:</span>
+        <span class="n">parameter</span> <span class="o">=</span> <span class="n">IndoorBikeSimulationParameters</span><span class="p">(</span>
+            <span class="n">wind_speed</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="n">grade</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="n">coefficient_of_rolling_resistance</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span>
+                <span class="n">message</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="n">wind_resistance_coefficient</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span>
+                <span class="n">message</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">7</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_INDOOR_BIKE_SIMULATION_PARAMETERS</span><span class="p">,</span>
+            <span class="n">parameter</span><span class="p">,</span>
+            <span class="s2">&quot;m/s, %, unitless, kg/m&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x13</span><span class="p">:</span>
+        <span class="n">wheel_circumference</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span>
+            <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_WHEEL_CIRCUMFERENCE</span><span class="p">,</span>
+            <span class="n">wheel_circumference</span><span class="p">,</span>
+            <span class="s2">&quot;m&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x14</span><span class="p">:</span>
+        <span class="n">spin_down_status</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span>
+            <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_SPIN_DOWN_STATUS</span><span class="p">,</span>
+            <span class="n">SpinDownStatusValue</span><span class="p">(</span><span class="n">spin_down_status</span><span class="p">),</span>
+            <span class="s2">&quot;unitless&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x15</span><span class="p">:</span>
+        <span class="n">target_cadence</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">NEW_TARGET_CADENCE</span><span class="p">,</span> <span class="n">target_cadence</span><span class="p">,</span> <span class="s2">&quot;rpm&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">:</span>
+        <span class="n">parsed_status</span> <span class="o">=</span> <span class="p">(</span><span class="n">FitnessMachineStatus</span><span class="o">.</span><span class="n">CONTROL_PERMISSION_LOST</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">FitnessMachineStatusMessage</span><span class="p">(</span>
+        <span class="n">status</span><span class="o">=</span><span class="n">parsed_status</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">parsed_status</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">unit</span><span class="o">=</span><span class="n">parsed_status</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">pycycling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pycycling.html">pycycling package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, <a href='/'>Zachary Bull</a>.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

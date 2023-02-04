@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>pycycling.ftms_parsers package &#8212; pycycling  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pycycling.ftms_parsers.control_point module" href="pycycling.ftms_parsers.control_point.html" />
+    <link rel="prev" title="pycycling package" href="pycycling.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="pycycling-ftms-parsers-package">
+<h1>pycycling.ftms_parsers package<a class="headerlink" href="#pycycling-ftms-parsers-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html">pycycling.ftms_parsers.control_point module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.ControlPointResponse"><code class="docutils literal notranslate"><span class="pre">ControlPointResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.ControlPointResponse.request_code_enum"><code class="docutils literal notranslate"><span class="pre">ControlPointResponse.request_code_enum</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.ControlPointResponse.result_code_enum"><code class="docutils literal notranslate"><span class="pre">ControlPointResponse.result_code_enum</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.REQUEST_CONTROL"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.REQUEST_CONTROL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.RESET"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.RESET</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.RESPONSE_CODE"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.RESPONSE_CODE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.SET_TARGET_INCLINE"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.SET_TARGET_INCLINE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.SET_TARGET_POWER"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.SET_TARGET_POWER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.SET_TARGET_RESISTANCE_LEVEL"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.SET_TARGET_RESISTANCE_LEVEL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.SET_TARGET_SPEED"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.SET_TARGET_SPEED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.START_OR_RESUME"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.START_OR_RESUME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode.STOP_OR_PAUSE"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointOpCode.STOP_OR_PAUSE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointResponseResultCode"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointResponseResultCode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointResponseResultCode.CONTROL_NOT_PERMITTED"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointResponseResultCode.CONTROL_NOT_PERMITTED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointResponseResultCode.INCORRECT_PARAMETER"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointResponseResultCode.INCORRECT_PARAMETER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointResponseResultCode.NOT_SUPPORTED"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointResponseResultCode.NOT_SUPPORTED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointResponseResultCode.OPERATION_FAILED"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointResponseResultCode.OPERATION_FAILED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointResponseResultCode.SUCCESS"><code class="docutils literal notranslate"><span class="pre">FTMSControlPointResponseResultCode.SUCCESS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.form_ftms_control_command"><code class="docutils literal notranslate"><span class="pre">form_ftms_control_command()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.parse_control_point_response"><code class="docutils literal notranslate"><span class="pre">parse_control_point_response()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html">pycycling.ftms_parsers.fitness_machine_feature module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.avg_speed_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.avg_speed_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.cadence_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.cadence_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.elapsed_time_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.elapsed_time_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.elevation_gain_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.elevation_gain_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.expended_energy_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.expended_energy_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.force_on_belt_and_power_output_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.force_on_belt_and_power_output_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.heart_rate_measurement_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.heart_rate_measurement_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.inclination_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.inclination_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.metabolic_equivalent_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.metabolic_equivalent_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.pace_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.pace_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.power_measurement_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.power_measurement_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.remaining_time_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.remaining_time_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.resistance_level_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.resistance_level_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.step_count_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.step_count_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.stride_count_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.stride_count_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.total_distance_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.total_distance_supported</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature.user_data_retention_supported"><code class="docutils literal notranslate"><span class="pre">FitnessMachineFeature.user_data_retention_supported</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_fitness_machine_feature"><code class="docutils literal notranslate"><span class="pre">parse_fitness_machine_feature()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html">pycycling.ftms_parsers.fitness_machine_status module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.CONTROL_PERMISSION_LOST"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.CONTROL_PERMISSION_LOST</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_DISTANCE"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_DISTANCE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_EXPENDED_ENERGY"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_EXPENDED_ENERGY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_FIVE_HEART_RATE_ZONE_TARGET_TIME"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_FIVE_HEART_RATE_ZONE_TARGET_TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_HEART_RATE"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_HEART_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_INCLINATION"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_INCLINATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_INDOOR_BIKE_SIMULATION_PARAMETERS"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_INDOOR_BIKE_SIMULATION_PARAMETERS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_NUMBER_OF_STEPS"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_NUMBER_OF_STEPS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_NUMBER_OF_STRIDES"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_NUMBER_OF_STRIDES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_POWER"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_POWER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_RESISTANCE"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_RESISTANCE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_SPEED"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_SPEED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_SPIN_DOWN_STATUS"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_SPIN_DOWN_STATUS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_TARGET_CADENCE"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_TARGET_CADENCE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_THREE_HEART_RATE_ZONE_TARGET_TIME"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_THREE_HEART_RATE_ZONE_TARGET_TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_TRAINING_TIME"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_TRAINING_TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_TWO_HEART_RATE_ZONE_TARGET_TIME"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_TWO_HEART_RATE_ZONE_TARGET_TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.NEW_WHEEL_CIRCUMFERENCE"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.NEW_WHEEL_CIRCUMFERENCE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.PAUSED_BY_USER"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.PAUSED_BY_USER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.RESERVED_FOR_FUTURE_USE"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.RESERVED_FOR_FUTURE_USE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.RESET"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.RESET</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.STARTED_BY_USER"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.STARTED_BY_USER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.STOPPED_BY_SAFETY_KEY"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.STOPPED_BY_SAFETY_KEY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatus.STOPPED_BY_USER"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatus.STOPPED_BY_USER</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatusMessage"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatusMessage</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatusMessage.status"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatusMessage.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatusMessage.unit"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatusMessage.unit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FitnessMachineStatusMessage.value"><code class="docutils literal notranslate"><span class="pre">FitnessMachineStatusMessage.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FiveZoneHR"><code class="docutils literal notranslate"><span class="pre">FiveZoneHR</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FiveZoneHR.hard"><code class="docutils literal notranslate"><span class="pre">FiveZoneHR.hard</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FiveZoneHR.light"><code class="docutils literal notranslate"><span class="pre">FiveZoneHR.light</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FiveZoneHR.maximum"><code class="docutils literal notranslate"><span class="pre">FiveZoneHR.maximum</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FiveZoneHR.moderate"><code class="docutils literal notranslate"><span class="pre">FiveZoneHR.moderate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.FiveZoneHR.very_light"><code class="docutils literal notranslate"><span class="pre">FiveZoneHR.very_light</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.IndoorBikeSimulationParameters"><code class="docutils literal notranslate"><span class="pre">IndoorBikeSimulationParameters</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.IndoorBikeSimulationParameters.coefficient_of_rolling_resistance"><code class="docutils literal notranslate"><span class="pre">IndoorBikeSimulationParameters.coefficient_of_rolling_resistance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.IndoorBikeSimulationParameters.grade"><code class="docutils literal notranslate"><span class="pre">IndoorBikeSimulationParameters.grade</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.IndoorBikeSimulationParameters.wind_resistance_coefficient"><code class="docutils literal notranslate"><span class="pre">IndoorBikeSimulationParameters.wind_resistance_coefficient</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.IndoorBikeSimulationParameters.wind_speed"><code class="docutils literal notranslate"><span class="pre">IndoorBikeSimulationParameters.wind_speed</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.SpinDownStatusValue"><code class="docutils literal notranslate"><span class="pre">SpinDownStatusValue</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.SpinDownStatusValue.ERROR"><code class="docutils literal notranslate"><span class="pre">SpinDownStatusValue.ERROR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.SpinDownStatusValue.RESERVED_FOR_FUTURE_USE"><code class="docutils literal notranslate"><span class="pre">SpinDownStatusValue.RESERVED_FOR_FUTURE_USE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.SpinDownStatusValue.SPIN_DOWN_REQUESTED"><code class="docutils literal notranslate"><span class="pre">SpinDownStatusValue.SPIN_DOWN_REQUESTED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.SpinDownStatusValue.STOP_PEDALING"><code class="docutils literal notranslate"><span class="pre">SpinDownStatusValue.STOP_PEDALING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.SpinDownStatusValue.SUCCESS"><code class="docutils literal notranslate"><span class="pre">SpinDownStatusValue.SUCCESS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.ThreeZoneHR"><code class="docutils literal notranslate"><span class="pre">ThreeZoneHR</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.ThreeZoneHR.light"><code class="docutils literal notranslate"><span class="pre">ThreeZoneHR.light</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.ThreeZoneHR.moderate"><code class="docutils literal notranslate"><span class="pre">ThreeZoneHR.moderate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.ThreeZoneHR.very_light"><code class="docutils literal notranslate"><span class="pre">ThreeZoneHR.very_light</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.TwoZoneHR"><code class="docutils literal notranslate"><span class="pre">TwoZoneHR</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.TwoZoneHR.fat_burn"><code class="docutils literal notranslate"><span class="pre">TwoZoneHR.fat_burn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.TwoZoneHR.fitness"><code class="docutils literal notranslate"><span class="pre">TwoZoneHR.fitness</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_status.html#pycycling.ftms_parsers.fitness_machine_status.parse_fitness_machine_status"><code class="docutils literal notranslate"><span class="pre">parse_fitness_machine_status()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html">pycycling.ftms_parsers.indoor_bike_data module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.average_cadence"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.average_cadence</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.average_power"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.average_power</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.average_speed"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.average_speed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.elapsed_time"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.elapsed_time</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.energy_per_hour"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.energy_per_hour</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.energy_per_minute"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.energy_per_minute</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.heart_rate"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.heart_rate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.instant_cadence"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.instant_cadence</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.instant_power"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.instant_power</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.instant_speed"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.instant_speed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.metabolic_equivalent"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.metabolic_equivalent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.remaining_time"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.remaining_time</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.resistance_level"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.resistance_level</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.total_distance"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.total_distance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.IndoorBikeData.total_energy"><code class="docutils literal notranslate"><span class="pre">IndoorBikeData.total_energy</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.indoor_bike_data.html#pycycling.ftms_parsers.indoor_bike_data.parse_indoor_bike_data"><code class="docutils literal notranslate"><span class="pre">parse_indoor_bike_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html">pycycling.ftms_parsers.training_status module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus"><code class="docutils literal notranslate"><span class="pre">TrainingStatus</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.COOL_DOWN"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.COOL_DOWN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.FITNESS_TEST"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.FITNESS_TEST</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.HEART_RATE_CONTROL"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.HEART_RATE_CONTROL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.HIGH_INTENSITY_INTERVAL"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.HIGH_INTENSITY_INTERVAL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.IDLE"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.IDLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.ISOMETRIC"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.ISOMETRIC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.LOW_INTENSITY_INTERVAL"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.LOW_INTENSITY_INTERVAL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.MANUAL_MODE"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.MANUAL_MODE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.OTHER"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.OTHER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.POST_WORKOUT"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.POST_WORKOUT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.PRE_WORKOUT"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.PRE_WORKOUT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.RECOVERY_INTERVAL"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.RECOVERY_INTERVAL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.RESERVED"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.RESERVED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.SPEED_OUTSIDE_CONTROL_REGION_HIGH"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.SPEED_OUTSIDE_CONTROL_REGION_HIGH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.SPEED_OUTSIDE_CONTROL_REGION_LOW"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.SPEED_OUTSIDE_CONTROL_REGION_LOW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.WARMING_UP"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.WARMING_UP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatus.WATT_CONTROL"><code class="docutils literal notranslate"><span class="pre">TrainingStatus.WATT_CONTROL</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatusMessage"><code class="docutils literal notranslate"><span class="pre">TrainingStatusMessage</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatusMessage.param"><code class="docutils literal notranslate"><span class="pre">TrainingStatusMessage.param</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.TrainingStatusMessage.string"><code class="docutils literal notranslate"><span class="pre">TrainingStatusMessage.string</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.ftms_parsers.training_status.html#pycycling.ftms_parsers.training_status.parse_training_status"><code class="docutils literal notranslate"><span class="pre">parse_training_status()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-pycycling.ftms_parsers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pycycling.ftms_parsers" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pycycling</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pycycling.html">pycycling package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pycycling.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pycycling.ftms_parsers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pycycling.ftms_parsers">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pycycling.html#module-pycycling">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="pycycling.html">pycycling package</a><ul>
+      <li>Previous: <a href="pycycling.html" title="previous chapter">pycycling package</a></li>
+      <li>Next: <a href="pycycling.ftms_parsers.control_point.html" title="next chapter">pycycling.ftms_parsers.control_point module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, <a href='/'>Zachary Bull</a>.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/pycycling.ftms_parsers.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

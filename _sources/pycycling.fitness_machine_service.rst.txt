@@ -1,0 +1,7 @@
+pycycling.fitness\_machine\_service module
+==========================================
+
+.. automodule:: pycycling.fitness_machine_service
+   :members:
+   :undoc-members:
+   :show-inheritance:

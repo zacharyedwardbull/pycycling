@@ -1,0 +1,7 @@
+pycycling.ftms\_parsers.fitness\_machine\_status module
+=======================================================
+
+.. automodule:: pycycling.ftms_parsers.fitness_machine_status
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,22 @@
+pycycling.ftms\_parsers package
+===============================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   pycycling.ftms_parsers.control_point
+   pycycling.ftms_parsers.fitness_machine_feature
+   pycycling.ftms_parsers.fitness_machine_status
+   pycycling.ftms_parsers.indoor_bike_data
+   pycycling.ftms_parsers.training_status
+
+Module contents
+---------------
+
+.. automodule:: pycycling.ftms_parsers
+   :members:
+   :undoc-members:
+   :show-inheritance:

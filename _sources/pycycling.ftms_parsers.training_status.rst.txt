@@ -1,0 +1,7 @@
+pycycling.ftms\_parsers.training\_status module
+===============================================
+
+.. automodule:: pycycling.ftms_parsers.training_status
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+pycycling.ftms\_parsers.indoor\_bike\_data module
+=================================================
+
+.. automodule:: pycycling.ftms_parsers.indoor_bike_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
