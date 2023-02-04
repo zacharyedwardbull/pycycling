@@ -192,7 +192,7 @@ def parse_fitness_machine_status(message: bytearray) -> FitnessMachineStatusMess
                 message[5:6], byteorder="little", signed=False
             )
             / 1000,
-            wind_resistance=int.from_bytes(
+            wind_resistance_coefficient=int.from_bytes(
                 message[6:7], byteorder="little", signed=False
             )
             / 100,
