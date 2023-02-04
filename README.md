@@ -24,16 +24,16 @@ Please let me know if you have used it with another device, and I will add it to
 
 ## Supported protocols
 
-Protocol name | Fully supported | Partially supported
---- | --- | --- | ---
-Battery Service (BAS)| | ✓
-Cycling Speed and Cadence Service (CSCS) | | ✓
-Cycling Power Service (CPS) | | ✓
-Elite Sterzo Steering Service (STERZO)| | ✓
-FiTness Machine Service (FTMS) | | ✓
-Heart Rate Service (HRS)| | ✓
-Tacx Trainer Control (ANT+ FE-C over BLE) | | ✓
-Rear View Radar (RDR) | | ✓
+| Protocol name                             | Fully supported | Partially supported |
+|-------------------------------------------|-----------------|---------------------|
+| Battery Service (BAS)                     |                 | ✓                   |
+| Cycling Speed and Cadence Service (CSCS)  |                 | ✓                   |
+| Cycling Power Service (CPS)               |                 | ✓                   |
+| Elite Sterzo Steering Service (STERZO)    |                 | ✓                   |
+| FiTness Machine Service (FTMS)            |                 | ✓                   |
+| Heart Rate Service (HRS)                  |                 | ✓                   |
+| Tacx Trainer Control (ANT+ FE-C over BLE) |                 | ✓                   |
+| Rear View Radar (RDR)                     |                 | ✓                   |
 
 ## Installation
 Clone this repo and then run the following command from the root directory
