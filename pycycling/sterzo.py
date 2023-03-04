@@ -1,6 +1,6 @@
 import asyncio
 import struct
-import pkg_resources
+import importlib.resources
 
 sterzo_measurement_id = '347b0030-7635-408b-8918-8ff3949ce592'
 sterzo_control_point_id = '347b0031-7635-408b-8918-8ff3949ce592'
@@ -22,7 +22,7 @@ class Sterzo:
         await self._activate_steering_measurements()
 
     async def _activate_steering_measurements(self):
-        with pkg_resources.resource_stream(__name__, 'data/sterzo-challenge-codes.dat') as fp:
+        with importlib.resources.files(__package__).joinpath('data/sterzo-challenge-codes.dat').open('rb') as fp:
             fp.seek(self._latest_challenge * 2, 1)
             code_1 = int.from_bytes(fp.read(1), 'little')
             code_2 = int.from_bytes(fp.read(1), 'little')
