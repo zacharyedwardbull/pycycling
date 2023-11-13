@@ -20,12 +20,14 @@ class Sterzo:
         while self._latest_challenge is None:
             await asyncio.sleep(2)
         await self._activate_steering_measurements()
-
+        
     async def _activate_steering_measurements(self):
-        with importlib.resources.files(__package__).joinpath('data/sterzo-challenge-codes.dat').open('rb') as fp:
-            fp.seek(self._latest_challenge * 2, 1)
-            code_1 = int.from_bytes(fp.read(1), 'little')
-            code_2 = int.from_bytes(fp.read(1), 'little')
+        # Use importlib.resources.path as a context manager
+        with importlib.resources.path(__package__, 'data/sterzo-challenge-codes.dat') as file_path:
+            with open(file_path, 'rb') as fp:
+                fp.seek(self._latest_challenge * 2, 1)
+                code_1 = int.from_bytes(fp.read(1), 'little')
+                code_2 = int.from_bytes(fp.read(1), 'little')
 
         byte_array = bytearray([0x03, 0x11, code_1, code_2])
         await self._client.write_gatt_char(sterzo_control_point_id, byte_array)
