@@ -20,6 +20,6 @@ if __name__ == "__main__":
 
     os.environ["PYTHONASYNCIODEBUG"] = str(1)
 
-    device_address = "EA:1B:D7:96:1A:A1"
+    device_address = "36A444C9-2A18-4B6B-B671-E0A8D3DADB1D"
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run(device_address))
