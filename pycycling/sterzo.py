@@ -24,11 +24,10 @@ class Sterzo:
         await self._activate_steering_measurements()
 
     async def _activate_steering_measurements(self):
-        # moved .dat file out of 'data' because accessing directories not possible for importlib.resources.path
         # importlib.resources.path is deprecated since 3.11
-        if sys.version_info >= (3,11):
+        if sys.version_info >= (3, 11):
             challenge_file = importlib.resources.files(pycycling.data).joinpath('sterzo-challenge-codes.dat').open('rb')
-        else: # legacy support < 3.9
+        else:  # legacy support < 3.9
             challenge_file = importlib.resources.open_binary(pycycling.data, 'sterzo-challenge-codes.dat')
 
         with challenge_file:
