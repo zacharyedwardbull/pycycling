@@ -60,11 +60,10 @@
 
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">_activate_steering_measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># moved .dat file out of &#39;data&#39; because accessing directories not possible for importlib.resources.path</span>
         <span class="c1"># importlib.resources.path is deprecated since 3.11</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
             <span class="n">challenge_file</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">pycycling</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;sterzo-challenge-codes.dat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span> <span class="c1"># legacy support &lt; 3.9</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># legacy support &lt; 3.9</span>
             <span class="n">challenge_file</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">open_binary</span><span class="p">(</span><span class="n">pycycling</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;sterzo-challenge-codes.dat&#39;</span><span class="p">)</span>
 
         <span class="k">with</span> <span class="n">challenge_file</span><span class="p">:</span>
