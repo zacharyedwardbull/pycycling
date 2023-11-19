@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>pycycling.battery_service module &#8212; pycycling  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pycycling.cycling_power_service module" href="pycycling.cycling_power_service.html" />
@@ -33,10 +32,10 @@
           <div class="body" role="main">
             
   <section id="module-pycycling.battery_service">
-<span id="pycycling-battery-service-module"></span><h1>pycycling.battery_service module<a class="headerlink" href="#module-pycycling.battery_service" title="Permalink to this heading">¶</a></h1>
+<span id="pycycling-battery-service-module"></span><h1>pycycling.battery_service module<a class="headerlink" href="#module-pycycling.battery_service" title="Link to this heading">¶</a></h1>
 <p>A module for interacting with Bluetooth devices which support the Battery Service.</p>
 <section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
 <p>This example prints the current battery level to the console. Please see also information on
 <a class="reference internal" href="pycycling.html#obtaining-device-address"><span class="std std-ref">obtaining the Bluetooth address of your device</span></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
@@ -65,7 +64,7 @@
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="pycycling.battery_service.BatteryService">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.battery_service.</span></span><span class="sig-name descname"><span class="pre">BatteryService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/battery_service.html#BatteryService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.battery_service.BatteryService" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycycling.battery_service.</span></span><span class="sig-name descname"><span class="pre">BatteryService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/battery_service.html#BatteryService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.battery_service.BatteryService" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A wrapper around a <code class="xref py py-obj docutils literal notranslate"><span class="pre">bleak.backends.client.BaseBleakClient</span></code> object adding Battery Service specific utility
 methods.</p>
@@ -76,7 +75,7 @@ methods.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pycycling.battery_service.BatteryService.get_battery_level">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_battery_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/battery_service.html#BatteryService.get_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.battery_service.BatteryService.get_battery_level" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_battery_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/battery_service.html#BatteryService.get_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.battery_service.BatteryService.get_battery_level" title="Link to this definition">¶</a></dt>
 <dd><p>Returns current battery level of the Bluetooth device.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -168,7 +167,7 @@ methods.</p>
       &copy;2023, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |

@@ -1,0 +1,10 @@
+pycycling.data package
+======================
+
+Module contents
+---------------
+
+.. automodule:: pycycling.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
