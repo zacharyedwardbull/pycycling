@@ -198,7 +198,7 @@ class FitnessMachineService:
     async def reset(self) -> None:
         message = form_ftms_control_command(FTMSControlPointOpCode.RESET)
         await self._client.write_gatt_char(
-            ftms_fitness_machine_control_point_characteristic_id, message, False
+            ftms_fitness_machine_control_point_characteristic_id, message, True
         )
 
     async def set_target_resistance_level(self, level: int) -> None:
@@ -206,7 +206,7 @@ class FitnessMachineService:
             FTMSControlPointOpCode.SET_TARGET_RESISTANCE_LEVEL, int(level)
         )
         await self._client.write_gatt_char(
-            ftms_fitness_machine_control_point_characteristic_id, message, False
+            ftms_fitness_machine_control_point_characteristic_id, message, True
         )
 
     async def set_target_power(self, power: int) -> None:
@@ -214,5 +214,5 @@ class FitnessMachineService:
             FTMSControlPointOpCode.SET_TARGET_POWER, int(power)
         )
         await self._client.write_gatt_char(
-            ftms_fitness_machine_control_point_characteristic_id, message, False
+            ftms_fitness_machine_control_point_characteristic_id, message, True
         )
