@@ -192,7 +192,7 @@ class FitnessMachineService:
     async def request_control(self) -> None:
         message = form_ftms_control_command(FTMSControlPointOpCode.REQUEST_CONTROL)
         await self._client.write_gatt_char(
-            ftms_fitness_machine_control_point_characteristic_id, message, False
+            ftms_fitness_machine_control_point_characteristic_id, message, True
         )
 
     async def reset(self) -> None:
