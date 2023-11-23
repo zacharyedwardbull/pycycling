@@ -8,8 +8,10 @@ setuptools.setup(
     version="0.3.3",
     author="Zachary Bull",
     author_email="zacharyedwardbull@gmail.com",
-    description=
-    "A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers, power meters, radars and heart rate monitors",
+    description=(
+        "A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers, power meters, "
+        "radars and heart rate monitors"
+    ),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/zacharyedwardbull/pycycling",
