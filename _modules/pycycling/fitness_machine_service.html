@@ -272,7 +272,7 @@
     <span class="k">async</span> <span class="k">def</span> <span class="nf">request_control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span><span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">REQUEST_CONTROL</span><span class="p">)</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span>
-            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">True</span>
         <span class="p">)</span></div>
 
 
@@ -281,7 +281,7 @@
     <span class="k">async</span> <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span><span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">RESET</span><span class="p">)</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span>
-            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">True</span>
         <span class="p">)</span></div>
 
 
@@ -292,7 +292,7 @@
             <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGET_RESISTANCE_LEVEL</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span>
-            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">True</span>
         <span class="p">)</span></div>
 
 
@@ -303,7 +303,7 @@
             <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGET_POWER</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span>
-            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">True</span>
         <span class="p">)</span></div>
 </div>
 
