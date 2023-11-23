@@ -1,6 +1,7 @@
 # pycycling
 
-A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers and power meters.
+A Python package for interacting with Bluetooth Low Energy (BLE) compatible bike trainers, power meters, radars and
+heart rate monitors.
 
 The package uses [Bleak (Bluetooth Low Energy platform Agnostic Klient)](https://github.com/hbldh/bleak)
 behind the scenes to connect and communicate with bike trainers. Bleak is cross-platform with support for Windows,
