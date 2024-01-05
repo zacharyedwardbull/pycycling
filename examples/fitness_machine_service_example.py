@@ -95,7 +95,7 @@ async def run(address):
         power_level = 4 / 100 * max_power
         print(f"Increasing target power to 4 percent of maximum power ({power_level}W).")
         print("The trainer will automatically adjust resistance based on your leg speed.")
-        print("Try pedaling above {power_level}W to feel decreasing resistance, and vice versa.")
+        print(f"Try pedaling above {power_level}W to feel decreasing resistance, and vice versa.")
         await ftms.set_target_power(power_level)
 
         await asyncio.sleep(30)
