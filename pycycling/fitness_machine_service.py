@@ -46,7 +46,7 @@ ftms_fitness_machine_feature_characteristic_id = "00002acc-0000-1000-8000-00805f
 # notify: Indoor Bike Data
 ftms_indoor_bike_data_characteristic_id = "00002ad2-0000-1000-8000-00805f9b34fb"
 # notify: Fitness Machine Status
-ftms_fitness_machine_status_characteristic_id = "00002ad3-0000-1000-8000-00805f9b34fb"
+ftms_fitness_machine_status_characteristic_id = "00002ada-0000-1000-8000-00805f9b34fb"
 # notify: Training Status
 ftms_training_status_characteristic_id = "00002ad3-0000-1000-8000-00805f9b34fb"
 # (write, indicate): Fitness Machine Control Point
