@@ -152,7 +152,7 @@
         <span class="n">power_level</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">max_power</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Increasing target power to 4 percent of maximum power (</span><span class="si">{</span><span class="n">power_level</span><span class="si">}</span><span class="s2">W).&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The trainer will automatically adjust resistance based on your leg speed.&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Try pedaling above </span><span class="si">{power_level}</span><span class="s2">W to feel decreasing resistance, and vice versa.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Try pedaling above </span><span class="si">{</span><span class="n">power_level</span><span class="si">}</span><span class="s2">W to feel decreasing resistance, and vice versa.&quot;</span><span class="p">)</span>
         <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_target_power</span><span class="p">(</span><span class="n">power_level</span><span class="p">)</span>
 
         <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
@@ -417,7 +417,7 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2023, <a href='/'>Zachary Bull</a>.
+      &copy;2024, <a href='/'>Zachary Bull</a>.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
