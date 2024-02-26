@@ -17,8 +17,9 @@ class FTMSControlPointOpCode(Enum):
     SET_TARGET_INCLINE = 0x03
     SET_TARGET_RESISTANCE_LEVEL = 0x04
     SET_TARGET_POWER = 0x05
-    START_OR_RESUME = 0x06
-    STOP_OR_PAUSE = 0x07
+    SET_TARGET_HEART_RATE = 0x06
+    START_OR_RESUME = 0x07
+    STOP_OR_PAUSE = 0x08
     RESPONSE_CODE = 0x80
 
 
@@ -39,11 +40,14 @@ def form_ftms_control_command(opcode: FTMSControlPointOpCode, parameter: int = 0
     elif opcode == FTMSControlPointOpCode.SET_TARGET_POWER:
         # parameter: sint16, 1W
         return b"\x05" + parameter.to_bytes(2, "little", signed=True)
+    elif opcode == FTMSControlPointOpCode.SET_TARGET_HEART_RATE:
+        # parameter: uint8, 1bpm
+        return b"\x06" + parameter.to_bytes(1, "little", signed=False)
     elif opcode == FTMSControlPointOpCode.START_OR_RESUME:
-        # parameter: 01=stop, 02=pause
-        return b"\x06"
+        return b"\x07"
     elif opcode == FTMSControlPointOpCode.STOP_OR_PAUSE:
-        return b"\x07" + parameter.to_bytes(1, "little", signed=False)
+        # parameter: 01=stop, 02=pause
+        return b"\x08" + parameter.to_bytes(1, "little", signed=False)
     elif opcode == FTMSControlPointOpCode.RESPONSE_CODE:
         return b"\x80"
     else:
