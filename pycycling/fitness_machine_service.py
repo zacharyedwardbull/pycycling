@@ -27,7 +27,7 @@ from collections import namedtuple
 from pycycling.ftms_parsers import (
     parse_fitness_machine_status,
     parse_indoor_bike_data,
-    parse_fitness_machine_feature,
+    parse_all_features,
     parse_training_status,
     parse_control_point_response,
     form_ftms_control_command,
@@ -107,7 +107,7 @@ class FitnessMachineService:
         message = await self._client.read_gatt_char(
             ftms_fitness_machine_feature_characteristic_id
         )
-        return parse_fitness_machine_feature(message)
+        return parse_all_features(message)
 
     # === NOTIFY Characteristics ===
     # ====== Indoor Bike Data ======
@@ -356,7 +356,7 @@ class FitnessMachineService:
         if cw < 0:
             raise ValueError("Cw must be non-negative")
         message = form_ftms_control_command(
-            FTMSControlPointOpCode.SET_SIMULATION_PARAMETERS, [wind_speed, grade, crr, cw]
+            FTMSControlPointOpCode.SET_INDOOR_BIKE_SIMULATION_PARAMETERS, [wind_speed, grade, crr, cw]
         )
         await self._client.write_gatt_char(
             ftms_fitness_machine_control_point_characteristic_id, message, True

@@ -128,3 +128,6 @@ def parse_target_setting_features(message: bytearray) -> TargetSettingFeatures:
         spin_down_control_supported,
         targeted_cadence_configuration_supported,
     )
+
+def parse_all_features(message: bytearray):
+    return parse_fitness_machine_feature(message[0:4]), parse_target_setting_features(message[4:8])
