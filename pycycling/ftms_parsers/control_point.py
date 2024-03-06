@@ -40,6 +40,7 @@ def form_ftms_control_command(opcode: FTMSControlPointOpCode, parameter: int = 0
     :param parameter: scalar or list of scalar
     :return: bytearray
     """
+    parameter = parameter if isinstance(parameter, list) else (int)(parameter)
     if opcode == FTMSControlPointOpCode.REQUEST_CONTROL:
         return b"\x00"
     elif opcode == FTMSControlPointOpCode.RESET:
