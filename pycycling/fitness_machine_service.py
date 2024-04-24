@@ -22,6 +22,7 @@ Finally, it modifies 'write' characteristics with some time in between:
 .. literalinclude:: ../examples/fitness_machine_service_example.py
 
 """
+
 from collections import namedtuple
 
 from pycycling.ftms_parsers import (
@@ -60,7 +61,9 @@ SupportedResistanceLevelRange = namedtuple(
 )
 
 
-def _parse_supported_resistance_level_range(message: bytearray) -> SupportedResistanceLevelRange:
+def _parse_supported_resistance_level_range(
+    message: bytearray,
+) -> SupportedResistanceLevelRange:
     minimum_resistance = int.from_bytes(message[0:2], "little")
     maximum_resistance = int.from_bytes(message[2:4], "little")
     minimum_increment = int.from_bytes(message[4:6], "little")
@@ -91,7 +94,9 @@ class FitnessMachineService:
         self._training_status_callback = None
 
     # === READ Characteristics ===
-    async def get_supported_resistance_level_range(self) -> SupportedResistanceLevelRange:
+    async def get_supported_resistance_level_range(
+        self,
+    ) -> SupportedResistanceLevelRange:
         message = await self._client.read_gatt_char(
             ftms_supported_resistance_level_range_characteristic_id
         )
@@ -325,7 +330,7 @@ class FitnessMachineService:
         await self._client.write_gatt_char(
             ftms_fitness_machine_control_point_characteristic_id, message, True
         )
-    
+
     async def set_targeted_time_in_three_heart_rate_zones(self, times: list) -> None:
         if len(times) != 3:
             raise ValueError("Times must be a list of 3 elements")
@@ -350,13 +355,16 @@ class FitnessMachineService:
             ftms_fitness_machine_control_point_characteristic_id, message, True
         )
 
-    async def set_simulation_parameters(self, wind_speed: int, grade: int, crr: int, cw: int) -> None:
+    async def set_simulation_parameters(
+        self, wind_speed: int, grade: int, crr: int, cw: int
+    ) -> None:
         if crr < 0:
             raise ValueError("Crr must be non-negative")
         if cw < 0:
             raise ValueError("Cw must be non-negative")
         message = form_ftms_control_command(
-            FTMSControlPointOpCode.SET_INDOOR_BIKE_SIMULATION_PARAMETERS, [wind_speed, grade, crr, cw]
+            FTMSControlPointOpCode.SET_INDOOR_BIKE_SIMULATION_PARAMETERS,
+            [wind_speed, grade, crr, cw],
         )
         await self._client.write_gatt_char(
             ftms_fitness_machine_control_point_characteristic_id, message, True
@@ -371,7 +379,7 @@ class FitnessMachineService:
         await self._client.write_gatt_char(
             ftms_fitness_machine_control_point_characteristic_id, message, True
         )
-    
+
     async def set_spin_down_control(self, control: int) -> None:
         if control < 0:
             raise ValueError("Control must be non-negative")
