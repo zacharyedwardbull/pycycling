@@ -28,7 +28,7 @@ class Sterzo:
         if sys.version_info >= (3, 11):
             challenge_file = importlib.resources.files(pycycling.data).joinpath('sterzo-challenge-codes.dat').open('rb')
         else:  # legacy support < 3.9
-            challenge_file = importlib.resources.open_binary(pycycling.data, 'sterzo-challenge-codes.dat')
+            challenge_file = importlib.resources.open_binary(pycycling.data, 'sterzo-challenge-codes.dat') # pylint: disable=deprecated-method
 
         with challenge_file:
             challenge_file.seek(self._latest_challenge * 2, 1)
