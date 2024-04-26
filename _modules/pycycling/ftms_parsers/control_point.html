@@ -5,18 +5,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pycycling.ftms_parsers.control_point &#8212; pycycling  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -43,7 +44,6 @@
     <span class="n">CONTROL_NOT_PERMITTED</span> <span class="o">=</span> <span class="mh">0x05</span></div>
 
 
-
 <div class="viewcode-block" id="FTMSControlPointOpCode">
 <a class="viewcode-back" href="../../../pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.FTMSControlPointOpCode">[docs]</a>
 <span class="k">class</span> <span class="nc">FTMSControlPointOpCode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -53,15 +53,34 @@
     <span class="n">SET_TARGET_INCLINE</span> <span class="o">=</span> <span class="mh">0x03</span>
     <span class="n">SET_TARGET_RESISTANCE_LEVEL</span> <span class="o">=</span> <span class="mh">0x04</span>
     <span class="n">SET_TARGET_POWER</span> <span class="o">=</span> <span class="mh">0x05</span>
-    <span class="n">START_OR_RESUME</span> <span class="o">=</span> <span class="mh">0x06</span>
-    <span class="n">STOP_OR_PAUSE</span> <span class="o">=</span> <span class="mh">0x07</span>
+    <span class="n">SET_TARGET_HEART_RATE</span> <span class="o">=</span> <span class="mh">0x06</span>
+    <span class="n">START_OR_RESUME</span> <span class="o">=</span> <span class="mh">0x07</span>
+    <span class="n">STOP_OR_PAUSE</span> <span class="o">=</span> <span class="mh">0x08</span>
+    <span class="n">SET_TARGETED_EXPENDED_ENERGY</span> <span class="o">=</span> <span class="mh">0x09</span>
+    <span class="n">SET_TARGETED_NUMBER_OF_STEPS</span> <span class="o">=</span> <span class="mh">0x0A</span>
+    <span class="n">SET_TARGETED_NUMBER_OF_STRIDES</span> <span class="o">=</span> <span class="mh">0x0B</span>
+    <span class="n">SET_TARGETED_DISTANCE</span> <span class="o">=</span> <span class="mh">0x0C</span>
+    <span class="n">SET_TARGETED_TRAINING_TIME</span> <span class="o">=</span> <span class="mh">0x0D</span>
+    <span class="n">SET_TARGETED_TIME_IN_TWO_HEART_RATE_ZONES</span> <span class="o">=</span> <span class="mh">0x0E</span>
+    <span class="n">SET_TARGETED_TIME_IN_THREE_HEART_RATE_ZONES</span> <span class="o">=</span> <span class="mh">0x0F</span>
+    <span class="n">SET_TARGETED_TIME_IN_FIVE_HEART_RATE_ZONES</span> <span class="o">=</span> <span class="mh">0x10</span>
+    <span class="n">SET_INDOOR_BIKE_SIMULATION_PARAMETERS</span> <span class="o">=</span> <span class="mh">0x11</span>
+    <span class="n">SET_WHEEL_CIRCUMFERENCE</span> <span class="o">=</span> <span class="mh">0x12</span>
+    <span class="n">SET_SPIN_DOWN_CONTROL</span> <span class="o">=</span> <span class="mh">0x13</span>
+    <span class="n">SET_TARGETED_CADENCE</span> <span class="o">=</span> <span class="mh">0x14</span>
     <span class="n">RESPONSE_CODE</span> <span class="o">=</span> <span class="mh">0x80</span></div>
-
 
 
 <div class="viewcode-block" id="form_ftms_control_command">
 <a class="viewcode-back" href="../../../pycycling.ftms_parsers.control_point.html#pycycling.ftms_parsers.control_point.form_ftms_control_command">[docs]</a>
 <span class="k">def</span> <span class="nf">form_ftms_control_command</span><span class="p">(</span><span class="n">opcode</span><span class="p">:</span> <span class="n">FTMSControlPointOpCode</span><span class="p">,</span> <span class="n">parameter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Form a FTMS control command message</span>
+<span class="sd">    :param opcode: FTMSControlPointOpCode</span>
+<span class="sd">    :param parameter: scalar or list of scalar</span>
+<span class="sd">    :return: bytearray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parameter</span> <span class="o">=</span> <span class="n">parameter</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">parameter</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">REQUEST_CONTROL</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span>
     <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">RESET</span><span class="p">:</span>
@@ -78,13 +97,62 @@
     <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGET_POWER</span><span class="p">:</span>
         <span class="c1"># parameter: sint16, 1W</span>
         <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x05</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGET_HEART_RATE</span><span class="p">:</span>
+        <span class="c1"># parameter: uint8, 1bpm</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x06</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">START_OR_RESUME</span><span class="p">:</span>
-        <span class="c1"># parameter: 01=stop, 02=pause</span>
-        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x06</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x07</span><span class="s2">&quot;</span>
     <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">STOP_OR_PAUSE</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x07</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># parameter: 01=stop, 02=pause</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x08</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">RESPONSE_CODE</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x80</span><span class="s2">&quot;</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_EXPENDED_ENERGY</span><span class="p">:</span>
+        <span class="c1"># parameter: uint16, 1calories</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x09</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_NUMBER_OF_STEPS</span><span class="p">:</span>
+        <span class="c1"># parameter: uint16, 1</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x0A</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_NUMBER_OF_STRIDES</span><span class="p">:</span>
+        <span class="c1"># parameter: uint16, 1</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x0B</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_DISTANCE</span><span class="p">:</span>
+        <span class="c1"># parameter: uint24, 1m</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x0C</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_TRAINING_TIME</span><span class="p">:</span>
+        <span class="c1"># parameter: uint16, 1s</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x0D</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_TIME_IN_TWO_HEART_RATE_ZONES</span><span class="p">:</span>
+        <span class="c1"># parameter: list of 2 uint16, 1s</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x0E</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_TIME_IN_THREE_HEART_RATE_ZONES</span><span class="p">:</span>
+        <span class="c1"># parameter: list of 3 uint16, 1s</span>
+        <span class="k">return</span>  <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x0F</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_TIME_IN_FIVE_HEART_RATE_ZONES</span><span class="p">:</span>
+        <span class="c1"># parameter: list of 5 uint16, 1s</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x10</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_INDOOR_BIKE_SIMULATION_PARAMETERS</span><span class="p">:</span>
+        <span class="c1"># parameter: list of int16 0.001mps, int16 0.01%, uint8 0.0001, uint8 0.01kg/m</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x11</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_WHEEL_CIRCUMFERENCE</span><span class="p">:</span>
+        <span class="c1"># parameter: uint16, 0.1mm</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x12</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_SPIN_DOWN_CONTROL</span><span class="p">:</span>
+        <span class="c1"># parameter: 01=start, 02=ignore</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x13</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGETED_CADENCE</span><span class="p">:</span>
+        <span class="c1"># parameter: uint16, 1rpm</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x14</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">parameter</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid opcode&quot;</span><span class="p">)</span></div>
 
@@ -132,7 +200,7 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
@@ -140,7 +208,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
 
 
@@ -155,11 +223,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2024, <a href='/'>Zachary Bull</a>.
+      &#169;2024, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
     </div>
 

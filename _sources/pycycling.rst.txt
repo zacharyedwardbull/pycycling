@@ -22,6 +22,7 @@ Submodules
    pycycling.fitness_machine_service
    pycycling.heart_rate_service
    pycycling.rear_view_radar
+   pycycling.rizer
    pycycling.sterzo
    pycycling.tacx_trainer_control
 

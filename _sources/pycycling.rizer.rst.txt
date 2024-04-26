@@ -1,0 +1,7 @@
+pycycling.rizer module
+======================
+
+.. automodule:: pycycling.rizer
+   :members:
+   :undoc-members:
+   :show-inheritance:

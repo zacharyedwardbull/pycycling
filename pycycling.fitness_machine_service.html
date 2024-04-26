@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>pycycling.fitness_machine_service module &#8212; pycycling  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -18,8 +18,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -63,38 +64,49 @@
     <span class="k">async</span> <span class="k">with</span> <span class="n">BleakClient</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
         <span class="n">ftms</span> <span class="o">=</span> <span class="n">FitnessMachineService</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
 
-        <span class="c1"># Print all &#39;read&#39; characteristics</span>
+        <span class="c1"># Print &#39;read&#39; characteristics</span>
 
-        <span class="n">supported_resistance_level_range</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_supported_resistance_level_range</span><span class="p">()</span>
-        <span class="p">)</span>
+        <span class="c1">### Fitness Machine Features</span>
+        <span class="n">fitness_machine_features</span><span class="p">,</span> <span class="n">target_setting_features</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_fitness_machine_feature</span><span class="p">()</span>
+        <span class="n">fitness_machine_features</span> <span class="o">=</span> <span class="n">fitness_machine_features</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
+        <span class="n">target_setting_features</span> <span class="o">=</span> <span class="n">target_setting_features</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Supported resistance level range:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">supported_resistance_level_range</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">()</span>
-
-        <span class="n">max_resistance</span> <span class="o">=</span> <span class="n">supported_resistance_level_range</span><span class="o">.</span><span class="n">maximum_resistance</span>
-
-        <span class="n">supported_power_range</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_supported_power_range</span><span class="p">()</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Supported power range:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">supported_power_range</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">()</span>
-
-        <span class="n">max_power</span> <span class="o">=</span> <span class="n">supported_power_range</span><span class="o">.</span><span class="n">maximum_power</span>
-
-        <span class="n">fitness_machine_feature</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_fitness_machine_feature</span><span class="p">()</span>
-
+        <span class="k">def</span> <span class="nf">print_features</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitness machine feature:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">fitness_machine_feature</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">()</span>
+        <span class="n">print_features</span><span class="p">(</span><span class="n">fitness_machine_features</span><span class="p">)</span>
 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target setting features:&quot;</span><span class="p">)</span>
+        <span class="n">print_features</span><span class="p">(</span><span class="n">target_setting_features</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">target_setting_features</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">target_setting_features</span><span class="p">[</span><span class="s2">&quot;resistance_target_setting_supported&quot;</span><span class="p">]:</span>
+            <span class="n">supported_resistance_level_range</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_supported_resistance_level_range</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Supported resistance level range:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">supported_resistance_level_range</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+            <span class="n">max_resistance</span> <span class="o">=</span> <span class="n">supported_resistance_level_range</span><span class="o">.</span><span class="n">maximum_resistance</span>
+
+        <span class="k">if</span> <span class="n">target_setting_features</span><span class="p">[</span><span class="s2">&quot;power_target_setting_supported&quot;</span><span class="p">]:</span>
+            <span class="n">supported_power_range</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_supported_power_range</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Supported power range:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">supported_power_range</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+            <span class="n">max_power</span> <span class="o">=</span> <span class="n">supported_power_range</span><span class="o">.</span><span class="n">maximum_power</span>
+
+        <span class="c1"># Start receiving and printing &#39;notify&#39; characteristics</span>
         <span class="k">def</span> <span class="nf">print_indoor_bike_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Received indoor bike data:&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">()</span>
 
-        <span class="c1"># Start receiving and printing &#39;notify&#39; characteristics</span>
         <span class="n">ftms</span><span class="o">.</span><span class="n">set_indoor_bike_data_handler</span><span class="p">(</span><span class="n">print_indoor_bike_data</span><span class="p">)</span>
         <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">enable_indoor_bike_data_notify</span><span class="p">()</span>
 
@@ -130,36 +142,49 @@
         <span class="c1"># 3. (recommended) &#39;write&#39; a reset command</span>
         <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
-        <span class="nb">print</span><span class="p">(</span>
-            <span class="s2">&quot;Setting target resistance level to 25 percent of maximum resistance level...&quot;</span>
-        <span class="p">)</span>
-        <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_target_resistance_level</span><span class="p">(</span><span class="n">max_resistance</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">)</span>
+        <span class="c1"># Set target resistance level</span>
+        <span class="k">if</span> <span class="n">target_setting_features</span><span class="p">[</span><span class="s2">&quot;resistance_target_setting_supported&quot;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Setting target resistance level to 25 percent of maximum resistance level...&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_target_resistance_level</span><span class="p">(</span><span class="n">max_resistance</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">)</span>
 
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span>
-            <span class="s2">&quot;Increasing target resistance level to 50 percent of maximum resistance level...&quot;</span>
-        <span class="p">)</span>
-        <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_target_resistance_level</span><span class="p">(</span><span class="n">max_resistance</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Increasing target resistance level to 50 percent of maximum resistance level...&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_target_resistance_level</span><span class="p">(</span><span class="n">max_resistance</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
 
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
-        <span class="c1"># Reset target resistance level</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resetting target resistance level...&quot;</span><span class="p">)</span>
+            <span class="c1"># Reset target resistance level</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resetting target resistance level...&quot;</span><span class="p">)</span>
 
-        <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
-        <span class="n">power_level</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">max_power</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Increasing target power to 4 percent of maximum power (</span><span class="si">{</span><span class="n">power_level</span><span class="si">}</span><span class="s2">W).&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The trainer will automatically adjust resistance based on your leg speed.&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Try pedaling above </span><span class="si">{</span><span class="n">power_level</span><span class="si">}</span><span class="s2">W to feel decreasing resistance, and vice versa.&quot;</span><span class="p">)</span>
-        <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_target_power</span><span class="p">(</span><span class="n">power_level</span><span class="p">)</span>
+        <span class="c1"># Set target power</span>
+        <span class="k">if</span> <span class="n">target_setting_features</span><span class="p">[</span><span class="s2">&quot;power_target_setting_supported&quot;</span><span class="p">]:</span>
+            <span class="n">power_level</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">max_power</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Increasing target power to 4 percent of maximum power (</span><span class="si">{</span><span class="n">power_level</span><span class="si">}</span><span class="s2">W).&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The trainer will automatically adjust resistance based on your leg speed.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Try pedaling above </span><span class="si">{</span><span class="n">power_level</span><span class="si">}</span><span class="s2">W to feel decreasing resistance, and vice versa.&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_target_power</span><span class="p">(</span><span class="n">power_level</span><span class="p">)</span>
 
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
 
-        <span class="c1"># Reset</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resetting target power...&quot;</span><span class="p">)</span>
-        <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="c1"># Reset</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resetting target power...&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="c1"># Set simulation parameters</span>
+        <span class="k">if</span> <span class="n">target_setting_features</span><span class="p">[</span><span class="s2">&quot;indoor_bike_simulation_parameters_supported&quot;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Setting indoor bike simulation parameters to 0&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_simulation_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Setting indoor bike simulation grade to 10%&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;if connected to a compatible machine (like elite rizer), this should set its grade to +10%&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">set_simulation_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resetting indoor bike simulation parameters...&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -274,6 +299,26 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_simulation_parameters">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_simulation_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wind_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grade</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_simulation_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_simulation_parameters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_spin_down_control">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_spin_down_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_spin_down_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_spin_down_control" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_target_heart_rate">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_target_heart_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heart_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_target_heart_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_target_heart_rate" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_target_incline">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_target_incline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inclination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_target_incline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_target_incline" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_target_power">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_target_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_target_power"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_target_power" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -284,8 +329,73 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_target_speed">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_target_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_target_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_target_speed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_cadence">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_cadence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cadence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_cadence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_cadence" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_distance">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_distance" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_expended_energy">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_expended_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_expended_energy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_expended_energy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_number_of_steps">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_number_of_steps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_number_of_steps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_number_of_steps" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_number_of_strides">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_number_of_strides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_number_of_strides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_number_of_strides" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_five_heart_rate_zones">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_time_in_five_heart_rate_zones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_time_in_five_heart_rate_zones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_five_heart_rate_zones" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_three_heart_rate_zones">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_time_in_three_heart_rate_zones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_time_in_three_heart_rate_zones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_three_heart_rate_zones" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_two_heart_rate_zones">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_time_in_two_heart_rate_zones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_time_in_two_heart_rate_zones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_two_heart_rate_zones" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_targeted_training_time">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_targeted_training_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_targeted_training_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_training_time" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_training_status_handler">
 <span class="sig-name descname"><span class="pre">set_training_status_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_training_status_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_training_status_handler" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.set_wheel_circumference">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_wheel_circumference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circumference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.set_wheel_circumference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.set_wheel_circumference" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.start_or_resume">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_or_resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.start_or_resume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.start_or_resume" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.stop_or_pause">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop_or_pause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pause</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.stop_or_pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.stop_or_pause" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -374,6 +484,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.heart_rate_service.html">pycycling.heart_rate_service module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.rear_view_radar.html">pycycling.rear_view_radar module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycycling.rizer.html">pycycling.rizer module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.sterzo.html">pycycling.sterzo module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pycycling.tacx_trainer_control.html">pycycling.tacx_trainer_control module</a></li>
 </ul>
@@ -394,7 +505,7 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -402,7 +513,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
 
 
@@ -417,11 +528,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2024, <a href='/'>Zachary Bull</a>.
+      &#169;2024, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/pycycling.fitness_machine_service.rst.txt"
