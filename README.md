@@ -12,7 +12,7 @@ MacOS, and Linux. Please refer to the Bleak repository for more information abou
 __I take no responsibility if the use of this package breaks your turbo trainer or stationary bike. Use at your own
 risk!__
 
-I have tested it with (tested protocols in brackets):
+The package has been tested with (tested protocols in brackets):
 
 - a Tacx NEO trainer (ANT+ FE-C over BLE, CPS, CSCS)
 - a Tacx NEO 2T trainer (ANT+ FE-C over BLE, CPS, CSCS)
@@ -20,7 +20,9 @@ I have tested it with (tested protocols in brackets):
 - a pair of Garmin Vector 3 power meter pedals (CPS)
 - a Garmin RVR315 rear view radar (RDR)
 - a Magene S3+ Speed/Cadence sensor (CSCS)
-- a Elite Suito-T smart trainer (CPS, CSCS, FTMS)
+- an Elite Suito-T smart trainer (CPS, CSCS, FTMS)
+- an Elite Justo smart trainer (CPS, CSCS, FTMS)
+- an Elite Rizer grade simulator (RIZER)
 
 Please let me know if you have used it with another device, and I will add it to the list.
 
@@ -30,6 +32,7 @@ Please let me know if you have used it with another device, and I will add it to
 * Cycling Power Service (CPS)
 * Cycling Speed and Cadence Service (CSCS)
 * Elite Sterzo Steering Service (STERZO)
+* Elite Rizer Steering Service (RIZER)
 * FiTness Machine Service (FTMS)
 * Heart Rate Service (HRS)
 * Rear View Radar (RDR)
