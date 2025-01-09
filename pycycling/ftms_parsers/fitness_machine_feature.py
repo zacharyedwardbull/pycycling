@@ -24,8 +24,8 @@ FitnessMachineFeature = namedtuple(
 )
 
 
-TargetSettingFeatures = namedtuple(
-    "TargetSettingFeatures",
+TargetSettingFeature = namedtuple(
+    "TargetSettingFeature",
     [
         "speed_target_setting_supported",
         "inclination_target_setting_supported",
@@ -49,7 +49,7 @@ TargetSettingFeatures = namedtuple(
 
 
 
-def parse_fitness_machine_feature(message: bytearray) -> FitnessMachineFeature:
+def parse_fitness_machine_features(message: bytearray) -> FitnessMachineFeature:
     """Bit flags are set across two message"""
     avg_speed_supported = bool(message[0] & 0b00000001)
     cadence_supported = bool(message[0] & 0b00000010)
@@ -89,7 +89,7 @@ def parse_fitness_machine_feature(message: bytearray) -> FitnessMachineFeature:
     )
 
 
-def parse_target_setting_features(message: bytearray) -> TargetSettingFeatures:
+def parse_target_setting_features(message: bytearray) -> TargetSettingFeature:
     speed_target_setting_supported = bool(message[0] & 0b00000001)
     inclination_target_setting_supported = bool(message[0] & 0b00000010)
     resistance_target_setting_supported = bool(message[0] & 0b00000100)
@@ -109,7 +109,7 @@ def parse_target_setting_features(message: bytearray) -> TargetSettingFeatures:
     spin_down_control_supported = bool(message[1] & 0b10000000)
 
     targeted_cadence_configuration_supported = bool(message[2] & 0b00000001)
-    return TargetSettingFeatures(
+    return TargetSettingFeature(
         speed_target_setting_supported,
         inclination_target_setting_supported,
         resistance_target_setting_supported,
@@ -130,4 +130,4 @@ def parse_target_setting_features(message: bytearray) -> TargetSettingFeatures:
     )
 
 def parse_all_features(message: bytearray):
-    return parse_fitness_machine_feature(message[0:4]), parse_target_setting_features(message[4:8])
+    return parse_fitness_machine_features(message[0:4]), parse_target_setting_features(message[4:8])

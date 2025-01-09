@@ -23,6 +23,7 @@ Finally, it modifies 'write' characteristics with some time in between:
 
 """
 
+from typing import Tuple
 from collections import namedtuple
 
 from pycycling.ftms_parsers import (
@@ -34,6 +35,7 @@ from pycycling.ftms_parsers import (
     form_ftms_control_command,
     FTMSControlPointOpCode,
     FitnessMachineFeature,
+    TargetSettingFeature,
 )
 
 # read: Supported Resistance Level Range
@@ -108,11 +110,17 @@ class FitnessMachineService:
         )
         return _parse_supported_power_range(message)
 
-    async def get_fitness_machine_feature(self) -> FitnessMachineFeature:
+    async def get_all_features(self) -> Tuple[FitnessMachineFeature, TargetSettingFeature]:
         message = await self._client.read_gatt_char(
             ftms_fitness_machine_feature_characteristic_id
         )
         return parse_all_features(message)
+    
+    async def get_fitness_machine_feature(self) -> FitnessMachineFeature:
+        return (await self.get_all_features())[0]
+    
+    async def get_target_setting_feature(self) -> TargetSettingFeature:
+        return (await self.get_all_features())[1]
 
     # === NOTIFY Characteristics ===
     # ====== Indoor Bike Data ======

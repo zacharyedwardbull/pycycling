@@ -9,7 +9,12 @@ async def run(address):
         # Print 'read' characteristics
 
         ### Fitness Machine Features
-        fitness_machine_features, target_setting_features = await ftms.get_fitness_machine_feature()
+        fitness_machine_features, target_setting_features = await ftms.get_all_features()
+
+        # backward compatible
+        fitness_machine_features = await ftms.get_fitness_machine_feature()
+        target_setting_features = await ftms.get_target_setting_feature()
+
         fitness_machine_features = fitness_machine_features._asdict()
         target_setting_features = target_setting_features._asdict()
 
