@@ -115,10 +115,10 @@ class FitnessMachineService:
             ftms_fitness_machine_feature_characteristic_id
         )
         return parse_all_features(message)
-    
+
     async def get_fitness_machine_feature(self) -> FitnessMachineFeature:
         return (await self.get_all_features())[0]
-    
+
     async def get_target_setting_feature(self) -> TargetSettingFeature:
         return (await self.get_all_features())[1]
 
