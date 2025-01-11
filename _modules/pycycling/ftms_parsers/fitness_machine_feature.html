@@ -5,10 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pycycling.ftms_parsers.fitness_machine_feature &#8212; pycycling  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -30,7 +31,7 @@
           <div class="body" role="main">
             
   <h1>Source code for pycycling.ftms_parsers.fitness_machine_feature</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
 
 <span class="n">FitnessMachineFeature</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
     <span class="s2">&quot;FitnessMachineFeature&quot;</span><span class="p">,</span>
@@ -83,7 +84,7 @@
 
 <div class="viewcode-block" id="parse_fitness_machine_feature">
 <a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_fitness_machine_feature">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_fitness_machine_feature</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_fitness_machine_feature</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Bit flags are set across two message&quot;&quot;&quot;</span>
     <span class="n">avg_speed_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000001</span><span class="p">)</span>
     <span class="n">cadence_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000010</span><span class="p">)</span>
@@ -126,7 +127,7 @@
 
 <div class="viewcode-block" id="parse_target_setting_features">
 <a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_target_setting_features">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_target_setting_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TargetSettingFeatures</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_target_setting_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TargetSettingFeatures</span><span class="p">:</span>
     <span class="n">speed_target_setting_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000001</span><span class="p">)</span>
     <span class="n">inclination_target_setting_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000010</span><span class="p">)</span>
     <span class="n">resistance_target_setting_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000100</span><span class="p">)</span>
@@ -169,7 +170,7 @@
 
 <div class="viewcode-block" id="parse_all_features">
 <a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_all_features">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_all_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_all_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">parse_fitness_machine_feature</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]),</span> <span class="n">parse_target_setting_features</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span></div>
 
 </pre></div>
@@ -178,7 +179,7 @@
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="../../../index.html">pycycling</a></h1>
 
@@ -189,7 +190,16 @@
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../pycycling.html">pycycling package</a></li>
@@ -204,16 +214,6 @@
   </ul></li>
 </ul>
 </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -227,11 +227,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &#169;2024, <a href='/'>Zachary Bull</a>.
+      &#169;2025, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
     </div>
 

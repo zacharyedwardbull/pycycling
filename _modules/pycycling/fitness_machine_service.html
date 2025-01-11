@@ -5,10 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pycycling.fitness_machine_service &#8212; pycycling  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -55,9 +56,9 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
 
-<span class="kn">from</span> <span class="nn">pycycling.ftms_parsers</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pycycling.ftms_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">parse_fitness_machine_status</span><span class="p">,</span>
     <span class="n">parse_indoor_bike_data</span><span class="p">,</span>
     <span class="n">parse_all_features</span><span class="p">,</span>
@@ -93,7 +94,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_supported_resistance_level_range</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_supported_resistance_level_range</span><span class="p">(</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SupportedResistanceLevelRange</span><span class="p">:</span>
     <span class="n">minimum_resistance</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
@@ -110,7 +111,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_supported_power_range</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SupportedPowerRange</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_supported_power_range</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SupportedPowerRange</span><span class="p">:</span>
     <span class="n">minimum_power</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
     <span class="n">maximum_power</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
     <span class="n">minimum_increment</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
@@ -119,8 +120,8 @@
 
 <div class="viewcode-block" id="FitnessMachineService">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService">[docs]</a>
-<span class="k">class</span> <span class="nc">FitnessMachineService</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FitnessMachineService</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_control_point_response_callback</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_indoor_bike_data_callback</span> <span class="o">=</span> <span class="kc">None</span>
@@ -130,7 +131,7 @@
     <span class="c1"># === READ Characteristics ===</span>
 <div class="viewcode-block" id="FitnessMachineService.get_supported_resistance_level_range">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.get_supported_resistance_level_range">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_supported_resistance_level_range</span><span class="p">(</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_supported_resistance_level_range</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SupportedResistanceLevelRange</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">read_gatt_char</span><span class="p">(</span>
@@ -141,7 +142,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.get_supported_power_range">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.get_supported_power_range">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_supported_power_range</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SupportedPowerRange</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_supported_power_range</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SupportedPowerRange</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">read_gatt_char</span><span class="p">(</span>
             <span class="n">ftms_supported_power_range_characteristic_id</span>
         <span class="p">)</span>
@@ -150,7 +151,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.get_fitness_machine_feature">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.get_fitness_machine_feature">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_fitness_machine_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_fitness_machine_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">read_gatt_char</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_feature_characteristic_id</span>
         <span class="p">)</span>
@@ -161,7 +162,7 @@
     <span class="c1"># ====== Indoor Bike Data ======</span>
 <div class="viewcode-block" id="FitnessMachineService.enable_indoor_bike_data_notify">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.enable_indoor_bike_data_notify">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">enable_indoor_bike_data_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">enable_indoor_bike_data_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">start_notify</span><span class="p">(</span>
             <span class="n">ftms_indoor_bike_data_characteristic_id</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_indoor_bike_data_notification_handler</span><span class="p">,</span>
@@ -170,17 +171,17 @@
 
 <div class="viewcode-block" id="FitnessMachineService.disable_indoor_bike_data_notify">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.disable_indoor_bike_data_notify">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">disable_indoor_bike_data_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disable_indoor_bike_data_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">stop_notify</span><span class="p">(</span><span class="n">ftms_indoor_bike_data_characteristic_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FitnessMachineService.set_indoor_bike_data_handler">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_indoor_bike_data_handler">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_indoor_bike_data_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_indoor_bike_data_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_indoor_bike_data_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_indoor_bike_data_notification_handler</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_indoor_bike_data_notification_handler</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">data</span>
     <span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indoor_bike_data_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -189,7 +190,7 @@
     <span class="c1"># ====== Fitness Machine Status ======</span>
 <div class="viewcode-block" id="FitnessMachineService.enable_fitness_machine_status_notify">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.enable_fitness_machine_status_notify">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">enable_fitness_machine_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">enable_fitness_machine_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">start_notify</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_status_characteristic_id</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fitness_machine_status_notification_handler</span><span class="p">,</span>
@@ -198,17 +199,17 @@
 
 <div class="viewcode-block" id="FitnessMachineService.disable_fitness_machine_status_notify">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.disable_fitness_machine_status_notify">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">disable_fitness_machine_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disable_fitness_machine_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">stop_notify</span><span class="p">(</span><span class="n">ftms_fitness_machine_status_characteristic_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FitnessMachineService.set_fitness_machine_status_handler">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_fitness_machine_status_handler">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_fitness_machine_status_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_fitness_machine_status_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fitness_machine_status_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_fitness_machine_status_notification_handler</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fitness_machine_status_notification_handler</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">data</span>
     <span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitness_machine_status_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -217,7 +218,7 @@
     <span class="c1"># ====== Training Status ======</span>
 <div class="viewcode-block" id="FitnessMachineService.enable_training_status_notify">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.enable_training_status_notify">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">enable_training_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">enable_training_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">start_notify</span><span class="p">(</span>
             <span class="n">ftms_training_status_characteristic_id</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_training_status_notification_handler</span><span class="p">,</span>
@@ -226,17 +227,17 @@
 
 <div class="viewcode-block" id="FitnessMachineService.disable_training_status_notify">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.disable_training_status_notify">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">disable_training_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disable_training_status_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">stop_notify</span><span class="p">(</span><span class="n">ftms_training_status_characteristic_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FitnessMachineService.set_training_status_handler">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_training_status_handler">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_training_status_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_training_status_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_training_status_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_training_status_notification_handler</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_training_status_notification_handler</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">data</span>
     <span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_training_status_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -246,7 +247,7 @@
     <span class="c1"># ====== Fitness Machine Control Point ======</span>
 <div class="viewcode-block" id="FitnessMachineService.enable_control_point_indicate">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.enable_control_point_indicate">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">enable_control_point_indicate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">enable_control_point_indicate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">start_notify</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_control_point_response_handler</span><span class="p">,</span>
@@ -255,7 +256,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.disable_control_point_indicate">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.disable_control_point_indicate">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">disable_control_point_indicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disable_control_point_indicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">stop_notify</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_control_point_characteristic_id</span>
         <span class="p">)</span></div>
@@ -263,11 +264,11 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_control_point_response_handler">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_control_point_response_handler">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_control_point_response_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_control_point_response_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_control_point_response_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_control_point_response_handler</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_control_point_response_handler</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">data</span>
     <span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_point_response_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -276,7 +277,7 @@
     <span class="c1"># ====== Control Point Commands ======</span>
 <div class="viewcode-block" id="FitnessMachineService.request_control">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.request_control">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">request_control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">request_control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span><span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">REQUEST_CONTROL</span><span class="p">)</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">True</span>
@@ -285,7 +286,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.reset">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.reset">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span><span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">RESET</span><span class="p">)</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">True</span>
@@ -294,7 +295,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_target_speed">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_target_speed">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_target_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_target_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">speed</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Speed must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -307,7 +308,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_target_incline">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_target_incline">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_target_incline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inclination</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_target_incline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inclination</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
             <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">SET_TARGET_INCLINE</span><span class="p">,</span> <span class="n">inclination</span>
         <span class="p">)</span>
@@ -318,7 +319,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_target_resistance_level">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_target_resistance_level">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_target_resistance_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_target_resistance_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">level</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Resistance level must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -331,7 +332,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_target_power">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_target_power">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_target_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_target_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">power</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Power must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -344,7 +345,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_target_heart_rate">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_target_heart_rate">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_target_heart_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heart_rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_target_heart_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heart_rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">heart_rate</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Heart rate must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -357,7 +358,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.start_or_resume">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.start_or_resume">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">start_or_resume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">start_or_resume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span><span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">START_OR_RESUME</span><span class="p">)</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">write_gatt_char</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_control_point_characteristic_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="kc">True</span>
@@ -366,7 +367,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.stop_or_pause">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.stop_or_pause">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">stop_or_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pause</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stop_or_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pause</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
             <span class="n">FTMSControlPointOpCode</span><span class="o">.</span><span class="n">STOP_OR_PAUSE</span><span class="p">,</span> <span class="mh">0x02</span> <span class="k">if</span> <span class="n">pause</span> <span class="k">else</span> <span class="mh">0x01</span>
         <span class="p">)</span>
@@ -377,7 +378,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_expended_energy">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_expended_energy">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_expended_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_expended_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">energy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Energy must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -390,7 +391,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_number_of_steps">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_number_of_steps">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_number_of_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_number_of_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">steps</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Steps must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -403,7 +404,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_number_of_strides">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_number_of_strides">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_number_of_strides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strides</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_number_of_strides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strides</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">strides</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Strides must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -416,7 +417,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_distance">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_distance">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Distance must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -429,7 +430,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_training_time">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_training_time">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_training_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_training_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Time must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -442,7 +443,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_time_in_two_heart_rate_zones">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_two_heart_rate_zones">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_time_in_two_heart_rate_zones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_time_in_two_heart_rate_zones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Times must be a list of 2 elements&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -457,7 +458,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_time_in_three_heart_rate_zones">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_three_heart_rate_zones">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_time_in_three_heart_rate_zones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_time_in_three_heart_rate_zones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Times must be a list of 3 elements&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -472,7 +473,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_time_in_five_heart_rate_zones">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_time_in_five_heart_rate_zones">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_time_in_five_heart_rate_zones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_time_in_five_heart_rate_zones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Times must be a list of 5 elements&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">times</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">times</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -487,7 +488,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_simulation_parameters">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_simulation_parameters">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_simulation_parameters</span><span class="p">(</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_simulation_parameters</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">wind_speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">grade</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">crr</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cw</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">crr</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -505,7 +506,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_wheel_circumference">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_wheel_circumference">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_wheel_circumference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">circumference</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_wheel_circumference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">circumference</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">circumference</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Circumference must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -518,7 +519,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_spin_down_control">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_spin_down_control">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_spin_down_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_spin_down_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">control</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Control must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -531,7 +532,7 @@
 
 <div class="viewcode-block" id="FitnessMachineService.set_targeted_cadence">
 <a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.set_targeted_cadence">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_targeted_cadence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cadence</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">set_targeted_cadence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cadence</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">cadence</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cadence must be non-negative&quot;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">form_ftms_control_command</span><span class="p">(</span>
@@ -548,7 +549,7 @@
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="../../index.html">pycycling</a></h1>
 
@@ -559,7 +560,16 @@
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../pycycling.html">pycycling package</a></li>
@@ -574,16 +584,6 @@
   </ul></li>
 </ul>
 </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -597,11 +597,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &#169;2024, <a href='/'>Zachary Bull</a>.
+      &#169;2025, <a href='/'>Zachary Bull</a>.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
     </div>
 
