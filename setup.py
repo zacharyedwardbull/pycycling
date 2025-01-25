@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf8") as fh:
 
 setuptools.setup(
     name="pycycling",
-    version="0.4.0",
+    version="0.4.1",
     author="Zachary Bull",
     author_email="zacharyedwardbull@gmail.com",
     description=(
