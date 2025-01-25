@@ -56,6 +56,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pycycling.ftms_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -67,6 +68,7 @@
     <span class="n">form_ftms_control_command</span><span class="p">,</span>
     <span class="n">FTMSControlPointOpCode</span><span class="p">,</span>
     <span class="n">FitnessMachineFeature</span><span class="p">,</span>
+    <span class="n">TargetSettingFeature</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># read: Supported Resistance Level Range</span>
@@ -149,13 +151,25 @@
         <span class="k">return</span> <span class="n">_parse_supported_power_range</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="FitnessMachineService.get_fitness_machine_feature">
-<a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.get_fitness_machine_feature">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_fitness_machine_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
+<div class="viewcode-block" id="FitnessMachineService.get_all_features">
+<a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.get_all_features">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_all_features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">FitnessMachineFeature</span><span class="p">,</span> <span class="n">TargetSettingFeature</span><span class="p">]:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">read_gatt_char</span><span class="p">(</span>
             <span class="n">ftms_fitness_machine_feature_characteristic_id</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">parse_all_features</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FitnessMachineService.get_fitness_machine_feature">
+<a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.get_fitness_machine_feature">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_fitness_machine_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_features</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="FitnessMachineService.get_target_setting_feature">
+<a class="viewcode-back" href="../../pycycling.fitness_machine_service.html#pycycling.fitness_machine_service.FitnessMachineService.get_target_setting_feature">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_target_setting_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TargetSettingFeature</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_features</span><span class="p">())[</span><span class="mi">1</span><span class="p">]</span></div>
 
 
     <span class="c1"># === NOTIFY Characteristics ===</span>

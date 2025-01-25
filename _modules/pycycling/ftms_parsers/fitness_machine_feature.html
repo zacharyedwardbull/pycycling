@@ -57,8 +57,8 @@
 <span class="p">)</span>
 
 
-<span class="n">TargetSettingFeatures</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
-    <span class="s2">&quot;TargetSettingFeatures&quot;</span><span class="p">,</span>
+<span class="n">TargetSettingFeature</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s2">&quot;TargetSettingFeature&quot;</span><span class="p">,</span>
     <span class="p">[</span>
         <span class="s2">&quot;speed_target_setting_supported&quot;</span><span class="p">,</span>
         <span class="s2">&quot;inclination_target_setting_supported&quot;</span><span class="p">,</span>
@@ -82,9 +82,9 @@
 
 
 
-<div class="viewcode-block" id="parse_fitness_machine_feature">
-<a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_fitness_machine_feature">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">parse_fitness_machine_feature</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_fitness_machine_features">
+<a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_fitness_machine_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_fitness_machine_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FitnessMachineFeature</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Bit flags are set across two message&quot;&quot;&quot;</span>
     <span class="n">avg_speed_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000001</span><span class="p">)</span>
     <span class="n">cadence_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000010</span><span class="p">)</span>
@@ -127,7 +127,7 @@
 
 <div class="viewcode-block" id="parse_target_setting_features">
 <a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_target_setting_features">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">parse_target_setting_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TargetSettingFeatures</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_target_setting_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TargetSettingFeature</span><span class="p">:</span>
     <span class="n">speed_target_setting_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000001</span><span class="p">)</span>
     <span class="n">inclination_target_setting_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000010</span><span class="p">)</span>
     <span class="n">resistance_target_setting_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000100</span><span class="p">)</span>
@@ -147,7 +147,7 @@
     <span class="n">spin_down_control_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b10000000</span><span class="p">)</span>
 
     <span class="n">targeted_cadence_configuration_supported</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mb">0b00000001</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">TargetSettingFeatures</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">TargetSettingFeature</span><span class="p">(</span>
         <span class="n">speed_target_setting_supported</span><span class="p">,</span>
         <span class="n">inclination_target_setting_supported</span><span class="p">,</span>
         <span class="n">resistance_target_setting_supported</span><span class="p">,</span>
@@ -171,7 +171,7 @@
 <div class="viewcode-block" id="parse_all_features">
 <a class="viewcode-back" href="../../../pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.parse_all_features">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_all_features</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">parse_fitness_machine_feature</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]),</span> <span class="n">parse_target_setting_features</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span></div>
+    <span class="k">return</span> <span class="n">parse_fitness_machine_features</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]),</span> <span class="n">parse_target_setting_features</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span></div>
 
 </pre></div>
 

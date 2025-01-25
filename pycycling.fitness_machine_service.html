@@ -68,7 +68,12 @@
         <span class="c1"># Print &#39;read&#39; characteristics</span>
 
         <span class="c1">### Fitness Machine Features</span>
-        <span class="n">fitness_machine_features</span><span class="p">,</span> <span class="n">target_setting_features</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_fitness_machine_feature</span><span class="p">()</span>
+        <span class="n">fitness_machine_features</span><span class="p">,</span> <span class="n">target_setting_features</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_all_features</span><span class="p">()</span>
+
+        <span class="c1"># backward compatible</span>
+        <span class="n">fitness_machine_features</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_fitness_machine_feature</span><span class="p">()</span>
+        <span class="n">target_setting_features</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ftms</span><span class="o">.</span><span class="n">get_target_setting_feature</span><span class="p">()</span>
+
         <span class="n">fitness_machine_features</span> <span class="o">=</span> <span class="n">fitness_machine_features</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
         <span class="n">target_setting_features</span> <span class="o">=</span> <span class="n">target_setting_features</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
 
@@ -260,6 +265,11 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.get_all_features">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature" title="pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature"><span class="pre">FitnessMachineFeature</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.TargetSettingFeature" title="pycycling.ftms_parsers.fitness_machine_feature.TargetSettingFeature"><span class="pre">TargetSettingFeature</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.get_all_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.get_all_features" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.get_fitness_machine_feature">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fitness_machine_feature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature" title="pycycling.ftms_parsers.fitness_machine_feature.FitnessMachineFeature"><span class="pre">FitnessMachineFeature</span></a></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.get_fitness_machine_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.get_fitness_machine_feature" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -272,6 +282,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.get_supported_resistance_level_range">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_supported_resistance_level_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pycycling.fitness_machine_service.SupportedResistanceLevelRange" title="pycycling.fitness_machine_service.SupportedResistanceLevelRange"><span class="pre">SupportedResistanceLevelRange</span></a></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.get_supported_resistance_level_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.get_supported_resistance_level_range" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycycling.fitness_machine_service.FitnessMachineService.get_target_setting_feature">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_target_setting_feature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pycycling.ftms_parsers.fitness_machine_feature.html#pycycling.ftms_parsers.fitness_machine_feature.TargetSettingFeature" title="pycycling.ftms_parsers.fitness_machine_feature.TargetSettingFeature"><span class="pre">TargetSettingFeature</span></a></span></span><a class="reference internal" href="_modules/pycycling/fitness_machine_service.html#FitnessMachineService.get_target_setting_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycycling.fitness_machine_service.FitnessMachineService.get_target_setting_feature" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
