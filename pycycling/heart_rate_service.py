@@ -9,7 +9,8 @@ def _parse_hr_measurement(data):
     flags = data[0]
 
     is_uint16_measurement_mask = 0x01
-    is_contact_detected_mask = 0x06
+    is_contact_detected_mask = 0x02
+    is_sensor_contact_feature_supported = 0x04
     is_energy_expended_present_mask = 0x08
     is_rr_interval_present_mask = 0x10
 
@@ -19,7 +20,9 @@ def _parse_hr_measurement(data):
     energy_expended = None
 
     measurement_byte_offset = 1
-    sensor_contact = bool(flags & is_contact_detected_mask)
+
+    if flags & is_sensor_contact_feature_supported:
+        sensor_contact = bool(flags & is_contact_detected_mask)
 
     if flags & is_uint16_measurement_mask:
         bpm = int.from_bytes(data[measurement_byte_offset:measurement_byte_offset + 2], 'little')

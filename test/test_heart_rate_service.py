@@ -11,7 +11,7 @@ class TestHeartRateServiceService(unittest.TestCase):
                 0b00101010,  # bpm
             ])),
             HeartRateMeasurement(
-                sensor_contact=False,
+                sensor_contact=None,
                 bpm=42,
                 rr_interval=[],
                 energy_expended=None
