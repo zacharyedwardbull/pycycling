@@ -43,38 +43,8 @@ def parse_training_status(message: bytearray) -> TrainingStatusMessage:
 
     if param_exists:
         ts_byte = message[1]
-        if ts_byte == 0x00:
-            param = TrainingStatus.OTHER
-        elif ts_byte == 0x01:
-            param = TrainingStatus.IDLE
-        elif ts_byte == 0x02:
-            param = TrainingStatus.WARMING_UP
-        elif ts_byte == 0x03:
-            param = TrainingStatus.LOW_INTENSITY_INTERVAL
-        elif ts_byte == 0x04:
-            param = TrainingStatus.HIGH_INTENSITY_INTERVAL
-        elif ts_byte == 0x05:
-            param = TrainingStatus.RECOVERY_INTERVAL
-        elif ts_byte == 0x06:
-            param = TrainingStatus.ISOMETRIC
-        elif ts_byte == 0x07:
-            param = TrainingStatus.HEART_RATE_CONTROL
-        elif ts_byte == 0x08:
-            param = TrainingStatus.FITNESS_TEST
-        elif ts_byte == 0x09:
-            param = TrainingStatus.SPEED_OUTSIDE_CONTROL_REGION_LOW
-        elif ts_byte == 0x0A:
-            param = TrainingStatus.SPEED_OUTSIDE_CONTROL_REGION_HIGH
-        elif ts_byte == 0x0B:
-            param = TrainingStatus.COOL_DOWN
-        elif ts_byte == 0x0C:
-            param = TrainingStatus.WATT_CONTROL
-        elif ts_byte == 0x0D:
-            param = TrainingStatus.MANUAL_MODE
-        elif ts_byte == 0x0E:
-            param = TrainingStatus.PRE_WORKOUT
-        elif ts_byte == 0x0F:
-            param = TrainingStatus.POST_WORKOUT
-        elif ts_byte == 0x10:
-            param = TrainingStatus.RESERVED
+        try:
+            param = TrainingStatus(ts_byte)
+        except ValueError:
+            pass
     return TrainingStatusMessage(param, string)

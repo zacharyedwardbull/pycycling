@@ -58,10 +58,10 @@ CyclingPowerVector = namedtuple('CyclingPowerVector',
 def _parse_sensor_location(measurement):
     value = int.from_bytes(measurement, 'little')
 
-    if value >= len(SensorLocation):
-        return None
-    else:
+    try:
         return SensorLocation(value + 1)
+    except ValueError:
+        return None
 
 
 def _parse_cycling_power_feature(measurement):
@@ -83,22 +83,14 @@ def _parse_cycling_power_feature(measurement):
     span_length_adjustment_supported = bool(value & (1 << 13))
     sensor_measurement_context_value = bool(value & (1 << 14))
 
-    sensor_measurement_context = SensorMeasurementContext.force_based
-    if sensor_measurement_context_value:
-        sensor_measurement_context = SensorMeasurementContext.torque_based
+    sensor_measurement_context = SensorMeasurementContext(sensor_measurement_context_value + 1)
 
     instantaneous_measurement_direction_supported = bool(value & (1 << 15))
     factory_calibration_date_supported = bool(value & (1 << 16))
     enhanced_offset_compensation_supported = bool(value & (1 << 17))
 
-    distribute_system_support_value = (value & 0b11000000000000000000) >> 20
-    distribute_system_support = DistributeSystemSupport.unspecified
-    if distribute_system_support_value == 1:
-        distribute_system_support = DistributeSystemSupport.no_distributed_system_support
-    elif distribute_system_support_value == 2:
-        distribute_system_support = DistributeSystemSupport.distributed_system_support
-    elif distribute_system_support_value == 3:
-        distribute_system_support = DistributeSystemSupport.rfu
+    distribute_system_support_value = (value & 0b11000000000000000000) >> 18
+    distribute_system_support = DistributeSystemSupport(distribute_system_support_value + 1)
 
     return CyclingPowerFeature(
         pedal_power_balance_supported=pedal_power_balance_supported,
@@ -230,13 +222,7 @@ def _parse_cycling_power_vector(data):
     instantaneous_torque_array_present = bool(flags & 0b1000)
     instantaneous_measurement_direction_value = (flags & 0b110000) >> 4
 
-    instantaneous_measurement_direction = InstantaneousMeasurementDirection.unknown
-    if instantaneous_measurement_direction_value == 1:
-        instantaneous_measurement_direction = InstantaneousMeasurementDirection.tangential_component
-    elif instantaneous_measurement_direction_value == 2:
-        instantaneous_measurement_direction = InstantaneousMeasurementDirection.radial_component
-    elif instantaneous_measurement_direction_value == 3:
-        instantaneous_measurement_direction = InstantaneousMeasurementDirection.lateral_component
+    instantaneous_measurement_direction = InstantaneousMeasurementDirection(instantaneous_measurement_direction_value + 1)
 
     byte_offset = 1
     cumulative_crank_revs = None

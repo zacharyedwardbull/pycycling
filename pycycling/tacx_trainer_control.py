@@ -72,7 +72,7 @@ tacx_uart_tx_id = '6e40fec2-b5a3-f393-e0a9-e50e24dcca9e'
 
 EquipmentType = Enum('EquipmentType', 'treadmill elliptical reserved rower climber nordic_skier trainer')
 
-FEState = Enum('FEState', 'reserved ready in_use finished')
+FEState = Enum('FEState', 'reserved asleep ready in_use finished')
 
 TargetPowerLimit = Enum('TargetPowerLimit',
                         'operating_at_target_or_no_target_set user_speed_too_low user_speed_too_high limit_reached')
@@ -319,38 +319,19 @@ class TacxTrainerControl:
 
     @staticmethod
     def _equipment_type_from_code(equipment_type_code):
-        equipment_type = None
-        if equipment_type_code == 19:
-            equipment_type = EquipmentType.treadmill
-        elif equipment_type_code == 20:
-            equipment_type = EquipmentType.elliptical
-        elif equipment_type_code == 21:
-            equipment_type = EquipmentType.reserved
-        elif equipment_type_code == 22:
-            equipment_type = EquipmentType.rower
-        elif equipment_type_code == 23:
-            equipment_type = EquipmentType.climber
-        elif equipment_type_code == 24:
-            equipment_type = EquipmentType.nordic_skier
-        elif equipment_type_code == 25:
-            equipment_type = EquipmentType.trainer
-        return equipment_type
+        try:
+            return EquipmentType(equipment_type_code - 18)
+        except ValueError:
+            return None
 
     @staticmethod
     def _parse_fe_state_nibble(fe_state_nibble):
         lap_toggle = bool(fe_state_nibble & 0x8)
         code = fe_state_nibble & 0x7
-        fe_state = None
-        if code == 0:
-            fe_state = FEState.reserved
-        elif code == 1:
-            fe_state = FEState.asleep
-        elif code == 2:
-            fe_state = FEState.ready
-        elif code == 3:
-            fe_state = FEState.in_use
-        elif code == 4:
-            fe_state = FEState.finished
+        try:
+            fe_state = FEState(code + 1)
+        except ValueError:
+            fe_state = None
         return fe_state, lap_toggle
 
     def _specific_trainer_data_page_handler(self, message_data):
@@ -376,18 +357,13 @@ class TacxTrainerControl:
         user_configuration_required = bool(trainer_status_flags & 0x4)
 
         fe_state, lap_toggle = self._parse_fe_state_nibble((message_data[7] >> 4))
-        target_power_limits = None
 
         flags = message_data[7] & 0x7
 
-        if flags == 0:
-            target_power_limits = TargetPowerLimit.operating_at_target_or_no_target_set
-        elif flags == 1:
-            target_power_limits = TargetPowerLimit.user_speed_too_low
-        elif flags == 2:
-            target_power_limits = TargetPowerLimit.user_speed_too_high
-        elif flags == 3:
-            target_power_limits = TargetPowerLimit.limit_reached
+        try:
+            target_power_limits = TargetPowerLimit(flags + 1)
+        except ValueError:
+            target_power_limits = None
 
         if self._specific_trainer_data_page_callback is not None:
             self._specific_trainer_data_page_callback(
