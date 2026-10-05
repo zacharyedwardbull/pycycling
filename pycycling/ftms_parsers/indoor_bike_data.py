@@ -21,6 +21,27 @@ IndoorBikeData = namedtuple(
     ]
 )
 def parse_indoor_bike_data(message) -> IndoorBikeData:
+    """Decode a notification, raising ValueError if any advertised field is truncated."""
+    if len(message) < 2:
+        raise ValueError("Indoor Bike Data requires a two-byte flags field")
+
+    # int.from_bytes accepts short (even empty) slices. Validate the complete
+    # advertised layout before parsing so missing bytes cannot become readings.
+    # Bit 0 is More Data: unlike the other bits, zero means the field is present.
+    # Bit 5 retains this parser's existing signed16 resistance layout; this does
+    # not add uint8 resistance support or infer a format from the packet length.
+    present = int.from_bytes(message[:2], "little") ^ 1
+    field_sizes = (2, 2, 2, 2, 3, 2, 2, 2, 5, 1, 1, 2, 2)
+    required_length = 2 + sum(
+        size for bit, size in enumerate(field_sizes) if present & (1 << bit)
+    )
+    if len(message) < required_length:
+        raise ValueError(
+            "Truncated Indoor Bike Data: expected at least {} bytes, got {}".format(
+                required_length, len(message)
+            )
+        )
+
     flag_more_data = bool(message[0] & 0b00000001)
     flag_average_speed = bool(message[0] & 0b00000010)
     # ANOMALY: In the Bluetooth SIG spec, instantaneous_cadence is reversed (0
